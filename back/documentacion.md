@@ -2,6 +2,7 @@
 npm init -y
 npm i typescript
 tsc --init
+tsconfig
 
 tsc
 tsc file.ts
