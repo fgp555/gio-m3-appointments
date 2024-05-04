@@ -1,8 +1,10 @@
-interface IUserDto {
-    name: string,
-    surname: string,
-    mail: string,
-    password: number,
-    active: boolean,
-}
-export default IUserDto
+// interface IUserDto {
+//     firstName: string,
+//     lastName: string,
+//     email: string,
+//     password: number,
+//     birthdate: Date;
+//     nDni: string;
+//     credentialsId: number;
+// }
+// export default IUserDto

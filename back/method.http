@@ -1,0 +1,31 @@
+GET http://localhost:3000/users
+token: autenticado
+
+###
+GET http://localhost:3000/users/1
+token: autenticado
+
+###
+POST http://localhost:3000/users/register
+Content-Type: application/json
+token: autenticado
+
+ {
+        "firstName": "Gio",
+        "lastName": "m",
+        "email": "gm@mail",
+        "password": 122,
+        "birthdate": "1995-11-17T00:00:00.000Z",
+        "nDni": "1542633",
+        "credentialsId": 4
+    }
+
+###
+POST  http://localhost:3000/users/login
+Content-Type: application/json
+token: autenticado
+
+   {
+  "username": "admit1",
+  "password": "123"
+    }

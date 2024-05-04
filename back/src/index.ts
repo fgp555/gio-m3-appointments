@@ -1,6 +1,6 @@
 import express from 'express';
 import server from "./server";
-import router from './routes';
+import router from './routes/indexRouter';
 import { PORT } from "./config/envs";
 
 
