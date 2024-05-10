@@ -1,15 +1,14 @@
 import { Router } from "express";
 import { createUser, loginUser, getUsers,getUserById, deleteUser } from "../controllers/usersControllers";
-import * as appointmentController from '../controllers/appointmentController';
-import auth from "../middlewares/auth";
-import router from "./indexRouter";
+// import auth from "../middlewares/auth";
+
+const userRouter:Router = Router();
+
+userRouter.get('/', getUsers);
+userRouter.post('/login',loginUser);
+userRouter.get('/:id',getUserById);
+userRouter.post('/register',createUser);
+userRouter.delete("/", deleteUser);
 
 
-router.get('/users',auth, getUsers);
-router.post('/users/login',loginUser);
-router.get('/users/:id',getUserById);
-router.post('/users/register',createUser);
-router.delete("/users", deleteUser);
-
-
-export default router;
+export default userRouter;

@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { createUser, loginUser, getUsers,getUserById, deleteUser } from "../controllers/usersControllers";
-import * as appointmentController from '../controllers/appointmentController';
-import auth from "../middlewares/auth";
+import userRouter from "./usersRouter";
+import appointmentRouter from "./appointmentsRouter";
+// import auth from "../middlewares/auth";
 
-const router:Router = Router();
+const indexRouter:Router = Router();
+indexRouter.use("/users", userRouter)
+indexRouter.use("/appointments",appointmentRouter)
 
-
-export default router;
+export default indexRouter;

@@ -14,8 +14,9 @@ token: autenticado
         "firstName": "Gio",
         "lastName": "m",
         "email": "gm@mail",
-        "password": 122,
-        "birthdate": "1995-11-17T00:00:00.000Z",
+        "username": "gm",
+        "password": "122",
+        "birthdate": "1995-11-17",
         "nDni": "1542633",
         "credentialsId": 4
     }
@@ -26,6 +27,28 @@ Content-Type: application/json
 token: autenticado
 
    {
-  "username": "admit1",
-  "password": "123"
+  "username": "gm",
+  "password": "122"
     }
+
+###
+GET http://localhost:3000/appointments
+
+###
+GET http://localhost:3000/appointments/1
+
+
+###
+POST http://localhost:3000/appointments/schedule
+Content-Type: application/json
+token: autenticado
+
+{
+  "date": "05-09-2024",
+  "time": "09:15",
+  "userId": 2
+}
+
+###
+PUT http://localhost:3000/appointments/cancel/1
+

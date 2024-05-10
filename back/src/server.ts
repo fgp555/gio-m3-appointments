@@ -1,9 +1,9 @@
 import express from 'express';
-import router from './routes/indexRouter';
+import indexRouter from './routes/indexRouter';
 
 const server = express();
 
 server.use(express.json());
-server.use(router);
+server.use(indexRouter);
 
 export default server;
