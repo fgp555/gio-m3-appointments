@@ -20,7 +20,7 @@ import  ICredential  from "../interfaces/ICredential";
   }
 
 export const validateCredentialsService = async(username: string, password: string):Promise <number | null> => {
-    console.log(username)
+   
     // const foundCredential = credentials.find(cred => cred.username === username);
     const foundCredential = await CredentialModel.findOneBy({username})
     if (!foundCredential) {

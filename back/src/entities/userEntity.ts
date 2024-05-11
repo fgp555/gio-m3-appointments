@@ -29,6 +29,7 @@ export class UserEntity {
     @Column()
     nDni: string;
 
+    @OneToOne(() => CredentialEntity, (credential) => credential.id)
     @JoinColumn()
     credentialId: number;
 

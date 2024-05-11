@@ -17,7 +17,10 @@ export const getAppointmentByIdService = async (id: number): Promise<Appointment
     const appointment = await AppointmentModel.findOneBy({
         id 
     });
-    return appointment || null;
+    if (!appointment) {
+        throw new Error('El turno no existe');
+    }
+    return appointment 
 };
 
 export const createAppointmentService = async (userId: number, date: Date, time: string): Promise<AppointmentEntity> => {
