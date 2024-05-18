@@ -1,0 +1,36 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #4ea4fa; /* Un tono de celeste oscuro */
+  padding: 10px 20px;
+}
+
+.logo {
+  width: 100px; /* Ajusta el tamaño del logo según sea necesario */
+}
+
+.navList {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  justify-content: center;
+}
+
+.navList li {
+  margin: 0 15px;
+}
+
+.navList a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em; /* Un tamaño de fuente más profesional */
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

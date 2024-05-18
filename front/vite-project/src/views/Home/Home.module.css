@@ -1,0 +1,42 @@
+.container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #9dd1e0; /* Celeste */
+  border-radius: 10px;
+}
+
+.header {
+  color: #ffffff; /* Blanco */
+  font-family: 'Arial', sans-serif; /* Fuente profesional */
+  font-weight: bold;
+}
+
+.formContainer {
+  margin-top: 20px;
+}
+
+.label {
+  color: #ffffff; /* Blanco */
+  font-family: 'Arial', sans-serif; /* Fuente profesional */
+}
+
+.inputField {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ffffff; /* Blanco */
+}
+
+.submitButton {
+  padding: 10px 20px;
+  background-color: #ffffff; /* Blanco */
+  color: #9dd1e0; /* Celeste */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Arial', sans-serif; /* Fuente profesional */
+  font-weight: bold;
+}
+
+.submitButton:hover {
+  background-color: #c6e2ee; /* Celeste más claro */
+}
