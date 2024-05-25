@@ -31,8 +31,8 @@ export const getAppointmentById = async (req: Request, res: Response) => {
 // Agendar un nuevo turno
 export const scheduleAppointment = async (req: Request, res: Response) => {
   try {
-    const { userId, date, time } = req.body;
-    await createAppointmentService(userId, date, time);
+    const { userId, date, time, description } = req.body;
+    await createAppointmentService(userId, date, time,description );
     res.status(201).send('Turno creado correctamente');
   } catch (error) {
     console.error(error);

@@ -45,7 +45,8 @@ token: autenticado
 {
   "date": "05-09-2024",
   "time": "09:15",
-  "userId": 1
+  "userId": 1,
+  "description": "hernia lumbar"
 }
 
 ###

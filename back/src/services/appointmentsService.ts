@@ -23,13 +23,13 @@ export const getAppointmentByIdService = async (id: number): Promise<Appointment
     return appointment 
 };
 
-export const createAppointmentService = async (userId: number, date: Date, time: string): Promise<AppointmentEntity> => {
+export const createAppointmentService = async (userId: number, date: Date, time: string, description: string): Promise<AppointmentEntity> => {
     const foundUserId = await UserModel.findOneBy({id :userId});
     if (!foundUserId) {
         throw new Error('El usuario no existe');
     }
     // const newAppointment = new Appointment({ user: foundUserId, date, time, status: 'active' });
-    const newObject = {date, time, status:"active", userId: foundUserId }
+    const newObject = {date, time, status:"active", userId: foundUserId, description}
    const appointmentSave =  await AppointmentModel.save(newObject);
     return appointmentSave;
 };

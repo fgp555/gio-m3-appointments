@@ -4,21 +4,25 @@ import MisTurnos from './views/MisTurnos/MisTurnos';
 import styles from './App.module.css';
 import { useState } from 'react';
 import NavBar from './components/NavBar/NavBar';
+import Register from './views/Register/Register';
+import Login from './views/Login/Login';
 
 const App = () => {
-  return (
-      <div>
-          <NavBar />
+    return (
+        <div>
+             <NavBar />
 
-        
-          <div className={styles["page-content"]}>
-            
-              <Home />
 
-              <MisTurnos />
-          </div>
-      </div>
-  );
+            <div className={styles["page-content"]}>
+
+                {/* <Home />
+
+                <MisTurnos /> */}
+                <Register />
+                {/* <Login/> */}
+            </div>
+        </div>
+    );
 }
 
 export default App;
