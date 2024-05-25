@@ -11,3 +11,4 @@ appointmentRouter.put('/cancel/:id', appointmentController.cancelAppointment);
 
 
 export default appointmentRouter;
+

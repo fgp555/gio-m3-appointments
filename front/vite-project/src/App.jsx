@@ -10,10 +10,9 @@ const App = () => {
       <div>
           <NavBar />
 
-          {/* Contenido de la página */}
+        
           <div className={styles["page-content"]}>
-              {/* Contenido dinámico basado en la ruta */}
-              {/* Por ejemplo, para mostrar el componente Home */}
+            
               <Home />
 
               <MisTurnos />

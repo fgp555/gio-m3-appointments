@@ -6,11 +6,9 @@ const Turno = ({ date, time, status, description, user }) => {
     
     return (
         <div className={styles.turno}>
-            <h3>Paciente: {user.name}</h3>
-            <p><strong>Email:</strong> {user.email}</p>
             <p><strong>Date:</strong> {date}</p>
             <p><strong>Time:</strong> {time}</p>
-            <p><strong>Description:</strong> {description}</p>
+            {/* <p><strong>Description:</strong> {description}</p> */}
             {/* <p><strong>Status:</strong> {status}</p> */}
             <p className={styles[status]}>{status.toUpperCase()}</p>
             <button disabled={status == "cancelled"}>Cancelar turno</button>
