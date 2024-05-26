@@ -6,8 +6,16 @@
   padding: 10px 20px;
 }
 
+.logoContainer {
+  flex: 1;
+}
+
 .logo {
   width: 100px; /* Ajusta el tamaño del logo según sea necesario */
+}
+
+.navListContainer {
+  flex: 2;
 }
 
 .navList {
@@ -15,7 +23,6 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  flex: 1;
   justify-content: center;
 }
 
@@ -27,6 +34,12 @@
   color: white;
   text-decoration: none;
   font-size: 1.2em; /* Un tamaño de fuente más profesional */
+}
+
+.avatarContainer {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .avatar {

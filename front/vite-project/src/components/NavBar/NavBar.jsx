@@ -1,28 +1,36 @@
 import React from 'react';
-import styles from "./NavBar.module.css"
-import logo from "../../assets/logo.png"
-import avatar from "../../assets/avatar.png"
+import { Link } from 'react-router-dom';
+import styles from "./NavBar.module.css";
+import logo from "../../assets/logo.png";
+import avatar from "../../assets/avatar.png";
 
 const NavBar = () => {
     return (
         <nav className={styles.navbar}>
+            <div className={styles.logoContainer}>
+                <img src={logo} alt="Consultorio Logo" className={styles.logo} />
+            </div>
 
-            <img src={logo} alt="Consultorio Logo" className={styles.logo} />
-            <ul className={styles.navList}>
-                <li>
-                    <a href="/">HOME</a>
-                </li>
-                <li>
-                    <a href="/mis-turnos">MIS TURNOS</a>
-                </li>
-                <li>
-                    <a href="/about">ABOUT</a>
-                </li>
-                <li>
-                    <a href="/contacto">CONTACTO</a>
-                </li>
-            </ul>
-            <img src={avatar} alt="Perfil del Paciente" className={styles.avatar} />
+            <div className={styles.navListContainer}>
+                <ul className={styles.navList}>
+                    <li>
+                        <Link to="/">HOME</Link>
+                    </li>
+                    <li>
+                        <Link to="/mis-turnos">MIS TURNOS</Link>
+                    </li>
+                    <li>
+                        <Link to="/about">ABOUT</Link>
+                    </li>
+                    <li>
+                        <Link to="/contact">CONTACT</Link>
+                    </li>
+                </ul>
+            </div>
+            
+            <div className={styles.avatarContainer}>
+                <img src={avatar} alt="Perfil del Paciente" className={styles.avatar} />
+            </div>
         </nav>
     );
 };

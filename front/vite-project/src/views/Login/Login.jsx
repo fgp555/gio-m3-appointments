@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [message, setMessage] = useState('');
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,6 +18,10 @@ const Login = () => {
     return formData.username && formData.password;
   };
 
+  useEffect(() => {
+    setIsButtonDisabled(!validateForm());
+  }, [formData]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
@@ -25,9 +30,8 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(' http://localhost:3000/users/login', formData);
+      const response = await axios.post('http://localhost:3000/users/login', formData);
       setMessage('Login exitoso.');
-     
     } catch (error) {
       setMessage('Error en el login. Por favor, intente nuevamente.');
     }
@@ -58,7 +62,7 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" disabled={isButtonDisabled}>Login</button>
       </form>
       {message && <p>{message}</p>}
     </div>
@@ -66,3 +70,4 @@ const Login = () => {
 };
 
 export default Login;
+

@@ -1,42 +1,59 @@
-.container {
-  margin: 20px;
-  padding: 20px;
-  background-color: #9dd1e0; /* Celeste */
-  border-radius: 10px;
+.homeContainer {
+  padding: 50px;
+  background-color: #4ea4fa; /* Fondo celeste más oscuro */
+  color: #fff; /* Texto en color blanco */
+  text-align: center;
 }
 
-.header {
-  color: #ffffff; /* Blanco */
-  font-family: 'Arial', sans-serif; /* Fuente profesional */
-  font-weight: bold;
+.title {
+  font-size: 2.5em;
+  margin-bottom: 20px;
 }
 
-.formContainer {
-  margin-top: 20px;
+.description {
+  font-size: 1.2em;
+  margin-bottom: 40px;
 }
 
-.label {
-  color: #ffffff; /* Blanco */
-  font-family: 'Arial', sans-serif; /* Fuente profesional */
+.services,
+.schedule {
+  margin-bottom: 40px;
 }
 
-.inputField {
+.services h2,
+.schedule h2 {
+  font-size: 1.5em;
   margin-bottom: 10px;
-  padding: 5px;
-  border: 1px solid #ffffff; /* Blanco */
 }
 
-.submitButton {
+.services ul {
+  list-style: none;
+  padding: 0;
+}
+
+.services li {
+  margin-bottom: 5px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.actionButton {
+  margin: 0 10px;
+  background-color: #fff; /* Botón en color blanco */
+  color: #4ea4fa; /* Texto en color celeste */
   padding: 10px 20px;
-  background-color: #ffffff; /* Blanco */
-  color: #9dd1e0; /* Celeste */
   border: none;
   border-radius: 5px;
+  font-size: 1em;
+  text-decoration: none;
   cursor: pointer;
-  font-family: 'Arial', sans-serif; /* Fuente profesional */
-  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.submitButton:hover {
-  background-color: #c6e2ee; /* Celeste más claro */
+.actionButton:hover {
+  background-color: #357abd; /* Cambio de color al pasar el cursor */
+  color: #fff; /* Texto en color blanco */
 }
