@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux';
 import { fetchUser } from '../../redux/userSlice';
 
 const Login = () => {
-  const [formData, setFormData] = useState({"username": "user123",
-  "password": "P4ss123"});
+  const [formData, setFormData] = useState({"username": "",
+  "password": ""});
   const [message, setMessage] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 const navigate = useNavigate();
