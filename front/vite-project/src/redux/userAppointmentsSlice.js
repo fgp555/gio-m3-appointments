@@ -1,4 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+export const fetchUserAppointments = createAsyncThunk(
+  'appointments/fetchUserAppointments',
+  async (userId) => {
+    const response = await fetch(`http://localhost:3000/appointments/schedule`);
+    const appointments = await response.json();
+    return appointments;
+  }
+);
 
 const userAppointmentsSlice = createSlice({
   name: 'appointments',
