@@ -5,7 +5,7 @@ import styles from "./Home.module.css";
 const Home = () => {
   return (
     <div className={styles.homeContainer}>
-      <h1 className={styles.title}>¡Bienvenido a Nuestra Clínica de Kinesiología!</h1>
+      <h1 className={styles.title}>¡Bienvenido a Nuestro Consultorio de Kinesiología!</h1>
       <p className={styles.description}>
         Ofrecemos una variedad de servicios especializados en kinesiología, incluyendo rehabilitación deportiva, terapia manual, y tratamiento de lesiones musculoesqueléticas.
       </p>
@@ -17,12 +17,15 @@ const Home = () => {
           <li>Tratamiento de Lesiones Musculoesqueléticas</li>
           <li>Reeducación Postural Global (RPG)</li>
           <li>Terapia de Masaje</li>
+          <li>Pilates terapeutico</li>
         </ul>
       </div>
       <div className={styles.schedule}>
         <h2>Horarios de Atención</h2>
-        <p>Lunes a Viernes: 9:00am - 6:00pm</p>
-        <p>Sábados: 9:00am - 1:00pm</p>
+        <p>Lunes a Viernes</p>
+        <p>mañana 7:00am - 12:00pm </p>
+         <p>tarde 15:00pm - 19:00pm</p>
+       
       </div>
       <div className={styles.actions}>
         <Link to="/register" className={styles.actionButton}>Registrarse</Link>

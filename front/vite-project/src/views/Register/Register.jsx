@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Register.css';
 import { validateForm, isButtonDisabled } from '../../helpers/validateForm';
+import apiServices from '../../services/apiServices';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -57,18 +58,25 @@ const Register = () => {
             return;
         }
 
-        axios.post("http://localhost:3000/users/register", formData)
-            .then((response) => {
-                setSubmitMessage('Registration successful');
-            })
-            .catch((error) => {
-                setSubmitMessage('There was an error registering: ' + error.message);
-            });
+    //     axios.post("http://localhost:3000/users/register", formData)
+    //         .then((response) => {
+    //             setSubmitMessage('Registration successful');
+    //         })
+    //         .catch((error) => {
+    //             setSubmitMessage('There was an error registering: ' + error.message);
+    //         });
+    // };
+
+    apiServices.registerUser(formData).then((response) => {
+        setSubmitMessage('Registration successful');
+    }).catch((error) => {
+        setSubmitMessage('There was an error registering: ' + error.message);
+    });
     };
 
     return (
         <div>
-            <h1>Register</h1>
+            <h1>Registro de Paciente</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="firstName">First Name:</label>

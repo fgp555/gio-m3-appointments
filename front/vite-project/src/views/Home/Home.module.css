@@ -1,7 +1,7 @@
 .homeContainer {
   padding: 50px;
-  background-color: #4ea4fa; /* Fondo celeste más oscuro */
-  color: #fff; /* Texto en color blanco */
+  background-color: #e0f7fa; /* Fondo celeste claro */
+  color: #004d40; /* Texto en verde azulado oscuro */
   text-align: center;
 }
 
@@ -43,7 +43,7 @@
 .actionButton {
   margin: 0 10px;
   background-color: #fff; /* Botón en color blanco */
-  color: #4ea4fa; /* Texto en color celeste */
+  color: #004d40; /* Texto en verde azulado oscuro */
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -54,6 +54,6 @@
 }
 
 .actionButton:hover {
-  background-color: #357abd; /* Cambio de color al pasar el cursor */
-  color: #fff; /* Texto en color blanco */
+  background-color: #e8edf1; /* Cambio de color al pasar el cursor */
+  color: #357abd;; /* Texto en color blanco */
 }

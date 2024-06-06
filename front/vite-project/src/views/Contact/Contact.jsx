@@ -10,8 +10,8 @@ const Contacto = () => {
       </p>
       <div className={styles.contactInfo}>
         <h2 className={styles.subtitle}>Datos de Contacto</h2>
-        <p><strong>Dirección:</strong> Calle Falsa 123, Ciudad, País</p>
-        <p><strong>Teléfono:</strong> +123 456 7890</p>
+        <p><strong>Dirección:</strong> Calle Falsa 123, Corrientes, Argentina</p>
+        <p><strong>Celular:</strong> 3794 - 1234</p>
         <p><strong>Email:</strong> contacto@clinicakinesiologia.com</p>
       </div>
       <div className={styles.formContainer}>

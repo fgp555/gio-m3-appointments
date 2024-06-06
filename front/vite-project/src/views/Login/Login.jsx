@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import apiServices from '../../services/apiServices';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { fetchUser } from '../../redux/userSlice';
 
 const Login = () => {
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [formData, setFormData] = useState({"username": "user123",
+  "password": "P4ss123"});
   const [message, setMessage] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
+const navigate = useNavigate();
+const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -30,7 +36,11 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/users/login', formData);
+      // const response = await axios.post('http://localhost:3000/users/login', formData);
+     const response = await apiServices.login(formData);
+     navigate('/mis-turnos');
+     console.log(response.data);
+     dispatch(fetchUser(response.data))
       setMessage('Login exitoso.');
     } catch (error) {
       setMessage('Error en el login. Por favor, intente nuevamente.');
@@ -39,6 +49,7 @@ const Login = () => {
 
   return (
     <div>
+      <h1>Iniciar Sesión</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username:</label>
