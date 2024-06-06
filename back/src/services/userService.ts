@@ -35,6 +35,8 @@ export const getUserByIdService = async (id: number): Promise<UserEntity | null>
         where: { id: id },
         relations: { appointments: true },
     })
+    user.appointments.sort((a, b) => b.id - a.id);
+    console.log(user)
     return user
 };
 export const loginUserService = async (username: string, password: string): Promise<UserEntity | null> => {
@@ -42,7 +44,7 @@ export const loginUserService = async (username: string, password: string): Prom
     if (!credentialId) {
         throw new Error('Credenciales incorrectas');
     }
-    const userFound = await UserModel.findOneBy({ credentialId: credentialId })
+    const userFound = await UserModel.findOneBy({ id: credentialId })
     return userFound
 };
 

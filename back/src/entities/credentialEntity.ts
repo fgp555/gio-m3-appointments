@@ -7,9 +7,10 @@ export class CredentialEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
-
-    @Column()
+    
+    @Column({ unique: true })
     username: string;
+
 
     @Column()
     password: string;

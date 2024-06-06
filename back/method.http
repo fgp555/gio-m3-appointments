@@ -14,8 +14,8 @@ token: autenticado
         "firstName": "Gio",
         "lastName": "m",
         "email": "gm@mail",
-        "username": "gm",
-        "password": "122",
+        "username": "user123",
+        "password": "P4ss123",
         "birthdate": "1995-11-17",
         "nDni": "1542633"
     }
@@ -26,8 +26,8 @@ Content-Type: application/json
 token: autenticado
 
    {
-  "username": "gm",
-  "password": "122"
+       "username": "jperez",
+       "password": "123456"
     }
 
 ###
