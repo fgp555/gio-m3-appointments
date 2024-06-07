@@ -28,31 +28,62 @@ const MisTurnos = () => {
         }
     }, [dispatch, user]);
 
-    const handleCancel = (id) => {
+    // const handleCancel = (id) => {
+    //     apiServices.cleanAppointments(id).then((response) => {
+    //         apiServices.getAppointments(userId).then((response) => {
+    //             dispatch(fetchAppointments(response));
+    //         });
+    //     });
+    // };
+    const handleCancel = (id, date) => {
+        const today = new Date();
+        const appointmentDate = new Date(date);
+
+        // Set times to midnight for accurate comparison
+        today.setHours(0, 0, 0, 0);
+        appointmentDate.setDate(appointmentDate.getDate() - 1);
+        appointmentDate.setHours(0, 0, 0, 0);
+
+        if (today >= appointmentDate) {
+            alert("Los turnos solo se pueden cancelar hasta un día antes del turno.");
+            return;
+        }
+
         apiServices.cleanAppointments(id).then((response) => {
             apiServices.getAppointments(userId).then((response) => {
                 dispatch(fetchAppointments(response));
             });
         });
     };
-
-    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setNewTurno({ ...newTurno, [name]: value });
-        const selectedDate = new Date(e.target.value);
-        const day = selectedDate.getUTCDay();
-        if ([6, 0].includes(day)) {
-            alert('La fecha seleccionada cae en fin de semana. Por favor, seleccione una fecha entre lunes y viernes.');
-            setFecha('');
-        } else {
-            setFecha(e.target.value);
+
+        if (name === "date") {
+            const today = new Date();
+            const selectedDate = new Date(value);
+            const day = selectedDate.getUTCDay();
+
+         
+            today.setHours(0, 0, 0, 0);
+
+            if (selectedDate <= today) {
+                alert("Los turnos solo se pueden agendar para fechas futuras.");
+                setNewTurno({ ...newTurno, date: "" });
+            } else if ([6, 0].includes(day)) {
+                alert('La fecha seleccionada cae en fin de semana. Por favor, seleccione una fecha entre lunes y viernes.');
+                setNewTurno({ ...newTurno, date: "" });
+            } else {
+                setNewTurno({ ...newTurno, date: value });
+            }
         }
     };
 
+
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Validación de horario
         const selectedTime = new Date(`2000-01-01T${newTurno.time}`);
         const startTime = new Date(`2000-01-01T07:00:00`);
         const endTime = new Date(`2000-01-01T19:00:00`);
@@ -76,7 +107,7 @@ const MisTurnos = () => {
             apiServices.getAppointments(userId).then((response) => {
                 dispatch(fetchAppointments(response));
             });
-            setNewTurno({ date: "", time: "", description: "" }); 
+            setNewTurno({ date: "", time: "", description: "" });
         }).catch(error => {
             console.error("There was an error creating the appointment!", error);
         });
@@ -87,7 +118,7 @@ const MisTurnos = () => {
             <h1>Turnos</h1>
             <h3>Usuario estos son tus turnos</h3>
 
-            
+
             <form onSubmit={handleSubmit} >
                 <div>
                     <label>Fecha:</label>
@@ -134,7 +165,7 @@ const MisTurnos = () => {
                         description={turno.description}
                         user={turno.user}
                         id={turno.id}
-                        handleCancel={handleCancel}
+                        handleCancel={() => handleCancel(turno.id, turno.date)}
                     />
                 ))
             )}
