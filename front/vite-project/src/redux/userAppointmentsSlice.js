@@ -6,7 +6,7 @@ const userAppointmentsSlice = createSlice({
   initialState: [],
   reducers: {
     fetchAppointments: (state, action) => {
-      console.log("fetchAppointments action payload:", action.payload);
+      // console.log("fetchAppointments action payload:", action.payload);
       return action.payload;
     },
     cleanAppointments: () => {
