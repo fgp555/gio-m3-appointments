@@ -28,9 +28,7 @@ export const getUsersService = async (): Promise<UserEntity[]> => {
 };
 
 export const getUserByIdService = async (id: number): Promise<UserEntity | null> => {
-    // const user = await UserModel.findOneBy({
-    //     id
-    // })
+    
     const user = await UserModel.findOneOrFail({
         where: { id: id },
         relations: { appointments: true },

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { getAppointmentsService,getAppointmentByIdService,createAppointmentService,cancelAppointmentService } from '../services/appointmentsService';
 
-// Obtener el listado de todos los turnos de todos los usuarios
+
 export const getAppointments = async (req: Request, res: Response) => {
   try {
     const appointments = await getAppointmentsService();
@@ -11,13 +11,7 @@ export const getAppointments = async (req: Request, res: Response) => {
     res.status(500).send('Error interno del servidor');
   }
 };
-  // res.send('Obtener el listado de todos los turnos de todos los usuarios');
-
-
-// // Obtener el detalle de un turno específico
-// export const getAppointment = (req: Request, res: Response) => {
-//   res.send('Obtener el detalle de un turno específico');
-// };
+  
 export const getAppointmentById = async (req: Request, res: Response) => {
   try {
     const appointmentId = parseInt(req.params.id);
@@ -28,7 +22,7 @@ export const getAppointmentById = async (req: Request, res: Response) => {
     res.status(404).send('turno no fue encontrado');
   }
 };
-// Agendar un nuevo turno
+
 export const scheduleAppointment = async (req: Request, res: Response) => {
   try {
     const { userId, date, time, description } = req.body;
@@ -41,7 +35,6 @@ export const scheduleAppointment = async (req: Request, res: Response) => {
 };
 
 
-// Cambiar el estatus de un turno a “cancelled”
 export const cancelAppointment = async(req: Request, res: Response) => {
   try {
     const appointmentId = parseInt(req.params.id);

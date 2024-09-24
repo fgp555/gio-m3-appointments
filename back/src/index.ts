@@ -1,10 +1,9 @@
 import express from 'express';
 import server from "./server";
-import indexRouter from './routes/indexRouter';
 import { PORT } from "./config/envs";
 import "reflect-metadata";
 import { AppDataSource } from './config/AppDataSource ';
-import { resolve } from 'path';
+
 
 AppDataSource.initialize()
 .then(res=>{
@@ -21,7 +20,7 @@ const app = express();
 
 
 
-// const PORT = process.env.PORT || 3000;
+
 
 
 

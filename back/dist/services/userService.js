@@ -9,38 +9,62 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserService = exports.getUsersService = exports.createUserService = void 0;
-let users = [{
-        id: 1,
-        name: "Gio",
-        surname: "m",
-        mail: "gm@mail",
-        password: 122,
-        active: true,
-    }
-];
-let id = 1;
-const createUserService = (userData) => __awaiter(void 0, void 0, void 0, function* () {
-    const newUser = {
-        id,
-        name: userData.name,
-        surname: userData.surname,
-        mail: userData.mail,
-        password: userData.password,
-        active: userData.active
-    };
-    users.push(newUser);
-    id++;
-    return newUser;
-});
-exports.createUserService = createUserService;
+exports.deleteUserService = exports.createUserService = exports.loginUserService = exports.getUserByIdService = exports.getUsersService = void 0;
+const AppDataSource_1 = require("../config/AppDataSource ");
+const credentialsService_1 = require("./credentialsService");
+// let id: number = 1; 
+// const usersTempData: UserDto[] = [
+//     {
+//         firstName :"Gio",
+//         lastName: "m",
+//         email: "gm@mail",
+//         username:"gm",
+//         password: "123",
+//         birthdate:  new Date("3-12-1992"),
+//         nDni: "1542633",
+//         credentialsId: 4,
+// }
+// ];
 const getUsersService = () => __awaiter(void 0, void 0, void 0, function* () {
+    const users = yield AppDataSource_1.UserModel.find({
+        relations: { appointments: true }
+    });
     return users;
 });
 exports.getUsersService = getUsersService;
-const deleteUserService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    users = users.filter((user) => {
-        return user.id !== id;
+const getUserByIdService = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    // const user = await UserModel.findOneBy({
+    //     id
+    // })
+    const user = yield AppDataSource_1.UserModel.findOneOrFail({
+        where: { id: id },
+        relations: { appointments: true },
     });
+    user.appointments.sort((a, b) => b.id - a.id);
+    console.log(user);
+    return user;
+});
+exports.getUserByIdService = getUserByIdService;
+const loginUserService = (username, password) => __awaiter(void 0, void 0, void 0, function* () {
+    const credentialId = yield (0, credentialsService_1.validateCredentialsService)(username, password);
+    if (!credentialId) {
+        throw new Error('Credenciales incorrectas');
+    }
+    const userFound = yield AppDataSource_1.UserModel.findOneBy({ id: credentialId });
+    return userFound;
+});
+exports.loginUserService = loginUserService;
+const createUserService = (userDataObject) => __awaiter(void 0, void 0, void 0, function* () {
+    const { firstName, lastName, email, username, password, birthdate, nDni } = userDataObject;
+    const credentialIdReturn = yield (0, credentialsService_1.createCredentialService)(username, password);
+    const ObjectUserModel = { firstName, lastName, email, birthdate, nDni, credentialId: credentialIdReturn };
+    const userCreate = yield AppDataSource_1.UserModel.create(ObjectUserModel);
+    const userSave = yield AppDataSource_1.UserModel.save(userCreate);
+    return userSave;
+});
+exports.createUserService = createUserService;
+const deleteUserService = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const UserDelete = yield AppDataSource_1.UserModel.delete({ id });
+    return UserDelete;
 });
 exports.deleteUserService = deleteUserService;

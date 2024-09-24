@@ -13,36 +13,6 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
     res.status(400).send(' los datos son incorrectos');
   }
 };
-// usersControllers.ts
-
-// usersControllers.ts
-
-// export const createUser = async (req: Request, res: Response): Promise<void> => {
-//   try {  
-//     const { firstName, lastName, email, username, password, birthdate, nDni, credentialsId } = req.body;
-
-//     // Crear un objeto de datos para el nuevo usuario con las propiedades necesarias
-//     const newUser: Partial<UserEntity> = { 
-//       firstName, 
-//       lastName, 
-//       email, 
-//       username, 
-//       password, 
-//       birthdate, 
-//       nDni, 
-//       credentialsId 
-//     };
-
-//     // Llamar a la función de servicio para crear el usuario
-//     const createdUser = await createUserService(newUser);
-
-//     res.status(201).json(createdUser);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Error interno del servidor');
-//   }
-// };
-
 
 
 export const loginUser = async (req: Request, res: Response) => {
