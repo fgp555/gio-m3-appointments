@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { fetchUser } from "../../redux/userSlice";
 
 const Login = () => {
-  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [formData, setFormData] = useState({ username: "pepe_perez", password: "P4ssWord@123" });
   const [message, setMessage] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const navigate = useNavigate();
@@ -35,7 +35,6 @@ const Login = () => {
     }
 
     try {
-      // const response = await axios.post('http://localhost:3000/users/login', formData);
       const response = await apiServices.login(formData);
       navigate("/mis-turnos");
       console.log(response.data);

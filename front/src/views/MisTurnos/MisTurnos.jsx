@@ -1,3 +1,5 @@
+// front\src\views\MisTurnos\MisTurnos.jsx
+
 import React, { useEffect, useState } from "react";
 import Turno from "../../components/Turno/Turno";
 import axios from "axios";
@@ -27,13 +29,6 @@ const MisTurnos = () => {
     }
   }, [dispatch, user]);
 
-  // const handleCancel = (id) => {
-  //     apiServices.cleanAppointments(id).then((response) => {
-  //         apiServices.getAppointments(userId).then((response) => {
-  //             dispatch(fetchAppointments(response));
-  //         });
-  //     });
-  // };
   const handleCancel = (id, date) => {
     const today = new Date();
     const appointmentDate = new Date(date);
@@ -93,8 +88,10 @@ const MisTurnos = () => {
       userId,
     };
 
+    const API_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api" : "https://crefi.giomr.site/api";
+
     axios
-      .post("http://localhost:3000/appointments/schedule", turnoData, {
+      .post(`${API_URL}/appointments/schedule`, turnoData, {
         headers: {
           "Content-Type": "application/json",
           token: "autenticado",

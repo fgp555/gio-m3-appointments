@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "./Register.css";
 import { validateForm, isButtonDisabled } from "../../helpers/validateForm";
 import apiServices from "../../services/apiServices";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    firstName: "jose",
-    lastName: "perez",
-    email: "jp@gmail.com",
-    username: "jperez",
-    password: "123456",
-    confirmPassword: "123456",
+    firstName: "Pepe",
+    lastName: "Perez",
+    email: "pepe@gmail.com",
+    username: "pepe_perez",
+    password: "P4ssWord@123",
+    confirmPassword: "P4ssWord@123",
     birthdate: "2000-01-01",
     nDni: "12345678",
   });
@@ -57,15 +56,6 @@ const Register = () => {
       setValidateFormErrors(errors);
       return;
     }
-
-    //     axios.post("http://localhost:3000/users/register", formData)
-    //         .then((response) => {
-    //             setSubmitMessage('Registration successful');
-    //         })
-    //         .catch((error) => {
-    //             setSubmitMessage('There was an error registering: ' + error.message);
-    //         });
-    // };
 
     apiServices
       .registerUser(formData)
