@@ -1,4 +1,5 @@
 "use strict";
+// back\src\services\userService.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -12,30 +13,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUserService = exports.createUserService = exports.loginUserService = exports.getUserByIdService = exports.getUsersService = void 0;
 const AppDataSource_1 = require("../config/AppDataSource ");
 const credentialsService_1 = require("./credentialsService");
-// let id: number = 1; 
-// const usersTempData: UserDto[] = [
-//     {
-//         firstName :"Gio",
-//         lastName: "m",
-//         email: "gm@mail",
-//         username:"gm",
-//         password: "123",
-//         birthdate:  new Date("3-12-1992"),
-//         nDni: "1542633",
-//         credentialsId: 4,
-// }
-// ];
 const getUsersService = () => __awaiter(void 0, void 0, void 0, function* () {
     const users = yield AppDataSource_1.UserModel.find({
-        relations: { appointments: true }
+        relations: { appointments: true },
     });
     return users;
 });
 exports.getUsersService = getUsersService;
 const getUserByIdService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    // const user = await UserModel.findOneBy({
-    //     id
-    // })
     const user = yield AppDataSource_1.UserModel.findOneOrFail({
         where: { id: id },
         relations: { appointments: true },
@@ -48,7 +33,7 @@ exports.getUserByIdService = getUserByIdService;
 const loginUserService = (username, password) => __awaiter(void 0, void 0, void 0, function* () {
     const credentialId = yield (0, credentialsService_1.validateCredentialsService)(username, password);
     if (!credentialId) {
-        throw new Error('Credenciales incorrectas');
+        throw new Error("Credenciales incorrectas");
     }
     const userFound = yield AppDataSource_1.UserModel.findOneBy({ id: credentialId });
     return userFound;

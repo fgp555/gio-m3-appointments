@@ -1,0 +1,59 @@
+.homeContainer {
+  padding: 50px;
+  background-color: #e0f7fa; /* Fondo celeste claro */
+  color: #004d40; /* Texto en verde azulado oscuro */
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 1.2em;
+  margin-bottom: 40px;
+}
+
+.services,
+.schedule {
+  margin-bottom: 40px;
+}
+
+.services h2,
+.schedule h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.services ul {
+  list-style: none;
+  padding: 0;
+}
+
+.services li {
+  margin-bottom: 5px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.actionButton {
+  margin: 0 10px;
+  background-color: #fff; /* Botón en color blanco */
+  color: #004d40; /* Texto en verde azulado oscuro */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.actionButton:hover {
+  background-color: #e8edf1; /* Cambio de color al pasar el cursor */
+  color: #357abd; /* Texto en color blanco */
+}

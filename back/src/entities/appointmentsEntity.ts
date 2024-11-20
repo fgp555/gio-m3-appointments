@@ -1,25 +1,23 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { UserEntity } from './userEntity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { UserEntity } from "./userEntity";
 
 @Entity({ name: "appointmen_table" })
 export class AppointmentEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
 
+  @Column({ type: "date" })
+  date: Date;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column({ type: "time" })
+  time: Date;
 
-    @Column({ type: "date" })
-    date: Date;
+  @Column()
+  status: string;
 
-    @Column({ type: "time" })
-    time: Date;
+  @Column()
+  description: string;
 
-    @Column()
-    status: string;
-
-    @Column()
-    description: string;
-
-    @ManyToOne(() => UserEntity, (user) => user.appointments)
-    userId: UserEntity;
+  @ManyToOne(() => UserEntity, (user) => user.appointments)
+  userId: UserEntity;
 }

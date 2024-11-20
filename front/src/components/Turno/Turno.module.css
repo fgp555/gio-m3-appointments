@@ -1,0 +1,26 @@
+.turno {
+  border: 1px solid #87ceeb; /* Light blue border */
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  background-color: #7fbed3; /* Light blue background */
+  color: white; /* White text */
+}
+
+.turno h3 {
+  margin: 0;
+  color: white; /* White text */
+}
+
+.turno p {
+  margin: 5px 0;
+  color: white; /* White text */
+}
+/* Additional styles for status */
+.pending {
+  color: green; /* Green text for pending status */
+}
+
+.cancelled {
+  color: red; /* Red text for cancelled status */
+}

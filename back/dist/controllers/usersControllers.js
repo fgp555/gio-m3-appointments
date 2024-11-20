@@ -1,4 +1,5 @@
 "use strict";
+// back\src\controllers\usersControllers.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -19,34 +20,10 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
     catch (error) {
         console.error(error);
-        res.status(400).send(' los datos son incorrectos');
+        res.status(400).send(" los datos son incorrectos");
     }
 });
 exports.createUser = createUser;
-// usersControllers.ts
-// usersControllers.ts
-// export const createUser = async (req: Request, res: Response): Promise<void> => {
-//   try {  
-//     const { firstName, lastName, email, username, password, birthdate, nDni, credentialsId } = req.body;
-//     // Crear un objeto de datos para el nuevo usuario con las propiedades necesarias
-//     const newUser: Partial<UserEntity> = { 
-//       firstName, 
-//       lastName, 
-//       email, 
-//       username, 
-//       password, 
-//       birthdate, 
-//       nDni, 
-//       credentialsId 
-//     };
-//     // Llamar a la función de servicio para crear el usuario
-//     const createdUser = await createUserService(newUser);
-//     res.status(201).json(createdUser);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Error interno del servidor');
-//   }
-// };
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, password } = req.body;
@@ -55,7 +32,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.error(error);
-        res.status(400).json({ login: false, message: ' los datos son incorrectos' });
+        res.status(400).json({ login: false, message: " los datos son incorrectos" });
     }
 });
 exports.loginUser = loginUser;
@@ -66,7 +43,7 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.error(error);
-        res.status(404).send('el usuario no fue encontrado.');
+        res.status(404).send("el usuario no fue encontrado.");
     }
 });
 exports.getUsers = getUsers;
@@ -78,7 +55,7 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     catch (error) {
         console.error(error);
-        res.status(404).send('el usuario no fue encontrado.');
+        res.status(404).send("el usuario no fue encontrado.");
     }
 });
 exports.getUserById = getUserById;
@@ -90,7 +67,7 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
     catch (error) {
         console.error(error);
-        res.status(400).send('usuario no encontrado');
+        res.status(400).send("usuario no encontrado");
     }
 });
 exports.deleteUser = deleteUser;
