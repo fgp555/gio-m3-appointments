@@ -9,30 +9,25 @@ import { fetchAppointments } from "../../redux/userAppointmentsSlice";
 import "./MisTurnos.css";
 
 const MisTurnos = () => {
-  const [appoinmentState, setAppoinment] = useState({
-    date: "2024-12-22",
-    time: "13:00",
-    description: "description",
+  const [turnos, setTurnos] = useState([]);
+  const [newTurno, setNewTurno] = useState({
+    date: "",
+    time: "",
+    description: "",
   });
 
-  const appoinmentStore = useSelector((state) => state.appointments);
-  const userStore = useSelector((state) => state.user);
-
-  console.log("userStore", userStore.user.email);
-  const userId = userStore?.user?.id;
+  const turnosState = useSelector((state) => state.appointments);
+  const user = useSelector((state) => state.user);
+  const userId = user?.user?.id;
   const dispatch = useDispatch();
 
-  const getUserAppointments = () => {
+  useEffect(() => {
     if (userId) {
       apiServices.fetchUserAppointments(userId).then((response) => {
         dispatch(fetchAppointments(response));
       });
     }
-  };
-
-  useEffect(() => {
-    getUserAppointments();
-  }, [dispatch, userId]);
+  }, [dispatch, user]);
 
   const handleCancel = (id, date) => {
     const today = new Date();
@@ -54,10 +49,9 @@ const MisTurnos = () => {
       });
     });
   };
-
-  const handleChangeForm = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setAppoinment({ ...appoinmentState, [name]: value });
+    setNewTurno({ ...newTurno, [name]: value });
 
     if (name === "date") {
       const today = new Date();
@@ -68,19 +62,19 @@ const MisTurnos = () => {
 
       if (selectedDate <= today) {
         alert("Los turnos solo se pueden agendar para fechas futuras.");
-        setAppoinment({ ...appoinmentState, date: "" });
+        setNewTurno({ ...newTurno, date: "" });
       } else if ([6, 0].includes(day)) {
         alert("La fecha seleccionada cae en fin de semana. Por favor, seleccione una fecha entre lunes y viernes.");
-        setAppoinment({ ...appoinmentState, date: "" });
+        setNewTurno({ ...newTurno, date: "" });
       } else {
-        setAppoinment({ ...appoinmentState, date: value });
+        setNewTurno({ ...newTurno, date: value });
       }
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const selectedTime = new Date(`2000-01-01T${appoinmentState.time}`);
+    const selectedTime = new Date(`2000-01-01T${newTurno.time}`);
     const startTime = new Date(`2000-01-01T07:00:00`);
     const endTime = new Date(`2000-01-01T19:00:00`);
 
@@ -90,16 +84,27 @@ const MisTurnos = () => {
     }
 
     const turnoData = {
-      ...appoinmentState,
+      ...newTurno,
       userId,
     };
 
-    apiServices
-      .createAppointment(turnoData)
-      // getUserAppointments
-      .then((x) => {
-        getUserAppointments();
-        // setAppoinment({ date: "", time: "", description: "" });
+    const API_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api" : "https://crefi.giomr.site/api";
+
+    axios
+      .post(`${API_URL}/appointments/schedule`, turnoData, {
+        headers: {
+          "Content-Type": "application/json",
+          token: "autenticado",
+        },
+      })
+      .then((response) => {
+        apiServices.fetchUserAppointments(userId).then((response) => {
+          dispatch(fetchAppointments(response));
+        });
+        setNewTurno({ date: "", time: "", description: "" });
+      })
+      .catch((error) => {
+        console.error("There was an error creating the appointment!", error);
       });
   };
 
@@ -111,23 +116,23 @@ const MisTurnos = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Fecha:</label>
-          <input type="date" name="date" value={appoinmentState.date} onChange={handleChangeForm} required />
+          <input type="date" name="date" value={newTurno.date} onChange={handleChange} required />
         </div>
         <div>
           <label>Hora:</label>
-          <input type="time" name="time" value={appoinmentState.time} onChange={handleChangeForm} required />
+          <input type="time" name="time" value={newTurno.time} onChange={handleChange} required />
         </div>
         <div>
           <label>Descripción:</label>
-          <input type="text" name="description" value={appoinmentState.description} onChange={handleChangeForm} required />
+          <input type="text" name="description" value={newTurno.description} onChange={handleChange} required />
         </div>
         <button type="submit">Crear Turno</button>
       </form>
 
-      {appoinmentStore.length === 0 ? (
+      {turnosState.length === 0 ? (
         <p>No hay turnos agendados para el usuario</p>
       ) : (
-        appoinmentStore.map((turno) => (
+        turnosState.map((turno) => (
           <Turno
             key={turno.id}
             date={turno.date}
@@ -140,9 +145,6 @@ const MisTurnos = () => {
           />
         ))
       )}
-
-      {/* <pre>{JSON.stringify(userStore.user.email, null, 2)}</pre> */}
-      {/* <pre>{JSON.stringify(userStore, null, 2)}</pre> */}
     </div>
   );
 };

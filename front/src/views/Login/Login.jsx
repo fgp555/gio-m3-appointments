@@ -37,7 +37,7 @@ const Login = () => {
     try {
       const response = await apiServices.login(formData);
       navigate("/mis-turnos");
-      console.log(response.data);
+      console.log("response.data", response.data);
       dispatch(fetchUser(response.data));
       setMessage("Login exitoso.");
     } catch (error) {

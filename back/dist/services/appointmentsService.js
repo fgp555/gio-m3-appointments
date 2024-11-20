@@ -9,9 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cancelAppointmentService = exports.createAppointmentService = exports.getAppointmentByIdService = exports.getAppointmentsService = void 0;
 const AppDataSource_1 = require("../config/AppDataSource ");
@@ -34,35 +31,30 @@ const getAppointmentByIdService = (id) => __awaiter(void 0, void 0, void 0, func
     return appointment;
 });
 exports.getAppointmentByIdService = getAppointmentByIdService;
-const nodemailer_1 = __importDefault(require("nodemailer"));
-const envs_1 = require("../config/envs");
 const createAppointmentService = (userId, date, time, description) => __awaiter(void 0, void 0, void 0, function* () {
     const foundUserId = yield AppDataSource_1.UserModel.findOneBy({ id: userId });
     if (!foundUserId) {
         throw new Error("El usuario no existe");
     }
-    const userGmail = envs_1.USER;
-    const passAppGmail = envs_1.PASSAPP;
-    const transporter = nodemailer_1.default.createTransport({
-        service: "gmail",
-        auth: {
-            user: userGmail,
-            pass: passAppGmail,
-        },
-    });
-    const mailOptions = {
-        from: userGmail,
-        to: foundUserId.email,
-        subject: "Gracias por agendar tu turno",
-        text: `tienes reservado un turno `,
-    };
-    console.log(foundUserId.appointments);
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.log(error);
-        }
-        console.log("Email sent: " + info.response);
-    });
+    // const transporter = nodemailer.createTransport({
+    //   service: "gmail",
+    //   auth: {
+    //     user: ENV_USER,
+    //     pass: ENV_PASSAPP,
+    //   },
+    // });
+    // const mailOptions = {
+    //   from: ENV_USER,
+    //   to: foundUserId.email,
+    //   subject: "Gracias por agendar tu turno",
+    //   text: `tienes reservado un turno `,
+    // };
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //   if (error) {
+    //     console.log(error);
+    //   }
+    //   console.log(`Email sent to ${foundUserId.email} ` + info.response);
+    // });
     const newObject = { date, time, status: "active", userId: foundUserId, description };
     const appointmentSave = yield AppDataSource_1.AppointmentModel.save(newObject);
     return appointmentSave;

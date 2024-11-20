@@ -9,10 +9,10 @@ const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const morgan_1 = __importDefault(require("morgan"));
 const server = (0, express_1.default)();
+server.use((0, morgan_1.default)("dev"));
 server.use(express_1.default.static(path_1.default.join(__dirname, "../../front", "dist")));
 server.use((0, cors_1.default)());
 server.use(express_1.default.json());
-server.use((0, morgan_1.default)("dev"));
 server.use("/api", indexRouter_1.default);
 server.get("*", (req, res) => {
     res.sendFile(path_1.default.resolve(__dirname, "../../front/dist", "index.html"));

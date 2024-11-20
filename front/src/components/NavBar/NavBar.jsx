@@ -33,9 +33,16 @@ const NavBar = () => {
                 <Link to="/mis-turnos">MIS TURNOS</Link>
               </li>
               <li>
-                <button onClick={handleLogout} className={styles.actionButton}>
+                <Link
+                  to="#"
+                  className={`${styles.actionButton} ${styles.logout}`}
+                  onClick={(e) => {
+                    e.preventDefault(); // Prevenir redirección
+                    handleLogout(); // Llamar a la función de logout
+                  }}
+                >
                   LOGOUT
-                </button>
+                </Link>
               </li>
             </>
           ) : (

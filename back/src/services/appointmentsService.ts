@@ -22,7 +22,7 @@ export const getAppointmentByIdService = async (id: number): Promise<Appointment
   return appointment;
 };
 import nodemailer from "nodemailer";
-import { PASSAPP, USER } from "../config/envs";
+import { ENV_PASSAPP, ENV_USER } from "../config/envs";
 
 export const createAppointmentService = async (userId: number, date: Date, time: string, description: string): Promise<AppointmentEntity> => {
   const foundUserId = await UserModel.findOneBy({ id: userId });
@@ -30,31 +30,27 @@ export const createAppointmentService = async (userId: number, date: Date, time:
     throw new Error("El usuario no existe");
   }
 
-  const userGmail = USER;
-  const passAppGmail = PASSAPP;
+  // const transporter = nodemailer.createTransport({
+  //   service: "gmail",
+  //   auth: {
+  //     user: ENV_USER,
+  //     pass: ENV_PASSAPP,
+  //   },
+  // });
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: userGmail,
-      pass: passAppGmail,
-    },
-  });
+  // const mailOptions = {
+  //   from: ENV_USER,
+  //   to: foundUserId.email,
+  //   subject: "Gracias por agendar tu turno",
+  //   text: `tienes reservado un turno `,
+  // };
 
-  const mailOptions = {
-    from: userGmail,
-    to: foundUserId.email,
-    subject: "Gracias por agendar tu turno",
-    text: `tienes reservado un turno `,
-  };
-  console.log(foundUserId.appointments);
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-    }
-    console.log("Email sent: " + info.response);
-  });
+  // transporter.sendMail(mailOptions, (error, info) => {
+  //   if (error) {
+  //     console.log(error);
+  //   }
+  //   console.log(`Email sent to ${foundUserId.email} ` + info.response);
+  // });
 
   const newObject = { date, time, status: "active", userId: foundUserId, description };
   const appointmentSave = await AppointmentModel.save(newObject);

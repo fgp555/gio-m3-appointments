@@ -26,7 +26,6 @@ const getUserByIdService = (id) => __awaiter(void 0, void 0, void 0, function* (
         relations: { appointments: true },
     });
     user.appointments.sort((a, b) => b.id - a.id);
-    console.log(user);
     return user;
 });
 exports.getUserByIdService = getUserByIdService;

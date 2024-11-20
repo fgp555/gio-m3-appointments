@@ -6,13 +6,13 @@ import morgan from "morgan";
 
 const server = express();
 
+server.use(morgan("dev"));
+
 server.use(express.static(path.join(__dirname, "../../front", "dist")));
 
 server.use(cors());
 
 server.use(express.json());
-
-server.use(morgan("dev"));
 
 server.use("/api", indexRouter);
 

@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PORT = exports.JWT_SECRET = exports.DB_USER = exports.DB_TYPE = exports.DB_PORT = exports.DB_PASSWORD = exports.DB_NAME = exports.DB_HOST = exports.DROPSCHEMA = exports.PASSAPP = exports.USER = void 0;
+exports.PORT = exports.JWT_SECRET = exports.DB_USER = exports.DB_TYPE = exports.DB_PORT = exports.DB_PASSWORD = exports.DB_NAME = exports.DB_HOST = exports.DROPSCHEMA = exports.ENV_PASSAPP = exports.ENV_USER = void 0;
 require("dotenv/config");
-exports.USER = process.env.USER;
-exports.PASSAPP = process.env.PASSAPP;
+exports.ENV_USER = process.env.USER;
+exports.ENV_PASSAPP = process.env.PASSAPP;
 exports.DROPSCHEMA = process.env.DROPSCHEMA === "true";
 exports.DB_HOST = process.env.DB_HOST || "localhost";
 exports.DB_NAME = process.env.DB_NAME || "postgres";

@@ -10,23 +10,34 @@ const apiServices = {
     return response;
   },
 
-  getAppointments: async (userId) => {
-    if (!userId) {
-      console.error("Error: userId is undefined");
-      return [];
-    }
+  fetchUserAppointments: async (userId) => {
     try {
-      const response = await axios.get(`${API_URL}/users/${userId}`);
+      const response = await axios.get(`${API_URL}/users/${userId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          token: "autenticado",
+        },
+      });
       return response.data.appointments;
     } catch (error) {
-      console.error("Error fetching appointments:", error);
-      return [];
+      console.error("Error fetching appointments", error);
+      throw error;
     }
   },
 
-  createAppointments: async (appointmentData) => {
-    const response = await axios.post(`${API_URL}/appointments/schedule`, appointmentData);
-    return response.data;
+  createAppointment: async (appointmentData) => {
+    try {
+      const response = await axios.post(`${API_URL}/appointments/schedule`, appointmentData, {
+        headers: {
+          "Content-Type": "application/json",
+          token: "autenticado",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error creating appointment", error);
+      throw error;
+    }
   },
 
   cleanAppointments: async (appointmentId) => {
@@ -37,6 +48,21 @@ const apiServices = {
   registerUser: async (userData) => {
     const response = await axios.post(`${API_URL}/users/register`, userData);
     return response;
+  },
+
+  cancelAppointment: async (appointmentId) => {
+    try {
+      const response = await axios.post(`${API_URL}/appointments/${appointmentId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          token: "autenticado",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error canceling appointment", error);
+      throw error;
+    }
   },
 };
 

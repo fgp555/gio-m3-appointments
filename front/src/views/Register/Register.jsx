@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Register.css";
 import { validateForm, isButtonDisabled } from "../../helpers/validateForm";
 import apiServices from "../../services/apiServices";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     firstName: "Pepe",
     lastName: "Perez",
@@ -61,6 +64,7 @@ const Register = () => {
       .registerUser(formData)
       .then((response) => {
         setSubmitMessage("Registration successful");
+        navigate("/login");
       })
       .catch((error) => {
         setSubmitMessage("There was an error registering: " + error.message);

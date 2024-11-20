@@ -18,7 +18,6 @@ export const getUserByIdService = async (id: number): Promise<UserEntity | null>
     relations: { appointments: true },
   });
   user.appointments.sort((a, b) => b.id - a.id);
-  console.log(user);
   return user;
 };
 export const loginUserService = async (username: string, password: string): Promise<UserEntity | null> => {

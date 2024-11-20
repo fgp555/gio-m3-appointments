@@ -1,7 +1,7 @@
 import "dotenv/config";
 
-export const USER = process.env.USER;
-export const PASSAPP = process.env.PASSAPP;
+export const ENV_USER = process.env.USER;
+export const ENV_PASSAPP = process.env.PASSAPP;
 
 export const DROPSCHEMA: boolean = process.env.DROPSCHEMA === "true";
 export const DB_HOST: string = process.env.DB_HOST || "localhost";
