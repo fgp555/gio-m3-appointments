@@ -6,6 +6,7 @@ import avatar from "../../assets/avatar.png";
 import { useDispatch, useSelector } from "react-redux";
 import { cleanAppointments } from "../../redux/userAppointmentsSlice";
 import { cleanUser } from "../../redux/userSlice";
+
 const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,7 +18,6 @@ const NavBar = () => {
   };
 
   const isLogin = useSelector((state) => state.user.login);
-  console.log(isLogin);
 
   return (
     <nav className={styles.navbar}>
@@ -31,6 +31,7 @@ const NavBar = () => {
             <>
               <li>
                 <Link to="/mis-turnos">MIS TURNOS</Link>
+                {/* <Link to="/AppointmentsPage">AppointmentsPage</Link> */}
               </li>
               <li>
                 <Link
@@ -72,6 +73,7 @@ const NavBar = () => {
           )}
         </ul>
       </div>
+      {/* <pre>{JSON.stringify(userSelector, null, 2)}</pre> */}
 
       <div className={styles.avatarContainer}>
         <img src={avatar} alt="Perfil del Paciente" className={styles.avatar} />

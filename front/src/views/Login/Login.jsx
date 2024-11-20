@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import apiServices from "../../services/apiServices";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -46,7 +45,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="main">
       <h1>Iniciar Sesión</h1>
       <form onSubmit={handleSubmit}>
         <div>

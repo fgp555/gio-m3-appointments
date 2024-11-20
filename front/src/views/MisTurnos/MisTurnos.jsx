@@ -1,7 +1,4 @@
-// front\src\views\MisTurnos\MisTurnos.jsx
-
 import React, { useEffect, useState } from "react";
-import Turno from "../../components/Turno/Turno";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import apiServices from "../../services/apiServices";
@@ -16,9 +13,8 @@ const MisTurnos = () => {
   });
 
   const appoinmentStore = useSelector((state) => state.appointments);
-  const userStore = useSelector((state) => state.user);
 
-  console.log("userStore", userStore.user.email);
+  const userStore = useSelector((state) => state.user);
   const userId = userStore?.user?.id;
   const dispatch = useDispatch();
 
@@ -38,7 +34,6 @@ const MisTurnos = () => {
     const today = new Date();
     const appointmentDate = new Date(date);
 
-    // Set times to midnight for accurate comparison
     today.setHours(0, 0, 0, 0);
     appointmentDate.setDate(appointmentDate.getDate() - 1);
     appointmentDate.setHours(0, 0, 0, 0);
@@ -48,10 +43,8 @@ const MisTurnos = () => {
       return;
     }
 
-    apiServices.cleanAppointments(id).then((response) => {
-      apiServices.fetchUserAppointments(userId).then((response) => {
-        dispatch(fetchAppointments(response));
-      });
+    apiServices.cleanAppointments(id).then(() => {
+      getUserAppointments();
     });
   };
 
@@ -94,19 +87,14 @@ const MisTurnos = () => {
       userId,
     };
 
-    apiServices
-      .createAppointment(turnoData)
-      // getUserAppointments
-      .then((x) => {
-        getUserAppointments();
-        // setAppoinment({ date: "", time: "", description: "" });
-      });
+    apiServices.createAppointment(turnoData).then(() => {
+      getUserAppointments();
+    });
   };
 
   return (
-    <div>
-      <h1>Turnos</h1>
-      <h3>Usuario estos son tus turnos</h3>
+    <div className="main">
+      <h1>Turnos de {userStore.user.firstName}</h1>
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -127,22 +115,38 @@ const MisTurnos = () => {
       {appoinmentStore.length === 0 ? (
         <p>No hay turnos agendados para el usuario</p>
       ) : (
-        appoinmentStore.map((turno) => (
-          <Turno
-            key={turno.id}
-            date={turno.date}
-            time={turno.time}
-            status={turno.status}
-            description={turno.description}
-            user={turno.user}
-            id={turno.id}
-            handleCancel={() => handleCancel(turno.id, turno.date)}
-          />
-        ))
+        <table className="appointments-table">
+          <caption>Turnos Agendados</caption>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Descripción</th>
+              {/* <th>Estado</th> */}
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {appoinmentStore.map((turno) => (
+              <tr key={turno.id}>
+                <td>{turno.date}</td>
+                <td>{turno.time}</td>
+                <td>{turno.description}</td>
+                {/* <td>{turno.status}</td> */}
+                <td>
+                  <button
+                    onClick={() => handleCancel(turno.id, turno.date)}
+                    className={turno.status === "active" ? "btn-active" : "btn-cancelled"}
+                    disabled={turno.status !== "active"} // Deshabilitar el botón si el estado no es 'active'
+                  >
+                    {turno.status === "active" ? "Cancelar" : "Cancelled"}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
-
-      {/* <pre>{JSON.stringify(userStore.user.email, null, 2)}</pre> */}
-      {/* <pre>{JSON.stringify(userStore, null, 2)}</pre> */}
     </div>
   );
 };
