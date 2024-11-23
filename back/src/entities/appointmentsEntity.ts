@@ -6,13 +6,13 @@ export class AppointmentEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "date" })
+  @Column()
   date: Date;
 
-  @Column({ type: "time" })
+  @Column({ type: "time", nullable: true })
   time: Date;
 
-  @Column()
+  @Column({ nullable: true })
   status: string;
 
   @Column()

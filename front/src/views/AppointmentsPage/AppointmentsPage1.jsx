@@ -14,7 +14,7 @@ const AppointmentsPage = () => {
   const [view, setView] = useState("day");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newAppointment, setNewAppointment] = useState({
-    description: "description 123",
+    description: "",
     date: selectedDay,
     time: "09:00",
   });
@@ -27,29 +27,6 @@ const AppointmentsPage = () => {
   //     .catch((error) => console.error("Error fetching appointments:", error));
   // }, []);
 
-  // ==========  ==========
-  const [tempData, setTempData] = useState([]);
-
-  const appoinmentSelector = useSelector((state) => state.appointments);
-  const userSelector = useSelector((state) => state.user);
-  const userId = userSelector?.user?.id;
-
-  const dispatch = useDispatch();
-
-  const getUserAppointments = () => {
-    if (userId) {
-      apiServices.fetchUserAppointments(userId).then((response) => {
-        setAppointments(response);
-        dispatch(fetchAppointments(response));
-      });
-    }
-  };
-
-  useEffect(() => {
-    getUserAppointments();
-  }, [dispatch, userId]);
-  // ==========  ==========
-
   // Handle creating new appointment
   const handleCreateAppointment = (e) => {
     e.preventDefault();
@@ -58,8 +35,7 @@ const AppointmentsPage = () => {
     appointmentDate.setHours(hours, minutes);
 
     // Send the new appointment to the backend
-    // fetch("http://localhost:5000/appointments", {
-    fetch("/api/appointments/schedule", {
+    fetch("http://localhost:5000/appointments", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -68,36 +44,23 @@ const AppointmentsPage = () => {
         description: newAppointment.description,
         date: appointmentDate.toISOString(),
       }),
-      // body: JSON.stringify({
-      //   date: "2024-11-21T10:00:00.000Z",
-      //   time: "09:15",
-      //   userId: 1,
-      //   description: "hernia lumbar",
-      // }),
     })
       .then((response) => response.json())
       .then((newAppt) => {
-        // setAppointments([...appointments, newAppt]);
-        // setIsModalOpen(false);
-        // setNewAppointment({ description: "", date: selectedDay, time: "09:00" });
-        console.log("newAppt", newAppt);
-        getUserAppointments();
+        setAppointments([...appointments, newAppt]);
+        setIsModalOpen(false);
+        setNewAppointment({ description: "", date: selectedDay, time: "09:00" });
       })
-      .catch((error) => {
-        console.error("Error creating appointment:", error);
-        getUserAppointments();
-      });
+      .catch((error) => console.error("Error creating appointment:", error));
   };
 
   // Handle deleting an appointment
   const handleDeleteAppointment = (id) => {
-    // fetch(`http://localhost:5000/appointments/${id}`, {
-    fetch(`/api/appointments/cancel/${id}`, {
-      method: "PUT",
+    fetch(`http://localhost:5000/appointments/${id}`, {
+      method: "DELETE",
     })
       .then(() => {
-        // setAppointments(appointments.filter((appt) => appt.id !== id));
-        getUserAppointments();
+        setAppointments(appointments.filter((appt) => appt.id !== id));
       })
       .catch((error) => console.error("Error deleting appointment:", error));
   };
@@ -133,10 +96,32 @@ const AppointmentsPage = () => {
       : {};
   };
 
+  // ==========  ==========
+  const dispatch = useDispatch();
+  const [tempData, setTempData] = useState([]);
+
+  const appoinmentSelector = useSelector((state) => state.appointments);
+
+  const getUserAppointments = () => {
+    const userId = localStorage.getItem("userId") || 1;
+    if (userId) {
+      apiServices.fetchUserAppointments(userId).then((response) => {
+        console.log("response", response);
+        setAppointments(response);
+        dispatch(fetchAppointments(response));
+      });
+    }
+  };
+
+  useEffect(() => {
+    getUserAppointments();
+  }, []);
+  // ==========  ==========
+
   return (
     <>
-      {/* <pre>{JSON.stringify(appoinmentSelector, null, 2)}</pre> */}
-      {/* <pre>{JSON.stringify(appointments, null, 2)}</pre> */}
+      <pre>{JSON.stringify(appoinmentSelector, null, 2)}</pre>
+      <pre>{JSON.stringify(appointments, null, 2)}</pre>
       <div className="AppointmentsPage">
         <h2>Calendario de Citas</h2>
 
@@ -181,7 +166,7 @@ const AppointmentsPage = () => {
                   {view === "month" && `${format(new Date(appt.date), "MMM d", { locale: es })} - ${format(new Date(appt.date), "h:mm aa", { locale: es })}`}{" "}
                   {/* Full date and time for 'month' view */}
                   <strong>{appt.description}</strong>
-                  <button onClick={() => handleDeleteAppointment(appt.id)}>Cancel</button>
+                  <button onClick={() => handleDeleteAppointment(appt.id)}>Eliminar</button>
                 </li>
               ))}
             </ul>

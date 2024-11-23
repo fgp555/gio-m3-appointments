@@ -20,15 +20,15 @@ __decorate([
     __metadata("design:type", Number)
 ], AppointmentEntity.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "date" }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", Date)
 ], AppointmentEntity.prototype, "date", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "time" }),
+    (0, typeorm_1.Column)({ type: "time", nullable: true }),
     __metadata("design:type", Date)
 ], AppointmentEntity.prototype, "time", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], AppointmentEntity.prototype, "status", void 0);
 __decorate([
