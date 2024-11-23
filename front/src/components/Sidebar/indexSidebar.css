@@ -7,14 +7,14 @@
   --accent-clr: #5e63ff;
   --secondary-text-clr: #b0b3c1;
 }
-/* * {
+* {
   margin: 0;
   padding: 0;
-} */
-/* html {
+}
+html {
   font-family: Poppins, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5rem;
-} */
+}
 
 main {
   padding: min(30px, 7%);

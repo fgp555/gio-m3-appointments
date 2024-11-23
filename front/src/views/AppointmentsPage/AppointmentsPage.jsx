@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { format, isSameDay, isSameWeek, isSameMonth, startOfWeek, endOfWeek, startOfMonth, endOfMonth } from "date-fns";
-// import "./AppointmentsPage.css";
+import "./AppointmentsPage.css";
 import { es } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 
