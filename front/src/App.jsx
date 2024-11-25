@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PublicLayout from "./layouts/PublicLayout";
-import DashboardLayout from "./layouts/DashboardLayout";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./views/Home/Home";
 import MisTurnos from "./views/MisTurnos/MisTurnos";
@@ -9,7 +8,8 @@ import Register from "./views/Register/Register";
 import Login from "./views/Login/Login";
 import About from "./views/About/About";
 import Contact from "./views/Contact/Contact";
-import AppointmentsPage from "./views/AppointmentsPage/AppointmentsPage";
+import DashboardLayout from "./dashboard/layout/DashboardLayout";
+import AppointmentsPage from "./dashboard/pages/AppointmentsPage/AppointmentsPage";
 import "./App.css";
 
 const NotFound = () => (
@@ -73,8 +73,7 @@ const App = () => {
         element={
           <PrivateRoute>
             <DashboardLayout>
-              {/* <MisTurnos /> */}
-              <AppointmentsPage />
+              <MisTurnos />
             </DashboardLayout>
           </PrivateRoute>
         }

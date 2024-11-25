@@ -23,6 +23,7 @@ exports.AppointmentModule = AppointmentModule = __decorate([
         imports: [typeorm_1.TypeOrmModule.forFeature([appointment_entity_1.Appointment, user_entity_1.UserEntity])],
         controllers: [appointment_controller_1.AppointmentController],
         providers: [appointment_service_1.AppointmentService, appointment_seeder_1.AppointmentSeederService, user_service_1.UserService],
+        exports: [appointment_seeder_1.AppointmentSeederService],
     })
 ], AppointmentModule);
 //# sourceMappingURL=appointment.module.js.map

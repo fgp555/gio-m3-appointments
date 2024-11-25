@@ -17,24 +17,58 @@ let AppointmentSeederService = class AppointmentSeederService {
     constructor(appointmentService, userService) {
         this.appointmentService = appointmentService;
         this.userService = userService;
-        this.seed();
     }
     async seed() {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+        const threeDaysFromNow = new Date(today);
+        threeDaysFromNow.setDate(today.getDate() + 3);
         const appointments = [
             {
-                date: '2024-11-25T10:00:00.000Z',
-                description: 'Meeting with Team A',
+                date: today.toISOString(),
+                description: 'Task 1 for today',
                 userId: 1,
             },
             {
-                date: '2024-11-26T11:00:00.000Z',
-                description: 'Client presentation',
+                date: today.toISOString(),
+                description: 'Task 2 for today',
                 userId: 2,
             },
             {
-                date: '2024-11-27T09:00:00.000Z',
-                description: 'Team building event',
+                date: today.toISOString(),
+                description: 'Task 3 for today',
+                userId: 3,
+            },
+            {
+                date: tomorrow.toISOString(),
+                description: 'Task 1 for tomorrow',
                 userId: 1,
+            },
+            {
+                date: tomorrow.toISOString(),
+                description: 'Task 2 for tomorrow',
+                userId: 2,
+            },
+            {
+                date: tomorrow.toISOString(),
+                description: 'Task 3 for tomorrow',
+                userId: 3,
+            },
+            {
+                date: threeDaysFromNow.toISOString(),
+                description: 'Task 1 for 3 days from now',
+                userId: 1,
+            },
+            {
+                date: threeDaysFromNow.toISOString(),
+                description: 'Task 2 for 3 days from now',
+                userId: 2,
+            },
+            {
+                date: threeDaysFromNow.toISOString(),
+                description: 'Task 3 for 3 days from now',
+                userId: 3,
             },
         ];
         for (const appointment of appointments) {

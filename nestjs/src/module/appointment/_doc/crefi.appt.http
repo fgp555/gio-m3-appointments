@@ -1,0 +1,27 @@
+### Create Appointment
+POST http://crefi.giomr.site/api/appointments
+Content-Type: application/json
+
+{
+  "date": "2024-11-25T10:00:00.000Z",
+  "description": "Meeting with Team A",
+  "userId": 1
+}
+
+### Get All Appointments
+GET http://crefi.giomr.site/api/appointments
+
+### Get Appointment by ID
+GET http://crefi.giomr.site/api/appointments/1
+
+### Update Appointment
+PUT http://crefi.giomr.site/api/appointments/1
+Content-Type: application/json
+
+{
+  "date": "2024-11-22T10:00:00.000Z",
+  "description": "Meeting with Team B"
+}
+
+### Delete Appointment
+DELETE http://crefi.giomr.site/api/appointments/1
