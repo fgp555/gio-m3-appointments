@@ -28,9 +28,13 @@ __decorate([
     __metadata("design:type", String)
 ], Appointment.prototype, "description", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.UserEntity, (user) => user.appointments, {}),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.UserEntity, (user) => user.appointmentsAsPatient),
     __metadata("design:type", user_entity_1.UserEntity)
-], Appointment.prototype, "userId", void 0);
+], Appointment.prototype, "patient", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.UserEntity, (user) => user.appointmentsAsDoctor),
+    __metadata("design:type", user_entity_1.UserEntity)
+], Appointment.prototype, "doctor", void 0);
 exports.Appointment = Appointment = __decorate([
     (0, typeorm_1.Entity)()
 ], Appointment);

@@ -28,58 +28,68 @@ let AppointmentSeederService = class AppointmentSeederService {
             {
                 date: today.toISOString(),
                 description: 'Task 1 for today',
-                userId: 1,
+                patient: { id: 1 },
+                doctor: { id: 2 },
             },
             {
                 date: today.toISOString(),
                 description: 'Task 2 for today',
-                userId: 2,
+                patient: { id: 2 },
+                doctor: { id: 3 },
             },
             {
                 date: today.toISOString(),
                 description: 'Task 3 for today',
-                userId: 3,
+                patient: { id: 3 },
+                doctor: { id: 1 },
             },
             {
                 date: tomorrow.toISOString(),
                 description: 'Task 1 for tomorrow',
-                userId: 1,
+                patient: { id: 1 },
+                doctor: { id: 2 },
             },
             {
                 date: tomorrow.toISOString(),
                 description: 'Task 2 for tomorrow',
-                userId: 2,
+                patient: { id: 2 },
+                doctor: { id: 3 },
             },
             {
                 date: tomorrow.toISOString(),
                 description: 'Task 3 for tomorrow',
-                userId: 3,
+                patient: { id: 3 },
+                doctor: { id: 1 },
             },
             {
                 date: threeDaysFromNow.toISOString(),
                 description: 'Task 1 for 3 days from now',
-                userId: 1,
+                patient: { id: 1 },
+                doctor: { id: 2 },
             },
             {
                 date: threeDaysFromNow.toISOString(),
                 description: 'Task 2 for 3 days from now',
-                userId: 2,
+                patient: { id: 2 },
+                doctor: { id: 3 },
             },
             {
                 date: threeDaysFromNow.toISOString(),
                 description: 'Task 3 for 3 days from now',
-                userId: 3,
+                patient: { id: 3 },
+                doctor: { id: 1 },
             },
         ];
         for (const appointment of appointments) {
             try {
-                const user = await this.userService.findById(appointment.userId);
-                if (!user) {
-                    console.log(`User with ID ${appointment.userId} does not exist.`);
+                const patient = await this.userService.findById(appointment.patientId);
+                const doctor = await this.userService.findById(appointment.doctorId);
+                if (!patient || !doctor) {
+                    console.log(`Patient with ID ${appointment.patientId} or Doctor with ID ${appointment.doctorId} does not exist.`);
                     continue;
                 }
                 await this.appointmentService.create(appointment);
-                console.log(`Appointment on ${appointment.date} created successfully.`);
+                console.log(`Appointment on ${appointment.date} for Patient ${appointment.patientId} and Doctor ${appointment.doctorId} created successfully.`);
             }
             catch (error) {
                 console.error(`Failed to create appointment on ${appointment.date}: ${error.message}`);

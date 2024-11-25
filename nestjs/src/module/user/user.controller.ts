@@ -40,6 +40,13 @@ export class UserController {
     }
     return await this.userService.findByEmail(email);
   }
+  // Nuevo endpoint para obtener usuarios por tipo
+  @Get('role/:role')
+  async findByRole(
+    @Param('role') role: 'admin' | 'patient' | 'doctor',
+  ) {
+    return await this.userService.findByRole(role);
+  }
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<UserEntity> {

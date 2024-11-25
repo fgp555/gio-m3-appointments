@@ -11,6 +11,7 @@ export declare class UserService {
     findOneEmail(email: string): Promise<UserEntity>;
     findOne(id: string): Promise<UserEntity>;
     findById(userId: number): Promise<UserEntity | null>;
+    findByRole(role: 'admin' | 'patient' | 'doctor'): Promise<UserEntity[]>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<UserEntity>;
     remove(id: string): Promise<UserEntity>;
 }

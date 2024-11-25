@@ -24,8 +24,13 @@ __decorate([
     __metadata("design:type", String)
 ], CreateAppointmentDto.prototype, "description", void 0);
 __decorate([
-    (0, class_validator_1.IsInt)({ message: 'User ID must be an integer' }),
+    (0, class_validator_1.IsInt)({ message: 'Patient ID must be an integer' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
-], CreateAppointmentDto.prototype, "userId", void 0);
+], CreateAppointmentDto.prototype, "patientId", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)({ message: 'Doctor ID must be an integer' }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], CreateAppointmentDto.prototype, "doctorId", void 0);
 //# sourceMappingURL=create-appointment.dto.js.map

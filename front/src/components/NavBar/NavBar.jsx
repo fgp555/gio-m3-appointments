@@ -27,11 +27,21 @@ const NavBar = () => {
 
       <div className={styles.navListContainer}>
         <ul className={styles.navList}>
+          <li>
+            <Link to="/">HOME</Link>
+          </li>
+
+          <li>
+            <Link to="/about">ABOUT</Link>
+          </li>
+          <li>
+            <Link to="/contact">CONTACT</Link>
+          </li>
+
           {isLogin ? (
             <>
               <li>
-                <Link to="/mis-turnos">MIS TURNOS</Link>
-                {/* <Link to="/AppointmentsPage">AppointmentsPage</Link> */}
+                <Link to="/appointments">DASHBOARD</Link>
               </li>
               <li>
                 <Link
@@ -48,17 +58,6 @@ const NavBar = () => {
             </>
           ) : (
             <>
-              <li>
-                <Link to="/">HOME</Link>
-              </li>
-
-              <li>
-                <Link to="/about">ABOUT</Link>
-              </li>
-              <li>
-                <Link to="/contact">CONTACT</Link>
-              </li>
-
               <li>
                 <Link to="/register" className={styles.actionButton}>
                   REGISTER

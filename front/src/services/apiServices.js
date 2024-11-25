@@ -107,20 +107,20 @@ const apiServices = {
     }
   },
 
-  // createAppointment: async (appointmentData) => {
-  //   try {
-  //     const response = await axios.post(`${API_URL}/appointments/schedule`, appointmentData, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         token: "autenticado",
-  //       },
-  //     });
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error("Error creating appointment", error);
-  //     throw error;
-  //   }
-  // },
+  getApiUserByRole: async (role) => {
+    try {
+      const response = await axios.get(`${API_URL}/users/role/${role}`, {
+        headers: {
+          "Content-Type": "application/json",
+          token: "autenticado",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching role", error);
+      throw error;
+    }
+  },
 
   cleanAppointments: async (appointmentId) => {
     const response = await axios.put(`${API_URL}/appointments/cancel/${appointmentId}`);

@@ -13,9 +13,9 @@ export class Appointment {
   @Column()
   description: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.appointments, {
-    // eager: true,
-    // cascade: true,
-  })
-  userId: UserEntity;
+  @ManyToOne(() => UserEntity, (user) => user.appointmentsAsPatient)
+  patient: UserEntity;
+
+  @ManyToOne(() => UserEntity, (user) => user.appointmentsAsDoctor)
+  doctor: UserEntity;
 }

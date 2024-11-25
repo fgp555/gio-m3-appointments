@@ -10,12 +10,14 @@ export declare class AuthController {
         firstName: string;
         lastName: string;
         email: string;
+        whatsapp: string;
         username: string;
         birthdate: string;
         nDni: string;
         image: string;
-        isAdmin: boolean;
-        appointments: import("../appointment/entities/appointment.entity").Appointment[];
+        role: "patient" | "doctor" | "admin";
+        appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
+        appointmentsAsDoctor: import("../appointment/entities/appointment.entity").Appointment[];
         createdAt: Date;
     }>;
     singin(createAuthDto: CreateAuthDto): Promise<{
@@ -25,12 +27,14 @@ export declare class AuthController {
             firstName: string;
             lastName: string;
             email: string;
+            whatsapp: string;
             username: string;
             birthdate: string;
             nDni: string;
             image: string;
-            isAdmin: boolean;
-            appointments: import("../appointment/entities/appointment.entity").Appointment[];
+            role: "patient" | "doctor" | "admin";
+            appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
+            appointmentsAsDoctor: import("../appointment/entities/appointment.entity").Appointment[];
             createdAt: Date;
         };
         token: string;

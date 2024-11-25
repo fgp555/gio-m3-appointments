@@ -24,7 +24,6 @@ let AuthController = class AuthController {
         this.jwtService = jwtService;
     }
     async signup(createAuthDto) {
-        console.log('createAuthDto', createAuthDto);
         const foundEmail = await this.userService.findOneEmail(createAuthDto.email);
         if (foundEmail)
             throw new common_1.UnauthorizedException('This email already exists');

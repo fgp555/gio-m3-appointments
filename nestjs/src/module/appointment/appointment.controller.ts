@@ -10,7 +10,7 @@ export class AppointmentController {
   constructor(private readonly appointmentService: AppointmentService) {}
 
   @Post()
-  create(@Body() createAppointmentDto: CreateAppointmentDto): Promise<Appointment> {
+  create(@Body() createAppointmentDto: CreateAppointmentDto) {
     return this.appointmentService.create(createAppointmentDto);
   }
 
@@ -34,6 +34,6 @@ export class AppointmentController {
 
   @Delete(':id')
   remove(@Param('id') id: number): Promise<void> {
-    return this.appointmentService.remove(id);
+    return this.appointmentService.delete(id);
   }
 }

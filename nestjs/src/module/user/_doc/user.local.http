@@ -1,6 +1,17 @@
 @token=Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlkIjoxLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTczMTg5MjA2MSwiZXhwIjoxNzMyNzU2MDYxfQ.xmMMqF7RLAodN6fc7WkmNtyAM8ymNWGyH4q2YY6NZLg
 @token_user=Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlkIjoyLCJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiaWF0IjoxNzMxODkzNjU5LCJleHAiOjE3MzI3NTc2NTl9.-HQemWKbFIIDSALbyhd9rnCPcdBwygkfp7JqV3KLL3Y
 
+###### Get users by role
+GET http://localhost:3000/api/users/role/admin
+Authorization: {{token}}
+
+###### Get users by role
+GET http://localhost:3000/api/users/role/patient
+Authorization: {{token}}
+
+###### Get users by role
+GET http://localhost:3000/api/users/role/doctor
+Authorization: {{token}}
 
 ###
 POST http://localhost:3000/api/auth/signup
@@ -10,6 +21,7 @@ Content-Type: application/json
 {
     "firstName": "admin",
     "lastName": "last admin",
+    "whatsapp": "123456789",
     "username": "admin",
     "email": "admin@gmail.com",
     "password": "P4ssWord@123",

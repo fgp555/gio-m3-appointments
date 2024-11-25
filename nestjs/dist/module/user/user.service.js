@@ -64,6 +64,7 @@ let UserService = class UserService {
         }
         const user = await this.userRepository.findOne({
             where: { id: Number(id) },
+            relations: ['appointmentsAsPatient', 'appointmentsAsDoctor'],
         });
         if (!user) {
             throw new common_1.NotFoundException(`User with ID ${id} not found`);
@@ -71,7 +72,16 @@ let UserService = class UserService {
         return user;
     }
     async findById(userId) {
-        return this.userRepository.findOne({ where: { id: userId } });
+        return this.userRepository.findOne({
+            where: { id: userId },
+            relations: ['appointmentsAsPatient', 'appointmentsAsDoctor'],
+        });
+    }
+    async findByRole(role) {
+        return await this.userRepository.find({
+            where: { role },
+            relations: ['appointmentsAsPatient', 'appointmentsAsDoctor'],
+        });
     }
     async update(id, updateUserDto) {
         await this.findOne(id);

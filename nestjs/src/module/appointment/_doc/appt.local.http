@@ -3,9 +3,14 @@ POST http://localhost:3000/api/appointments
 Content-Type: application/json
 
 {
-  "date": "2024-11-25T10:00:00.000Z",
-  "description": "Meeting with Team A",
-  "userId": 1
+  "date": "2024-12-01T10:00:00.000Z",
+  "description": "Annual check-up",
+  "patient": {
+    "id": 2
+  },
+  "doctor": {
+    "id": 3
+  }
 }
 
 ### Get All Appointments

@@ -23,33 +23,58 @@ let AppointmentService = class AppointmentService {
         this.appointmentRepository = appointmentRepository;
         this.userService = userService;
     }
-    async create(createAppointmentDto) {
-        const { date, description, userId } = createAppointmentDto;
-        const user = await this.userService.findById(userId);
-        if (!user) {
-            throw new Error(`User with ID ${userId} does not exist.`);
+    async create(appointmentData) {
+        const { patient, doctor } = appointmentData;
+        const foundPatient = await this.userService.findById(patient.id);
+        if (!foundPatient) {
+            throw new common_1.NotFoundException(`Patient with ID ${patient.id} not found`);
         }
-        const appointment = this.appointmentRepository.create({
-            date: createAppointmentDto.date,
-            description: createAppointmentDto.description,
-            userId: user,
-        });
-        return this.appointmentRepository.save(appointment);
+        const foundDoctor = await this.userService.findById(doctor.id);
+        if (!foundDoctor) {
+            throw new common_1.NotFoundException(`Doctor with ID ${doctor.id} not found`);
+        }
+        const appointment = this.appointmentRepository.create(appointmentData);
+        return await this.appointmentRepository.save(appointment);
     }
     async findAll() {
-        return this.appointmentRepository.find({
-            relations: { userId: true },
+        return await this.appointmentRepository.find({
+            relations: ['patient', 'doctor'],
+            select: {
+                id: true,
+                date: true,
+                description: true,
+                patient: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                },
+                doctor: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                },
+            },
         });
     }
     async findOne(id) {
-        return this.appointmentRepository.findOne({ where: { id } });
+        const appointment = await this.appointmentRepository.findOne({
+            where: { id },
+            relations: ['patient', 'doctor'],
+        });
+        if (!appointment)
+            throw new common_1.NotFoundException(`Appointment with ID ${id} not found`);
+        return appointment;
     }
-    async update(id, updateAppointmentDto) {
-        await this.appointmentRepository.update(id, updateAppointmentDto);
-        return this.findOne(id);
+    async update(id, appointmentData) {
+        const appointment = await this.findOne(id);
+        Object.assign(appointment, appointmentData);
+        return await this.appointmentRepository.save(appointment);
     }
-    async remove(id) {
-        await this.appointmentRepository.delete(id);
+    async delete(id) {
+        const result = await this.appointmentRepository.delete(id);
+        if (result.affected === 0) {
+            throw new common_1.NotFoundException(`Appointment with ID ${id} not found`);
+        }
     }
     async findOneByDateAndDescription(date, description) {
         return this.appointmentRepository.findOne({

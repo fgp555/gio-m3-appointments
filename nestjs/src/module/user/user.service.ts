@@ -83,6 +83,7 @@ export class UserService {
 
     const user = await this.userRepository.findOne({
       where: { id: Number(id) },
+      relations: ['appointmentsAsPatient', 'appointmentsAsDoctor'],
     });
 
     if (!user) {
@@ -92,9 +93,19 @@ export class UserService {
     return user;
   }
 
-  // Find user by ID
+  // Find user by ID for seeder
   async findById(userId: number): Promise<UserEntity | null> {
-    return this.userRepository.findOne({ where: { id: userId } });
+    return this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['appointmentsAsPatient', 'appointmentsAsDoctor'],
+    });
+  }
+
+  async findByRole(role: 'admin' | 'patient' | 'doctor') {
+    return await this.userRepository.find({
+      where: { role },
+      relations: ['appointmentsAsPatient', 'appointmentsAsDoctor'],
+    });
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<UserEntity> {

@@ -24,27 +24,31 @@ __decorate([
     __metadata("design:type", String)
 ], UserEntity.prototype, "firstName", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 100 }),
+    (0, typeorm_1.Column)({ length: 100, nullable: true }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "lastName", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ unique: true }),
+    (0, typeorm_1.Column)({ unique: true, nullable: true }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 100 }),
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], UserEntity.prototype, "whatsapp", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ length: 100, nullable: true }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "username", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ select: false }),
+    (0, typeorm_1.Column)({ select: false, nullable: true }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 100 }),
+    (0, typeorm_1.Column)({ length: 100, nullable: true }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "birthdate", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 100 }),
+    (0, typeorm_1.Column)({ length: 100, nullable: true }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "nDni", void 0);
 __decorate([
@@ -52,16 +56,21 @@ __decorate([
     __metadata("design:type", String)
 ], UserEntity.prototype, "image", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true, default: false }),
-    __metadata("design:type", Boolean)
-], UserEntity.prototype, "isAdmin", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => appointment_entity_1.Appointment, (appointment) => appointment.userId, {
-        eager: true,
-        cascade: true,
+    (0, typeorm_1.Column)({
+        type: 'enum',
+        enum: ['patient', 'doctor', 'admin'],
+        default: 'patient',
     }),
+    __metadata("design:type", String)
+], UserEntity.prototype, "role", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => appointment_entity_1.Appointment, (appointment) => appointment.patient, {}),
     __metadata("design:type", Array)
-], UserEntity.prototype, "appointments", void 0);
+], UserEntity.prototype, "appointmentsAsPatient", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => appointment_entity_1.Appointment, (appointment) => appointment.doctor, {}),
+    __metadata("design:type", Array)
+], UserEntity.prototype, "appointmentsAsDoctor", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

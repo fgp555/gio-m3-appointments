@@ -34,7 +34,7 @@ let AppointmentController = class AppointmentController {
         return this.appointmentService.update(id, updateAppointmentDto);
     }
     remove(id) {
-        return this.appointmentService.remove(id);
+        return this.appointmentService.delete(id);
     }
 };
 exports.AppointmentController = AppointmentController;
@@ -43,7 +43,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_appointment_dto_1.CreateAppointmentDto]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], AppointmentController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),

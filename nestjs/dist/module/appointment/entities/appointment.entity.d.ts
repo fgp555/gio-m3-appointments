@@ -3,5 +3,6 @@ export declare class Appointment {
     id: number;
     date: string;
     description: string;
-    userId: UserEntity;
+    patient: UserEntity;
+    doctor: UserEntity;
 }

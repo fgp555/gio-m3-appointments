@@ -22,7 +22,6 @@ export class AuthController {
   @Post('signup')
   // @UseGuards(AuthGuard)
   async signup(@Body() createAuthDto: any) {
-    console.log('createAuthDto', createAuthDto);
     const foundEmail = await this.userService.findOneEmail(createAuthDto.email);
 
     if (foundEmail)

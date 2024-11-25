@@ -36,6 +36,9 @@ let UserController = class UserController {
         }
         return await this.userService.findByEmail(email);
     }
+    async findByRole(role) {
+        return await this.userService.findByRole(role);
+    }
     async findOne(id) {
         if (!id || isNaN(Number(id))) {
             throw new common_1.BadRequestException('Invalid ID format');
@@ -76,6 +79,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "findByEmail", null);
+__decorate([
+    (0, common_1.Get)('role/:role'),
+    __param(0, (0, common_1.Param)('role')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "findByRole", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),

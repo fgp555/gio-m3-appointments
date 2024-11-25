@@ -4,12 +4,14 @@ export declare class UserEntity {
     firstName: string;
     lastName: string;
     email: string;
+    whatsapp: string;
     username: string;
     password: string;
     birthdate: string;
     nDni: string;
     image: string;
-    isAdmin: boolean;
-    appointments: Appointment[];
+    role: 'patient' | 'doctor' | 'admin';
+    appointmentsAsPatient: Appointment[];
+    appointmentsAsDoctor: Appointment[];
     createdAt: Date;
 }
