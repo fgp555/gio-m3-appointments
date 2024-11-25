@@ -46,7 +46,7 @@ const AppointmentsPage = () => {
   };
 
   useEffect(() => {
-    getUserAppointments();
+    // getUserAppointments();
   }, [dispatch, userId]);
   // ==========  ==========
 

@@ -54,20 +54,30 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    // Validate form before submitting
     const errors = validateForm(formData);
     if (Object.keys(errors).length > 0) {
       setValidateFormErrors(errors);
       return;
     }
 
+    // Call the registerUser API service
     apiServices
       .registerUser(formData)
       .then((response) => {
-        setSubmitMessage("Registration successful");
         navigate("/login");
+        setSubmitMessage("Registration successful");
       })
       .catch((error) => {
-        setSubmitMessage("There was an error registering: " + error.message);
+        console.error("Caught error:", error); // Log the caught error
+        if (error.response) {
+          // Ensure the error is being caught properly
+          const { message } = error.response.data;
+          setSubmitMessage(`Registration failed: ${message}`);
+        } else {
+          setSubmitMessage("An unexpected error occurred.");
+        }
       });
   };
 

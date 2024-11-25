@@ -21,19 +21,39 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({ length: 100 }),
     __metadata("design:type", String)
-], UserEntity.prototype, "name", void 0);
+], UserEntity.prototype, "firstName", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ length: 100 }),
+    __metadata("design:type", String)
+], UserEntity.prototype, "lastName", void 0);
 __decorate([
     (0, typeorm_1.Column)({ unique: true }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "email", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ length: 100 }),
+    __metadata("design:type", String)
+], UserEntity.prototype, "username", void 0);
+__decorate([
     (0, typeorm_1.Column)({ select: false }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "password", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ length: 100 }),
+    __metadata("design:type", String)
+], UserEntity.prototype, "birthdate", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ length: 100 }),
+    __metadata("design:type", String)
+], UserEntity.prototype, "nDni", void 0);
+__decorate([
     (0, typeorm_1.Column)({ nullable: true, default: 'https://bit.ly/fgpImg1' }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "image", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true, default: false }),
+    __metadata("design:type", Boolean)
+], UserEntity.prototype, "isAdmin", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

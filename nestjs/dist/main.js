@@ -26,7 +26,7 @@ async function bootstrap() {
             next();
         }
     });
-    const PORT = process.env.PORT || 3001;
+    const PORT = process.env.PORT || 3000;
     await app.listen(PORT);
     common_1.Logger.log(`Application is running on: http://localhost:${PORT}`);
 }

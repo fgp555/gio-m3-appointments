@@ -1,8 +1,13 @@
 export declare class UserEntity {
     id: number;
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
+    username: string;
     password: string;
+    birthdate: string;
+    nDni: string;
     image: string;
+    isAdmin: boolean;
     createdAt: Date;
 }

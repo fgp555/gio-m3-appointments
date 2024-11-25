@@ -68,6 +68,14 @@ export class UserService {
     return user || null; // Si no se encuentra, retorna null
   }
 
+  async findOneEmail(email: string) {
+    return await this.userRepository
+      .createQueryBuilder('user')
+      .addSelect('user.password')
+      .where('user.email = :email', { email: email })
+      .getOne();
+  }
+
   async findOne(id: string): Promise<UserEntity> {
     if (!id || isNaN(Number(id))) {
       throw new BadRequestException('Invalid ID format');

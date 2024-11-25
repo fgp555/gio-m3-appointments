@@ -12,19 +12,34 @@ export class UserSeederService {
     // Crear usuarios de ejemplo
     const users: CreateUserDto[] = [
       {
-        name: 'Alice',
-        email: 'alice@example.com',
-        password: 'password123',
+        firstName: 'Luis',
+        lastName: 'Lopez',
+        email: 'luis@gmail.com',
+        username: 'luis_lopez',
+        password: 'P4ssWord@123',
+        confirmPassword: 'P4ssWord@123',
+        birthdate: '2000-01-01',
+        nDni: '87654321',
       },
       {
-        name: 'Bob',
-        email: 'bob@example.com',
-        password: 'password123',
+        firstName: 'Maria',
+        lastName: 'Garcia',
+        email: 'maria@gmail.com',
+        username: 'maria_garcia',
+        password: 'P4ssWord@123',
+        confirmPassword: 'P4ssWord@123',
+        birthdate: '2000-01-01',
+        nDni: '12345678',
       },
       {
-        name: 'Charlie',
-        email: 'charlie@example.com',
-        password: 'password123',
+        firstName: 'Ana',
+        lastName: 'Gomez',
+        email: 'ana@gmail.com',
+        username: 'ana_gomez',
+        password: 'P4ssWord@123',
+        confirmPassword: 'P4ssWord@123',
+        birthdate: '2000-01-01',
+        nDni: '87654321',
       },
     ];
 
@@ -39,9 +54,11 @@ export class UserSeederService {
         }
 
         await this.userService.create(user);
-        console.log(`User ${user.name} created successfully.`);
+        console.log(`User ${user.firstName} created successfully.`);
       } catch (error) {
-        console.error(`Failed to create user ${user.name}: ${error.message}`);
+        console.error(
+          `Failed to create user ${user.firstName}: ${error.message}`,
+        );
       }
     }
   }

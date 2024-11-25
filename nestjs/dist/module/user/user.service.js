@@ -51,6 +51,13 @@ let UserService = class UserService {
         });
         return user || null;
     }
+    async findOneEmail(email) {
+        return await this.userRepository
+            .createQueryBuilder('user')
+            .addSelect('user.password')
+            .where('user.email = :email', { email: email })
+            .getOne();
+    }
     async findOne(id) {
         if (!id || isNaN(Number(id))) {
             throw new common_1.BadRequestException('Invalid ID format');

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { fetchUser } from "../../redux/userSlice";
 
 const Login = () => {
-  const [formData, setFormData] = useState({ username: "pepe_perez", password: "P4ssWord@123" });
+  const [formData, setFormData] = useState({ email: "pepe@gmail.com", password: "P4ssWord@123" });
   const [message, setMessage] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Login = () => {
   };
 
   const validateForm = () => {
-    return formData.username && formData.password;
+    return formData.email && formData.password;
   };
 
   useEffect(() => {
@@ -28,29 +28,46 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validación del formulario
     if (!validateForm()) {
       setMessage("Por favor, complete todos los campos.");
       return;
     }
 
     try {
+      // Intentamos hacer login
       const response = await apiServices.login(formData);
-      navigate("/mis-turnos");
-      console.log("response.data", response.data);
-      dispatch(fetchUser(response.data));
+      navigate("/mis-turnos"); // Navegar a la página de "mis-turnos"
+      // Disparar la acción para almacenar los datos del usuario
+      dispatch(fetchUser(response));
+      console.log("response", response);
+      // Mostrar mensaje de éxito
       setMessage("Login exitoso.");
     } catch (error) {
-      setMessage("Error en el login. Por favor, intente nuevamente.");
+      // Si ocurre un error en la API, manejamos el error específico
+      console.error("Error en login:", error);
+      if (error.response) {
+        // Si el error tiene una respuesta del servidor, mostramos el mensaje del servidor
+        setMessage(`Error en el login: ${error.response.data.message || "Por favor, intente nuevamente."}`);
+      } else if (error.request) {
+        // Si no hay respuesta del servidor, podría ser un problema de red
+        setMessage("Error de red. Por favor, verifique su conexión e intente nuevamente.");
+      } else {
+        // Si el error es de otro tipo
+        setMessage("Ocurrió un error inesperado. Intente más tarde.");
+      }
     }
   };
 
   return (
     <div className="main">
+      {/* <pre>{JSON.parse(localStorage.getItem("user"))}</pre> */}
       <h1>Iniciar Sesión</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} required />
+          <label htmlFor="email">Email:</label>
+          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
         </div>
         <div>
           <label htmlFor="password">Password:</label>

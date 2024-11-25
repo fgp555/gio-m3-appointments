@@ -16,9 +16,14 @@ class CreateUserDto {
 exports.CreateUserDto = CreateUserDto;
 __decorate([
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.MaxLength)(100, { message: 'Name should be less than 100 characters' }),
+    (0, class_validator_1.MaxLength)(100, { message: 'First name should be less than 100 characters' }),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "name", void 0);
+], CreateUserDto.prototype, "firstName", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MaxLength)(100, { message: 'Last name should be less than 100 characters' }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "lastName", void 0);
 __decorate([
     (0, class_validator_1.IsEmail)({}, { message: 'Invalid email format' }),
     (0, class_validator_1.IsString)(),
@@ -27,14 +32,41 @@ __decorate([
 ], CreateUserDto.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MaxLength)(100, { message: 'Username should be less than 100 characters' }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "username", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(6, { message: 'Password should be at least 6 characters long' }),
     (0, class_validator_1.MaxLength)(20, { message: 'Password should be less than 20 characters' }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(6, {
+        message: 'Confirm password should be at least 6 characters long',
+    }),
+    (0, class_validator_1.MaxLength)(20, {
+        message: 'Confirm password should be less than 20 characters',
+    }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "confirmPassword", void 0);
+__decorate([
+    (0, class_validator_1.IsDateString)({}, { message: 'Birthdate must be a valid date format' }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "birthdate", void 0);
+__decorate([
+    (0, class_validator_1.Matches)(/^\d{8}$/, { message: 'nDni should be exactly 8 digits' }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "nDni", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MaxLength)(255, { message: 'Image URL should be less than 255 characters' }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "image", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], CreateUserDto.prototype, "isAdmin", void 0);
 //# sourceMappingURL=create-user.dto.js.map
