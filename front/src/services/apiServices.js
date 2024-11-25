@@ -44,6 +44,54 @@ const apiServices = {
     }
   },
 
+  fetchAppointments: async () => {
+    try {
+      console.log("Fetching appointments...");
+      const response = await axios.get(`${API_URL}/appointments`);
+      console.log("Appointments fetched successfully:", response.data);
+      return response.data; // Return the appointments data
+    } catch (error) {
+      console.error("Error occurred while fetching appointments:", error);
+
+      if (error.response) {
+        // Server responded with a status outside the 2xx range
+        console.error("Error response:", error.response);
+        console.log("Response data structure:", error.response.data);
+        const { message, statusCode } = error.response.data;
+        console.log(`Error message: ${message}, Status code: ${statusCode}`);
+      } else if (error.request) {
+        // No response received
+        console.error("No response received:", error.request);
+      } else {
+        // Other errors
+        console.error("Error message:", error.message);
+      }
+
+      throw error; // Re-throw for further handling
+    }
+  },
+
+  createAppointment: async (appointmentData) => {
+    try {
+      console.log("appointmentData", appointmentData);
+      const response = await axios.post(`${API_URL}/appointments`, appointmentData);
+      console.log("Appointment created:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Failed to create appointment:", error);
+
+      if (error.response) {
+        console.error("Error response:", error.response.data);
+        throw new Error(error.response.data.message || "Error creating appointment");
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+        throw new Error("No response from server");
+      } else {
+        throw new Error(error.message || "Unknown error");
+      }
+    }
+  },
+
   fetchUserAppointments: async (userId) => {
     try {
       const response = await axios.get(`${API_URL}/users/${userId}`, {
@@ -59,20 +107,20 @@ const apiServices = {
     }
   },
 
-  createAppointment: async (appointmentData) => {
-    try {
-      const response = await axios.post(`${API_URL}/appointments/schedule`, appointmentData, {
-        headers: {
-          "Content-Type": "application/json",
-          token: "autenticado",
-        },
-      });
-      return response.data;
-    } catch (error) {
-      console.error("Error creating appointment", error);
-      throw error;
-    }
-  },
+  // createAppointment: async (appointmentData) => {
+  //   try {
+  //     const response = await axios.post(`${API_URL}/appointments/schedule`, appointmentData, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         token: "autenticado",
+  //       },
+  //     });
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error("Error creating appointment", error);
+  //     throw error;
+  //   }
+  // },
 
   cleanAppointments: async (appointmentId) => {
     const response = await axios.put(`${API_URL}/appointments/cancel/${appointmentId}`);

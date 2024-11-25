@@ -92,6 +92,11 @@ export class UserService {
     return user;
   }
 
+  // Find user by ID
+  async findById(userId: number): Promise<UserEntity | null> {
+    return this.userRepository.findOne({ where: { id: userId } });
+  }
+
   async update(id: string, updateUserDto: UpdateUserDto): Promise<UserEntity> {
     await this.findOne(id); // Ensures the user exists or throws an error
 

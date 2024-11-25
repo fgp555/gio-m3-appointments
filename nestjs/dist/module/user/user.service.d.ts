@@ -10,6 +10,7 @@ export declare class UserService {
     findByEmail(email: string): Promise<UserEntity | null>;
     findOneEmail(email: string): Promise<UserEntity>;
     findOne(id: string): Promise<UserEntity>;
+    findById(userId: number): Promise<UserEntity | null>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<UserEntity>;
     remove(id: string): Promise<UserEntity>;
 }

@@ -70,6 +70,9 @@ let UserService = class UserService {
         }
         return user;
     }
+    async findById(userId) {
+        return this.userRepository.findOne({ where: { id: userId } });
+    }
     async update(id, updateUserDto) {
         await this.findOne(id);
         try {

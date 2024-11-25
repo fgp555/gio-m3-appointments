@@ -19,74 +19,67 @@ const AppointmentsPage = () => {
     time: "09:00",
   });
 
-  // Fetch appointments from the backend
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/appointments")
-  //     .then((response) => response.json())
-  //     .then((data) => setAppointments(data))
-  //     .catch((error) => console.error("Error fetching appointments:", error));
-  // }, []);
-
-  // ==========  ==========
-  const [tempData, setTempData] = useState([]);
-
   const appoinmentSelector = useSelector((state) => state.appointments);
   const userSelector = useSelector((state) => state.user);
   const userId = userSelector?.user?.id;
 
   const dispatch = useDispatch();
 
-  const getUserAppointments = () => {
-    if (userId) {
-      apiServices.fetchUserAppointments(userId).then((response) => {
-        setAppointments(response);
-        dispatch(fetchAppointments(response));
-      });
+  const fetchAppointmentsFromApi = async () => {
+    try {
+      const appointments = await apiServices.fetchAppointments();
+      setAppointments(appointments);
+      dispatch(fetchAppointments(appointments));
+    } catch (error) {
+      console.error("Failed to fetch appointments:", error);
     }
   };
 
   useEffect(() => {
-    // getUserAppointments();
-  }, [dispatch, userId]);
+    fetchAppointmentsFromApi();
+  }, [userId]);
   // ==========  ==========
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewAppointment((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-  // Handle creating new appointment
-  const handleCreateAppointment = (e) => {
+  const handleSubmitCreateAppt = async (e) => {
     e.preventDefault();
-    const appointmentDate = new Date(newAppointment.date);
-    const [hours, minutes] = newAppointment.time.split(":");
-    appointmentDate.setHours(hours, minutes);
 
-    // Send the new appointment to the backend
-    // fetch("http://localhost:5000/appointments", {
-    fetch("/api/appointments/schedule", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        description: newAppointment.description,
-        date: appointmentDate.toISOString(),
-      }),
-      // body: JSON.stringify({
-      //   date: "2024-11-21T10:00:00.000Z",
-      //   time: "09:15",
-      //   userId: 1,
-      //   description: "hernia lumbar",
-      // }),
-    })
-      .then((response) => response.json())
-      .then((newAppt) => {
-        // setAppointments([...appointments, newAppt]);
-        // setIsModalOpen(false);
-        // setNewAppointment({ description: "", date: selectedDay, time: "09:00" });
-        console.log("newAppt", newAppt);
-        getUserAppointments();
-      })
-      .catch((error) => {
-        console.error("Error creating appointment:", error);
-        getUserAppointments();
+    try {
+      const { description, date, time } = newAppointment;
+
+      // Combinar la fecha seleccionada y la hora proporcionada en el formato requerido
+      const formattedDate = new Date(`${format(date, "yyyy-MM-dd")}T${time}:00.000Z`);
+
+      const appointmentData = {
+        date: formattedDate.toISOString(),
+        description,
+        userId: 1, // Asegúrate de que `userId` esté definido correctamente
+      };
+
+      console.log("Payload to send:", appointmentData);
+
+      // Enviar la cita al backend
+      const response = await apiServices.createAppointment(appointmentData);
+      console.log("Appointment created successfully:", response);
+
+      // Limpiar el formulario
+      setNewAppointment({
+        description: "description 123",
+        date: new Date(),
+        time: "09:00",
       });
+
+      // Actualizar la lista de citas
+      fetchAppointmentsFromApi();
+    } catch (err) {
+      console.error("Error creating appointment:", err);
+    }
   };
 
   // Handle deleting an appointment
@@ -200,7 +193,7 @@ const AppointmentsPage = () => {
 
             <div className="modal">
               <h3>Crear nueva cita</h3>
-              <form onSubmit={handleCreateAppointment}>
+              <form onSubmit={handleSubmitCreateAppt}>
                 <div>
                   <label>Descripción</label>
                   <input type="text" value={newAppointment.description} onChange={(e) => setNewAppointment({ ...newAppointment, description: e.target.value })} />

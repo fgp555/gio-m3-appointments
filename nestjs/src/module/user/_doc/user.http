@@ -1,4 +1,4 @@
-@host=http://localhost:3001/api
+@host=http://localhost:3000/api
 
 ### Crear un nuevo usuario
 POST {{host}}/users

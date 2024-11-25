@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserEntity = void 0;
+const appointment_entity_1 = require("../../appointment/entities/appointment.entity");
 const typeorm_1 = require("typeorm");
 let UserEntity = class UserEntity {
 };
@@ -54,6 +55,13 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: true, default: false }),
     __metadata("design:type", Boolean)
 ], UserEntity.prototype, "isAdmin", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => appointment_entity_1.Appointment, (appointment) => appointment.userId, {
+        eager: true,
+        cascade: true,
+    }),
+    __metadata("design:type", Array)
+], UserEntity.prototype, "appointments", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

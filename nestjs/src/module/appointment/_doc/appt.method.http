@@ -1,0 +1,27 @@
+### Create Appointment
+POST http://localhost:3000/api/appointments
+Content-Type: application/json
+
+{
+  "date": "2024-11-25T10:00:00.000Z",
+  "description": "Meeting with Team A",
+  "userId": 1
+}
+
+### Get All Appointments
+GET http://localhost:3000/api/appointments
+
+### Get Appointment by ID
+GET http://localhost:3000/api/appointments/1
+
+### Update Appointment
+PUT http://localhost:3000/api/appointments/1
+Content-Type: application/json
+
+{
+  "date": "2024-11-22T10:00:00.000Z",
+  "description": "Meeting with Team B"
+}
+
+### Delete Appointment
+DELETE http://localhost:3000/api/appointments/1

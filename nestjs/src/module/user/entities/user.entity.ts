@@ -1,8 +1,10 @@
+import { Appointment } from 'src/module/appointment/entities/appointment.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('users')
@@ -36,6 +38,12 @@ export class UserEntity {
 
   @Column({ nullable: true, default: false })
   isAdmin: boolean;
+
+  @OneToMany(() => Appointment, (appointment) => appointment.userId, {
+    eager: true,
+    cascade: true,
+  })
+  appointments: Appointment[];
 
   @CreateDateColumn()
   createdAt: Date;

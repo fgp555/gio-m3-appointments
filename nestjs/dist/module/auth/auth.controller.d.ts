@@ -15,6 +15,7 @@ export declare class AuthController {
         nDni: string;
         image: string;
         isAdmin: boolean;
+        appointments: import("../appointment/entities/appointment.entity").Appointment[];
         createdAt: Date;
     }>;
     singin(createAuthDto: CreateAuthDto): Promise<{
@@ -29,6 +30,7 @@ export declare class AuthController {
             nDni: string;
             image: string;
             isAdmin: boolean;
+            appointments: import("../appointment/entities/appointment.entity").Appointment[];
             createdAt: Date;
         };
         token: string;

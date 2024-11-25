@@ -1,3 +1,4 @@
+import { Appointment } from 'src/module/appointment/entities/appointment.entity';
 export declare class UserEntity {
     id: number;
     firstName: string;
@@ -9,5 +10,6 @@ export declare class UserEntity {
     nDni: string;
     image: string;
     isAdmin: boolean;
+    appointments: Appointment[];
     createdAt: Date;
 }
