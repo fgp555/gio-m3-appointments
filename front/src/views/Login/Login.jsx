@@ -38,7 +38,7 @@ const Login = () => {
     try {
       // Intentamos hacer login
       const response = await apiServices.login(formData);
-      navigate("/mis-turnos"); // Navegar a la página de "mis-turnos"
+      navigate("/appointments"); // Navegar a la página de "mis-turnos"
       // Disparar la acción para almacenar los datos del usuario
       dispatch(fetchUser(response));
       console.log("response", response);

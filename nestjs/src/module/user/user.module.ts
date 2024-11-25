@@ -9,13 +9,6 @@ import { UserSeederService } from './seed/user.seeder';
   imports: [TypeOrmModule.forFeature([UserEntity])],
   controllers: [UserController],
   providers: [UserService, UserSeederService],
-  exports: [UserService],
+  exports: [UserService, UserSeederService],
 })
-export class UserModule {
-  constructor(private userSeederService: UserSeederService) {
-    this.seed();
-  }
-  private async seed() {
-    await this.userSeederService.seed();
-  }
-}
+export class UserModule {}

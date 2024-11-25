@@ -12,5 +12,6 @@ import { UserEntity } from '../user/entities/user.entity';
   imports: [TypeOrmModule.forFeature([Appointment, UserEntity])],
   controllers: [AppointmentController],
   providers: [AppointmentService, AppointmentSeederService, UserService],
+  exports: [AppointmentSeederService],
 })
 export class AppointmentModule {}

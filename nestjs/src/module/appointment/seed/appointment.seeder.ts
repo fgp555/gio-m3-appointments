@@ -1,61 +1,82 @@
 import { Injectable } from '@nestjs/common';
 import { AppointmentService } from '../appointment.service';
 import { CreateAppointmentDto } from '../dto/create-appointment.dto';
-import { UserService } from 'src/module/user/user.service'; // Assuming UserService exists for fetching users
+import { UserService } from 'src/module/user/user.service';
 
 @Injectable()
 export class AppointmentSeederService {
   constructor(
     private readonly appointmentService: AppointmentService,
-    private readonly userService: UserService, // Injecting UserService to find users
-  ) {
-    this.seed();
-  }
+    private readonly userService: UserService,
+  ) {}
 
   async seed() {
-    // Example appointments data
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const threeDaysFromNow = new Date(today);
+    threeDaysFromNow.setDate(today.getDate() + 3);
+
     const appointments: CreateAppointmentDto[] = [
+      // Tareas para hoy
       {
-        date: '2024-11-25T10:00:00.000Z',
-        description: 'Meeting with Team A',
-        userId: 1, // User ID 1 (Ensure this user exists in the database)
+        date: today.toISOString(),
+        description: 'Task 1 for today',
+        userId: 1,
       },
       {
-        date: '2024-11-26T11:00:00.000Z',
-        description: 'Client presentation',
-        userId: 2, // User ID 2 (Ensure this user exists in the database)
+        date: today.toISOString(),
+        description: 'Task 2 for today',
+        userId: 2,
       },
       {
-        date: '2024-11-27T09:00:00.000Z',
-        description: 'Team building event',
-        userId: 1, // User ID 1 (Ensure this user exists in the database)
+        date: today.toISOString(),
+        description: 'Task 3 for today',
+        userId: 3,
+      },
+      // Tareas para mañana
+      {
+        date: tomorrow.toISOString(),
+        description: 'Task 1 for tomorrow',
+        userId: 1,
+      },
+      {
+        date: tomorrow.toISOString(),
+        description: 'Task 2 for tomorrow',
+        userId: 2,
+      },
+      {
+        date: tomorrow.toISOString(),
+        description: 'Task 3 for tomorrow',
+        userId: 3,
+      },
+      // Tareas para dentro de 3 días
+      {
+        date: threeDaysFromNow.toISOString(),
+        description: 'Task 1 for 3 days from now',
+        userId: 1,
+      },
+      {
+        date: threeDaysFromNow.toISOString(),
+        description: 'Task 2 for 3 days from now',
+        userId: 2,
+      },
+      {
+        date: threeDaysFromNow.toISOString(),
+        description: 'Task 3 for 3 days from now',
+        userId: 3,
       },
     ];
 
-    // Insert appointments into the database
     for (const appointment of appointments) {
       try {
-        // Find the user by ID to ensure user exists
         const user = await this.userService.findById(appointment.userId);
         if (!user) {
           console.log(`User with ID ${appointment.userId} does not exist.`);
-          continue; // Skip this appointment if the user doesn't exist
+          continue;
         }
 
-        // // Verify if an appointment with the same date and description already exists
-        // const existingAppointment =
-        //   await this.appointmentService.findOneByDateAndDescription(
-        //     appointment.date,
-        //     appointment.description,
-        //   );
-        // if (existingAppointment) {
-        //   console.log(
-        //     `Appointment with date ${appointment.date} and description "${appointment.description}" already exists.`,
-        //   );
-        //   continue; // Skip creating this appointment if it already exists
-        // }
-
-        // Create the appointment, setting the userId correctly
         await this.appointmentService.create(appointment);
         console.log(`Appointment on ${appointment.date} created successfully.`);
       } catch (error) {
