@@ -106,6 +106,14 @@ let AppointmentService = class AppointmentService {
             where: { date, description },
         });
     }
+    async cancel(id) {
+        const appointment = await this.findOne(id);
+        if (!appointment) {
+            throw new common_1.NotFoundException(`Appointment with ID ${id} not found`);
+        }
+        appointment.status = 'CANCELED';
+        return await this.appointmentRepository.save(appointment);
+    }
 };
 exports.AppointmentService = AppointmentService;
 exports.AppointmentService = AppointmentService = __decorate([

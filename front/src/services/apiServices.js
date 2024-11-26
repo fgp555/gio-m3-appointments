@@ -145,22 +145,44 @@ const apiServices = {
   },
 
   cleanAppointments: async (appointmentId) => {
-    const response = await axios.put(`${API_URL}/appointments/cancel/${appointmentId}`);
-    return response;
+    console.log("Cleaning appointments...");
   },
 
   cancelAppointment: async (appointmentId) => {
     try {
-      const response = await axios.post(`${API_URL}/appointments/${appointmentId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          token: "autenticado",
-        },
-      });
-      return response.data;
+      const response = await axios.patch(`${API_URL}/appointments/cancel/${appointmentId}`);
+      return response.data; // Return the updated appointment data
     } catch (error) {
-      console.error("Error canceling appointment", error);
-      throw error;
+      console.error(`Failed to cancel appointment with ID ${appointmentId}:`, error);
+
+      if (error.response) {
+        console.error("Error response:", error.response.data);
+        throw new Error(error.response.data.message || "Error canceling appointment");
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+        throw new Error("No response from server");
+      } else {
+        throw new Error(error.message || "Unknown error");
+      }
+    }
+  },
+
+  deleteAppointment: async (appointmentId) => {
+    try {
+      const response = await axios.delete(`${API_URL}/appointments/${appointmentId}`);
+      return response.data; // Return the result of the deletion
+    } catch (error) {
+      console.error(`Failed to delete appointment with ID ${appointmentId}:`, error);
+
+      if (error.response) {
+        console.error("Error response:", error.response.data);
+        throw new Error(error.response.data.message || "Error deleting appointment");
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+        throw new Error("No response from server");
+      } else {
+        throw new Error(error.message || "Unknown error");
+      }
     }
   },
 };

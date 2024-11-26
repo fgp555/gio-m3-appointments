@@ -39,6 +39,9 @@ let AppointmentController = class AppointmentController {
     remove(id) {
         return this.appointmentService.delete(id);
     }
+    cancel(id) {
+        return this.appointmentService.cancel(id);
+    }
 };
 exports.AppointmentController = AppointmentController;
 __decorate([
@@ -83,6 +86,13 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], AppointmentController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Patch)('cancel/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], AppointmentController.prototype, "cancel", null);
 exports.AppointmentController = AppointmentController = __decorate([
     (0, common_1.Controller)('appointments'),
     __metadata("design:paramtypes", [appointment_service_1.AppointmentService])

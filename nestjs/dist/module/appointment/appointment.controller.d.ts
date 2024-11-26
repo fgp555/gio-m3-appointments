@@ -11,4 +11,5 @@ export declare class AppointmentController {
     findOne(id: number): Promise<Appointment>;
     update(id: number, updateAppointmentDto: UpdateAppointmentDto): Promise<Appointment>;
     remove(id: number): Promise<void>;
+    cancel(id: number): Promise<Appointment>;
 }

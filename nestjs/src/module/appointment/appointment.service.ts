@@ -112,4 +112,17 @@ export class AppointmentService {
       where: { date, description },
     });
   }
+
+  async cancel(id: number): Promise<Appointment> {
+    const appointment = await this.findOne(id);
+
+    if (!appointment) {
+      throw new NotFoundException(`Appointment with ID ${id} not found`);
+    }
+
+    // Assuming "status" is a string property in the Appointment entity
+    appointment.status = 'CANCELED';
+
+    return await this.appointmentRepository.save(appointment);
+  }
 }

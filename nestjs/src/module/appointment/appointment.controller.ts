@@ -7,6 +7,7 @@ import {
   Param,
   Put,
   Delete,
+  Patch,
 } from '@nestjs/common';
 import { AppointmentService } from './appointment.service';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
@@ -48,5 +49,10 @@ export class AppointmentController {
   @Delete(':id')
   remove(@Param('id') id: number): Promise<void> {
     return this.appointmentService.delete(id);
+  }
+
+  @Patch('cancel/:id')
+  cancel(@Param('id') id: number): Promise<Appointment> {
+    return this.appointmentService.cancel(id);
   }
 }

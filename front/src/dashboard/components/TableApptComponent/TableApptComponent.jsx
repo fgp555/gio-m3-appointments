@@ -13,7 +13,7 @@ const TableApptComponent = () => {
   const [view, setView] = useState("month");
   const [apptState123, setApptState123] = useState([
     {
-      id: 10,
+      id: 1,
       date: "2025-12-01T10:00:00.000Z",
       description: "Annual check-up",
       status: "PENDING",
@@ -46,31 +46,23 @@ const TableApptComponent = () => {
     },
   ]);
 
-  const cancelAppt = (id) => {
-    console.log("cancelAppt", id);
-    return;
-    fetch(`/api/appointments/cancel/${id}`, {
-      method: "PUT",
-    })
-      .then(() => {
-        // getUserAppointments();
-      })
-      .catch((error) => console.error("Error deleting appointment:", error));
+  const handleCancelAppointment = async (appointmentId) => {
+    try {
+      const canceledAppointment = await apiServices.cancelAppointment(appointmentId);
+      console.log("Appointment canceled successfully:", canceledAppointment);
+    } catch (error) {
+      console.error("Error canceling appointment:", error.message);
+    }
   };
 
-  const deleteAppt = (id) => {
-    console.log("deleteAppt", id);
-    return;
-
-    fetch(`/api/appointments/cancel/${id}`, {
-      method: "PUT",
-    })
-      .then(() => {
-        // getUserAppointments();
-      })
-      .catch((error) => console.error("Error deleting appointment:", error));
+  const handleDeleteAppointment = async (appointmentId) => {
+    try {
+      await apiServices.deleteAppointment(appointmentId);
+      console.log("Appointment deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting appointment:", error.message);
+    }
   };
-
   return (
     <>
       <div className="TableApptComponent">
@@ -112,8 +104,8 @@ const TableApptComponent = () => {
                       </aside>
                       <aside className="buttons">
                         <p>{appt.status} </p>
-                        <button onClick={() => cancelAppt(appt.id)}>Cancel</button>
-                        <button onClick={() => deleteAppt(appt.id)}>Delete</button>
+                        <button onClick={() => handleCancelAppointment(appt.id)}>Cancel</button>
+                        <button onClick={() => handleDeleteAppointment(appt.id)}>Delete</button>
                       </aside>
                     </section>
                   </li>

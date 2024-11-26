@@ -12,4 +12,5 @@ export declare class AppointmentService {
     update(id: number, appointmentData: Partial<Appointment>): Promise<Appointment>;
     delete(id: number): Promise<void>;
     findOneByDateAndDescription(date: string, description: string): Promise<Appointment>;
+    cancel(id: number): Promise<Appointment>;
 }
