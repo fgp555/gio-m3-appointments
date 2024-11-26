@@ -1,5 +1,11 @@
 import { UserEntity } from 'src/module/user/entities/user.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Appointment {
@@ -39,4 +45,7 @@ export class Appointment {
 
   @ManyToOne(() => UserEntity, (user) => user.appointmentsAsDoctor)
   doctor: UserEntity;
+
+  @CreateDateColumn()
+  createdAt: Date;
 }

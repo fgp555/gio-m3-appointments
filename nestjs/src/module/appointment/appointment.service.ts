@@ -40,6 +40,7 @@ export class AppointmentService {
         date: true,
         description: true,
         status: true,
+        createdAt: true,
         patient: {
           id: true,
           firstName: true,
@@ -66,7 +67,7 @@ export class AppointmentService {
 
   async findLast(count: string): Promise<Appointment[]> {
     return await this.appointmentRepository.find({
-      order: { date: 'DESC' },
+      order: { createdAt: 'DESC' },
       take: Number(count),
       relations: ['patient', 'doctor'], // Incluir relaciones si es necesario
       select: {
@@ -74,6 +75,7 @@ export class AppointmentService {
         date: true,
         description: true,
         status: true,
+        createdAt: true,
         patient: {
           id: true,
           firstName: true,

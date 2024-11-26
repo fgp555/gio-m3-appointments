@@ -45,6 +45,7 @@ let AppointmentService = class AppointmentService {
                 date: true,
                 description: true,
                 status: true,
+                createdAt: true,
                 patient: {
                     id: true,
                     firstName: true,
@@ -69,7 +70,7 @@ let AppointmentService = class AppointmentService {
     }
     async findLast(count) {
         return await this.appointmentRepository.find({
-            order: { date: 'DESC' },
+            order: { createdAt: 'DESC' },
             take: Number(count),
             relations: ['patient', 'doctor'],
             select: {
@@ -77,6 +78,7 @@ let AppointmentService = class AppointmentService {
                 date: true,
                 description: true,
                 status: true,
+                createdAt: true,
                 patient: {
                     id: true,
                     firstName: true,

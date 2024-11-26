@@ -3,7 +3,7 @@ POST http://localhost:3000/api/appointments
 Content-Type: application/json
 
 {
-  "date": "2025-12-01T10:00:00.000Z",
+  "date": "2023-12-01T10:00:00.000Z",
   "description": "Annual check-up",
   "status": "PENDING",
   "patient": {

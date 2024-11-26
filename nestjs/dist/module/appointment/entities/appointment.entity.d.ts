@@ -6,4 +6,5 @@ export declare class Appointment {
     status: 'PENDING' | 'CONFIRMED' | 'CANCELED' | 'RESCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'NO_SHOW';
     patient: UserEntity;
     doctor: UserEntity;
+    createdAt: Date;
 }

@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import apiServices from "../../../services/apiServices";
 import "./TableApptComponent.css";
 
-const TableApptComponent = ({ appoinmentData, handleViewChange, viewProps }) => {
+const TableApptComponent = ({ appoinmentData,  viewProps }) => {
   const [view, setView] = useState("month");
 
   useEffect(() => {
