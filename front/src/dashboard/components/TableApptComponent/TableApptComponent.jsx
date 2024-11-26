@@ -47,6 +47,8 @@ const TableApptComponent = () => {
   ]);
 
   const cancelAppt = (id) => {
+    console.log("cancelAppt", id);
+    return;
     fetch(`/api/appointments/cancel/${id}`, {
       method: "PUT",
     })
@@ -57,6 +59,9 @@ const TableApptComponent = () => {
   };
 
   const deleteAppt = (id) => {
+    console.log("deleteAppt", id);
+    return;
+
     fetch(`/api/appointments/cancel/${id}`, {
       method: "PUT",
     })
