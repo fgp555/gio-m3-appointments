@@ -16,7 +16,10 @@ const ApptCreatePage = () => {
     time: "09:00",
   });
 
-  const [selectedCount, setSelectedCount] = useState(3);
+  const [selectedCount, setSelectedCount] = useState(() => {
+    const savedCount = localStorage.getItem("selectedCount");
+    return savedCount ? parseInt(savedCount, 10) : 3; // Predeterminado a 3
+  });
 
   const [latestAppointments, setLatestAppointments] = useState([]);
 
@@ -37,7 +40,7 @@ const ApptCreatePage = () => {
 
   useEffect(() => {
     getAppointmentsLastCount();
-  }, []);
+  }, [selectedCount]);
 
   const handleCreateAppt = async (e) => {
     e.preventDefault();
@@ -55,8 +58,13 @@ const ApptCreatePage = () => {
           id: selectedRoles.doctorId,
         },
       };
-      const response = await apiServices.createAppointment(appointmentData);
-      console.log("Appointment created successfully:", response);
+      // Crear cita
+      await apiServices.createAppointment(appointmentData);
+
+      // Actualizar lista después de crear la cita
+      await getAppointmentsLastCount();
+
+      console.log("Appointment created successfully");
     } catch (err) {
       console.error("Error creating appointment:", err);
     }
@@ -67,47 +75,19 @@ const ApptCreatePage = () => {
     return day >= 1 && day <= 5;
   };
 
-  const [apptState, setApptState] = useState([
-    {
-      id: 1,
-      date: "2025-12-01T10:00:00.000Z",
-      description: "Annual check-up",
-      status: "PENDING",
-      patient: {
-        id: 2,
-        firstName: "María Fernanda",
-        lastName: "Fernández García",
-      },
-      doctor: {
-        id: 3,
-        firstName: "Pedro Javier",
-        lastName: "Ramírez Gómez",
-      },
-    },
-    {
-      id: 7,
-      date: "2024-11-29T21:22:13.338Z",
-      description: "Terapia de rehabilitación después de fractura de brazo",
-      status: "PENDING",
-      patient: {
-        id: 1,
-        firstName: "Luis Alberto",
-        lastName: "Martínez López",
-      },
-      doctor: {
-        id: 2,
-        firstName: "María Fernanda",
-        lastName: "Fernández García",
-      },
-    },
-  ]);
-
   const [view, setView] = useState("month");
 
   const handleViewChange = (view) => {
     setView(view);
   };
 
+  useEffect(() => {
+    localStorage.setItem("selectedCount", selectedCount);
+  }, [selectedCount]);
+
+  const handleChange = (e) => {
+    setSelectedCount(parseInt(e.target.value, 10) || 0); // Asegura que el valor sea un número
+  };
   return (
     <div className="AppointmentsPage">
       <button className={view === "day" ? "active" : ""} onClick={() => handleViewChange("day")}>
@@ -119,8 +99,6 @@ const ApptCreatePage = () => {
       <button className={view === "month" ? "active" : ""} onClick={() => handleViewChange("month")}>
         Month
       </button>
-      {/* <button onClick={getAppointmentsLastCount}>Button</button> */}
-      {/* <pre>{JSON.stringify(latestAppointments, null, 2)}</pre> */}
       <form onSubmit={handleCreateAppt}>
         <div>
           <DatePicker
@@ -160,12 +138,17 @@ const ApptCreatePage = () => {
           <button type="submit">Crear Cita</button>
         </div>
       </form>
-      <input type="number" value={selectedCount} onChange={(e) => setSelectedCount(e.target.value)} />
+      <input
+        //
+        type="number"
+        value={selectedCount}
+        onChange={handleChange}
+        min="0" // Evita valores negativos si es necesario
+      />
 
       <TableApptComponent
         //
-        apptState={apptState}
-        handleViewChange={handleViewChange}
+        appoinmentData={latestAppointments}
         viewProps={view}
       />
 

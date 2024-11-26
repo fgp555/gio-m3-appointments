@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import apiServices from "../../../services/apiServices";
 import "./TableApptComponent.css";
 
-const TableApptComponent = ({ apptState, handleViewChange, viewProps }) => {
+const TableApptComponent = ({ appoinmentData, handleViewChange, viewProps }) => {
   const [view, setView] = useState("month");
 
   useEffect(() => {
@@ -37,9 +37,9 @@ const TableApptComponent = ({ apptState, handleViewChange, viewProps }) => {
       <div className="TableApptComponent">
         <section>
           <div>
-            {apptState.length > 0 ? (
+            {appoinmentData.length > 0 ? (
               <ul className="appt_list_container">
-                {apptState.map((appt) => (
+                {appoinmentData.map((appt) => (
                   <li key={appt.id}>
                     {/* {view === "day" && format(new Date(appt.date), "h:mm aa")}
                 {view === "week" && `${format(new Date(appt.date), "EEE")} ${format(new Date(appt.date), "d")}`}
