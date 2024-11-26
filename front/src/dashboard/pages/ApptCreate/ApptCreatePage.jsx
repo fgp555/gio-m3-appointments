@@ -5,6 +5,7 @@ import "./ApptCreatePage.css";
 import "react-datepicker/dist/react-datepicker.css";
 import SelectComponent from "../../components/SelectComponent/SelectComponent";
 import apiServices from "../../../services/apiServices";
+import TableApptComponent from "../../components/TableApptComponent/TableApptComponent";
 
 const ApptCreatePage = () => {
   const [selectedDay123, setSelectedDay] = useState(new Date());
@@ -68,8 +69,9 @@ const ApptCreatePage = () => {
 
   return (
     <div className="AppointmentsPage">
+      <TableApptComponent />
       {/* <button onClick={getAppointmentsLastCount}>Button</button> */}
-      <pre>{JSON.stringify(latestAppointments, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(latestAppointments, null, 2)}</pre> */}
       <input type="number" value={selectedCount} onChange={(e) => setSelectedCount(e.target.value)} />
       <form onSubmit={handleCreateAppt}>
         <div>
