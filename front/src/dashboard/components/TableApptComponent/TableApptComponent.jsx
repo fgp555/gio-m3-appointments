@@ -5,9 +5,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import apiServices from "../../../services/apiServices";
 import "./TableApptComponent.css";
 
-const TableApptComponent = () => {
+const TableApptComponent = ({ /* apptState, handleViewChange */ }) => {
+  // console.log("apptState", apptState);
   const [view, setView] = useState("month");
-  const [apptState123, setApptState123] = useState([
+  const [apptState, setApptState] = useState([
     {
       id: 1,
       date: "2025-12-01T10:00:00.000Z",
@@ -61,12 +62,14 @@ const TableApptComponent = () => {
   };
   return (
     <>
+      {/* <button onClick={handleViewChange}>button</button> */}
+      {/* <pre>{JSON.stringify(apptState, null, 2)}</pre> */}
       <div className="TableApptComponent">
         <section>
           <div>
-            {apptState123.length > 0 ? (
+            {apptState.length > 0 ? (
               <ul className="appt_list_container">
-                {apptState123.map((appt) => (
+                {apptState.map((appt) => (
                   <li key={appt.id}>
                     {/* {view === "day" && format(new Date(appt.date), "h:mm aa")}
                 {view === "week" && `${format(new Date(appt.date), "EEE")} ${format(new Date(appt.date), "d")}`}

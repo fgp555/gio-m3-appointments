@@ -67,6 +67,47 @@ const ApptCreatePage = () => {
     return day >= 1 && day <= 5;
   };
 
+
+  const [apptState, setApptState] = useState([
+    {
+      id: 1,
+      date: "2025-12-01T10:00:00.000Z",
+      description: "Annual check-up",
+      status: "PENDING",
+      patient: {
+        id: 2,
+        firstName: "María Fernanda",
+        lastName: "Fernández García",
+      },
+      doctor: {
+        id: 3,
+        firstName: "Pedro Javier",
+        lastName: "Ramírez Gómez",
+      },
+    },
+    {
+      id: 7,
+      date: "2024-11-29T21:22:13.338Z",
+      description: "Terapia de rehabilitación después de fractura de brazo",
+      status: "PENDING",
+      patient: {
+        id: 1,
+        firstName: "Luis Alberto",
+        lastName: "Martínez López",
+      },
+      doctor: {
+        id: 2,
+        firstName: "María Fernanda",
+        lastName: "Fernández García",
+      },
+    },
+  ]);
+
+  const handleViewChange = (view) => {
+    console.log("View changed:", view);
+    setView(view);
+  };
+
   return (
     <div className="AppointmentsPage">
       {/* <button onClick={getAppointmentsLastCount}>Button</button> */}
@@ -112,7 +153,11 @@ const ApptCreatePage = () => {
       </form>
       <input type="number" value={selectedCount} onChange={(e) => setSelectedCount(e.target.value)} />
 
-      <TableApptComponent />
+      <TableApptComponent 
+      //
+      // apptState={apptState}
+      // handleViewChange={handleViewChange}
+      />
 
       {/* <pre>{JSON.stringify(newAppointment, null, 2)}</pre> */}
     </div>
