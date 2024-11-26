@@ -69,10 +69,8 @@ const ApptCreatePage = () => {
 
   return (
     <div className="AppointmentsPage">
-      <TableApptComponent />
       {/* <button onClick={getAppointmentsLastCount}>Button</button> */}
       {/* <pre>{JSON.stringify(latestAppointments, null, 2)}</pre> */}
-      <input type="number" value={selectedCount} onChange={(e) => setSelectedCount(e.target.value)} />
       <form onSubmit={handleCreateAppt}>
         <div>
           <DatePicker
@@ -112,7 +110,11 @@ const ApptCreatePage = () => {
           <button type="submit">Crear Cita</button>
         </div>
       </form>
-      <pre>{JSON.stringify(newAppointment, null, 2)}</pre>
+      <input type="number" value={selectedCount} onChange={(e) => setSelectedCount(e.target.value)} />
+
+      <TableApptComponent />
+
+      {/* <pre>{JSON.stringify(newAppointment, null, 2)}</pre> */}
     </div>
   );
 };

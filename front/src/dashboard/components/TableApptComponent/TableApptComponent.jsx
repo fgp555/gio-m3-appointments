@@ -10,25 +10,41 @@ import apiServices from "../../../services/apiServices";
 import "./TableApptComponent.css";
 
 const TableApptComponent = () => {
-  const appoinmentSelector = useSelector((state) => state.appointments);
-  const [selectedDay, setSelectedDay] = useState(new Date());
-  const [view, setView] = useState("day");
-  // const [apptState, setApptState] = useState([]);
-
-  const dispatch = useDispatch();
-
-  const fetchAppointmentsFromApi = async () => {
-    try {
-      const response = await apiServices.fetchAppointments();
-      dispatch(fetchAppointments(response));
-    } catch (error) {
-      console.error("Failed to fetch appointments:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchAppointmentsFromApi();
-  }, []);
+  const [view, setView] = useState("month");
+  const [apptState123, setApptState123] = useState([
+    {
+      id: 10,
+      date: "2025-12-01T10:00:00.000Z",
+      description: "Annual check-up",
+      status: "PENDING",
+      patient: {
+        id: 2,
+        firstName: "María Fernanda",
+        lastName: "Fernández García",
+      },
+      doctor: {
+        id: 3,
+        firstName: "Pedro Javier",
+        lastName: "Ramírez Gómez",
+      },
+    },
+    {
+      id: 7,
+      date: "2024-11-29T21:22:13.338Z",
+      description: "Terapia de rehabilitación después de fractura de brazo",
+      status: "PENDING",
+      patient: {
+        id: 1,
+        firstName: "Luis Alberto",
+        lastName: "Martínez López",
+      },
+      doctor: {
+        id: 2,
+        firstName: "María Fernanda",
+        lastName: "Fernández García",
+      },
+    },
+  ]);
 
   const cancelAppt = (id) => {
     fetch(`/api/appointments/cancel/${id}`, {
@@ -50,71 +66,14 @@ const TableApptComponent = () => {
       .catch((error) => console.error("Error deleting appointment:", error));
   };
 
-  // Filter appointments based on the selected view
-  const filteredAppointments = appoinmentSelector.filter((appt) => {
-    const appointmentDate = new Date(appt.date);
-    if (view === "day") {
-      return isSameDay(appointmentDate, selectedDay);
-    } else if (view === "week") {
-      // Get the start and end of the selected week
-      const weekStart = startOfWeek(selectedDay, { weekStartsOn: 1 });
-      const weekEnd = endOfWeek(selectedDay, { weekStartsOn: 1 });
-      return appointmentDate >= weekStart && appointmentDate <= weekEnd;
-    } else if (view === "month") {
-      // Get the start and end of the selected month
-      const monthStart = startOfMonth(selectedDay);
-      const monthEnd = endOfMonth(selectedDay);
-      return appointmentDate >= monthStart && appointmentDate <= monthEnd;
-    }
-    return false;
-  });
-
-  // Helper function to get active button style
-  const getButtonStyle = (viewType) => {
-    return view === viewType
-      ? { backgroundColor: "#4CAF50", color: "white" } // Green color for active view
-      : {};
-  };
-
   return (
     <>
       <div className="TableApptComponent">
-        {/* <pre>{JSON.stringify(appoinmentSelector, null, 2)}</pre> */}
-        <section className="calendar_section">
-          <div className="DatePicker">
-            <DatePicker
-              //
-              selected={selectedDay}
-              onChange={(date) => setSelectedDay(date)}
-              inline
-              highlightDates={appoinmentSelector.map((appt) => new Date(appt.date))}
-            />
-          </div>
-
-          <div style={{ marginBottom: "1em" }}>
-            <button onClick={() => setView("day")} style={getButtonStyle("day")}>
-              Día
-            </button>
-            <button onClick={() => setView("week")} style={getButtonStyle("week")}>
-              Semana
-            </button>
-            <button onClick={() => setView("month")} style={getButtonStyle("month")}>
-              Mes
-            </button>
-          </div>
-        </section>
-
         <section>
           <div>
-            <h3>
-              Citas para {view === "day" && `el ${format(selectedDay, "MMMM d, yyyy")}`}
-              {view === "week" && `la semana de ${format(selectedDay, "MMMM d")}`}
-              {view === "month" && `el mes de ${format(selectedDay, "MMMM")}`}
-            </h3>
-
-            {filteredAppointments.length > 0 ? (
+            {apptState123.length > 0 ? (
               <ul className="appt_list_container">
-                {filteredAppointments.map((appt) => (
+                {apptState123.map((appt) => (
                   <li key={appt.id}>
                     {/* {view === "day" && format(new Date(appt.date), "h:mm aa")}
                 {view === "week" && `${format(new Date(appt.date), "EEE")} ${format(new Date(appt.date), "d")}`}
@@ -134,7 +93,7 @@ const TableApptComponent = () => {
                             {view === "day" && format(new Date(appt.date), "h:mm aa", { locale: es })} {/* Only time for 'day' view */}
                             {view === "week" && `${format(new Date(appt.date), "EEE", { locale: es })} ${format(new Date(appt.date), "d", { locale: es })}`}{" "}
                             {/* Day of the week and date for 'week' view */}
-                            {view === "month" && `${format(new Date(appt.date), "MMM d", { locale: es })} - ${format(new Date(appt.date), "h:mm aa", { locale: es })}`}{" "}
+                            {view === "month" && `${format(new Date(appt.date), "EEE dd MMM", { locale: es })} - ${format(new Date(appt.date), "h:mm aa", { locale: es })}`}{" "}
                             {/* Full date and time for 'month' view */}
                           </b>
                         </p>
@@ -161,6 +120,11 @@ const TableApptComponent = () => {
           </div>
         </section>
       </div>
+
+      <hr />
+      <hr />
+      <hr />
+      <hr />
     </>
   );
 };
