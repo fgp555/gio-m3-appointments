@@ -67,7 +67,6 @@ const ApptCreatePage = () => {
     return day >= 1 && day <= 5;
   };
 
-
   const [apptState, setApptState] = useState([
     {
       id: 1,
@@ -103,13 +102,23 @@ const ApptCreatePage = () => {
     },
   ]);
 
+  const [view, setView] = useState("month");
+
   const handleViewChange = (view) => {
-    console.log("View changed:", view);
     setView(view);
   };
 
   return (
     <div className="AppointmentsPage">
+      <button className={view === "day" ? "active" : ""} onClick={() => handleViewChange("day")}>
+        Day
+      </button>
+      <button className={view === "week" ? "active" : ""} onClick={() => handleViewChange("week")}>
+        Week
+      </button>
+      <button className={view === "month" ? "active" : ""} onClick={() => handleViewChange("month")}>
+        Month
+      </button>
       {/* <button onClick={getAppointmentsLastCount}>Button</button> */}
       {/* <pre>{JSON.stringify(latestAppointments, null, 2)}</pre> */}
       <form onSubmit={handleCreateAppt}>
@@ -153,10 +162,11 @@ const ApptCreatePage = () => {
       </form>
       <input type="number" value={selectedCount} onChange={(e) => setSelectedCount(e.target.value)} />
 
-      <TableApptComponent 
-      //
-      // apptState={apptState}
-      // handleViewChange={handleViewChange}
+      <TableApptComponent
+        //
+        apptState={apptState}
+        handleViewChange={handleViewChange}
+        viewProps={view}
       />
 
       {/* <pre>{JSON.stringify(newAppointment, null, 2)}</pre> */}

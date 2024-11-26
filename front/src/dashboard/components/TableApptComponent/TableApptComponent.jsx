@@ -1,47 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import apiServices from "../../../services/apiServices";
 import "./TableApptComponent.css";
 
-const TableApptComponent = ({ /* apptState, handleViewChange */ }) => {
-  // console.log("apptState", apptState);
+const TableApptComponent = ({ apptState, handleViewChange, viewProps }) => {
   const [view, setView] = useState("month");
-  const [apptState, setApptState] = useState([
-    {
-      id: 1,
-      date: "2025-12-01T10:00:00.000Z",
-      description: "Annual check-up",
-      status: "PENDING",
-      patient: {
-        id: 2,
-        firstName: "María Fernanda",
-        lastName: "Fernández García",
-      },
-      doctor: {
-        id: 3,
-        firstName: "Pedro Javier",
-        lastName: "Ramírez Gómez",
-      },
-    },
-    {
-      id: 7,
-      date: "2024-11-29T21:22:13.338Z",
-      description: "Terapia de rehabilitación después de fractura de brazo",
-      status: "PENDING",
-      patient: {
-        id: 1,
-        firstName: "Luis Alberto",
-        lastName: "Martínez López",
-      },
-      doctor: {
-        id: 2,
-        firstName: "María Fernanda",
-        lastName: "Fernández García",
-      },
-    },
-  ]);
+
+  useEffect(() => {
+    if (viewProps) {
+      setView(viewProps);
+    }
+  }, [viewProps]);
 
   const handleCancelAppointment = async (appointmentId) => {
     try {
@@ -60,10 +31,9 @@ const TableApptComponent = ({ /* apptState, handleViewChange */ }) => {
       console.error("Error deleting appointment:", error.message);
     }
   };
+
   return (
     <>
-      {/* <button onClick={handleViewChange}>button</button> */}
-      {/* <pre>{JSON.stringify(apptState, null, 2)}</pre> */}
       <div className="TableApptComponent">
         <section>
           <div>
