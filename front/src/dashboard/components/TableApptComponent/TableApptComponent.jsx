@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
-import { format, isSameDay, isSameWeek, isSameMonth, startOfWeek, endOfWeek, startOfMonth, endOfMonth } from "date-fns";
-// import "./AppointmentsPage.css";
+import React, { useState } from "react";
+import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAppointments } from "../../../redux/userAppointmentsSlice";
 import apiServices from "../../../services/apiServices";
 import "./TableApptComponent.css";
 
@@ -117,11 +113,6 @@ const TableApptComponent = () => {
           </div>
         </section>
       </div>
-
-      <hr />
-      <hr />
-      <hr />
-      <hr />
     </>
   );
 };
