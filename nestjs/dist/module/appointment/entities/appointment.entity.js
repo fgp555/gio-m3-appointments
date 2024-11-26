@@ -28,6 +28,22 @@ __decorate([
     __metadata("design:type", String)
 ], Appointment.prototype, "description", void 0);
 __decorate([
+    (0, typeorm_1.Column)({
+        type: 'enum',
+        enum: [
+            'PENDING',
+            'CONFIRMED',
+            'CANCELED',
+            'RESCHEDULED',
+            'IN_PROGRESS',
+            'COMPLETED',
+            'NO_SHOW',
+        ],
+        default: 'PENDING',
+    }),
+    __metadata("design:type", String)
+], Appointment.prototype, "status", void 0);
+__decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.UserEntity, (user) => user.appointmentsAsPatient),
     __metadata("design:type", user_entity_1.UserEntity)
 ], Appointment.prototype, "patient", void 0);

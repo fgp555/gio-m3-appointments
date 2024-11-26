@@ -1,5 +1,13 @@
 // src/appointment/appointment.controller.ts
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { AppointmentService } from './appointment.service';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { UpdateAppointmentDto } from './dto/update-appointment.dto';
@@ -17,6 +25,11 @@ export class AppointmentController {
   @Get()
   findAll(): Promise<Appointment[]> {
     return this.appointmentService.findAll();
+  }
+
+  @Get('last/:count')
+  findLast(@Param('count') count: string): Promise<Appointment[]> {
+    return this.appointmentService.findLast(count);
   }
 
   @Get(':id')

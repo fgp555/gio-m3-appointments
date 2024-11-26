@@ -3,3 +3,11 @@
   padding: 0;
 }
 
+/* === Mobile... === */
+@media (max-width: 40rem) {
+  .mobile_none {
+    background-color: crimson;
+    display: none;
+  }
+}
+/* === Mobile... === */

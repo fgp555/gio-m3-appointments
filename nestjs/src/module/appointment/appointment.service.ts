@@ -15,34 +15,6 @@ export class AppointmentService {
     private readonly userService: UserService, // Injecting UserService to check if a user exists
   ) {}
 
-  // async create(
-  //   createAppointmentDto: CreateAppointmentDto,
-  // ): Promise<Appointment> {
-  //   const { date, description, userId } = createAppointmentDto;
-
-  //   // console.log('createAppointmentDto', createAppointmentDto);
-
-  //   // If userId is provided, check if the user exists
-  //   // if (userId) {
-  //   const user = await this.userService.findById(userId);
-  //   if (!user) {
-  //     throw new Error(`User with ID ${userId} does not exist.`);
-  //   }
-  //   // }
-
-  //   // console.log('user', user);
-
-  //   // Create a new appointment
-  //   const appointment = this.appointmentRepository.create({
-  //     date: createAppointmentDto.date,
-  //     description: createAppointmentDto.description,
-  //     userId: user, // Use userId directly, not an object
-  //   });
-
-  //   // Save the appointment in the database
-  //   return this.appointmentRepository.save(appointment);
-  // }
-
   async create(appointmentData: Partial<Appointment>) {
     const { patient, doctor } = appointmentData;
 
@@ -59,19 +31,15 @@ export class AppointmentService {
     return await this.appointmentRepository.save(appointment);
   }
 
-  // async findAll(): Promise<Appointment[]> {
-  //   return this.appointmentRepository.find({
-  //     relations: { userId: true },
-  //   });
-  // }
-
   async findAll(): Promise<Appointment[]> {
     return await this.appointmentRepository.find({
+      order: { date: 'ASC' },
       relations: ['patient', 'doctor'],
       select: {
         id: true,
         date: true,
         description: true,
+        status: true,
         patient: {
           id: true,
           firstName: true,
@@ -86,10 +54,6 @@ export class AppointmentService {
     });
   }
 
-  // async findOne(id: number): Promise<Appointment> {
-  //   return this.appointmentRepository.findOne({ where: { id } });
-  // }
-
   async findOne(id: number): Promise<Appointment> {
     const appointment = await this.appointmentRepository.findOne({
       where: { id },
@@ -100,17 +64,29 @@ export class AppointmentService {
     return appointment;
   }
 
-  // async update(
-  //   id: number,
-  //   updateAppointmentDto: UpdateAppointmentDto,
-  // ): Promise<Appointment> {
-  //   await this.appointmentRepository.update(id, updateAppointmentDto);
-  //   return this.findOne(id); // Return the updated appointment
-  // }
-
-  // async remove(id: number): Promise<void> {
-  //   await this.appointmentRepository.delete(id);
-  // }
+  async findLast(count: string): Promise<Appointment[]> {
+    return await this.appointmentRepository.find({
+      order: { date: 'DESC' },
+      take: Number(count),
+      relations: ['patient', 'doctor'], // Incluir relaciones si es necesario
+      select: {
+        id: true,
+        date: true,
+        description: true,
+        status: true,
+        patient: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+        doctor: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
+    });
+  }
 
   async update(
     id: number,

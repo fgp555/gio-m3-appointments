@@ -4,6 +4,7 @@ import {
   MaxLength,
   IsInt,
   IsOptional,
+  IsEnum,
 } from 'class-validator';
 
 export class CreateAppointmentDto {
@@ -21,4 +22,26 @@ export class CreateAppointmentDto {
   @IsInt({ message: 'Doctor ID must be an integer' })
   @IsOptional()
   doctorId?: number; // Reference to the doctor associated with the appointment
+
+  @IsEnum(
+    [
+      'PENDING',
+      'CONFIRMED',
+      'CANCELED',
+      'RESCHEDULED',
+      'IN_PROGRESS',
+      'COMPLETED',
+      'NO_SHOW',
+    ],
+    { message: 'Status must be one of the allowed values' },
+  )
+  @IsOptional()
+  status?:
+    | 'PENDING'
+    | 'CONFIRMED'
+    | 'CANCELED'
+    | 'RESCHEDULED'
+    | 'IN_PROGRESS'
+    | 'COMPLETED'
+    | 'NO_SHOW'; // Appointment status
 }

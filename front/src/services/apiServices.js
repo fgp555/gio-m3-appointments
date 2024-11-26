@@ -9,7 +9,6 @@ const apiServices = {
     try {
       console.log("userData", userData);
       const response = await axios.post(`${API_URL}/auth/signup`, userData);
-      console.log("response", response);
       return response;
     } catch (error) {
       console.error("Full error object:", error); // Log the full error object
@@ -48,7 +47,32 @@ const apiServices = {
     try {
       console.log("Fetching appointments...");
       const response = await axios.get(`${API_URL}/appointments`);
-      console.log("Appointments fetched successfully:", response.data);
+      return response.data; // Return the appointments data
+    } catch (error) {
+      console.error("Error occurred while fetching appointments:", error);
+
+      if (error.response) {
+        // Server responded with a status outside the 2xx range
+        console.error("Error response:", error.response);
+        console.log("Response data structure:", error.response.data);
+        const { message, statusCode } = error.response.data;
+        console.log(`Error message: ${message}, Status code: ${statusCode}`);
+      } else if (error.request) {
+        // No response received
+        console.error("No response received:", error.request);
+      } else {
+        // Other errors
+        console.error("Error message:", error.message);
+      }
+
+      throw error; // Re-throw for further handling
+    }
+  },
+
+  fetchAppointmentsLastCount: async (count) => {
+    try {
+      console.log("Fetching appointments...");
+      const response = await axios.get(`${API_URL}/appointments/last/${count}`);
       return response.data; // Return the appointments data
     } catch (error) {
       console.error("Error occurred while fetching appointments:", error);
@@ -73,9 +97,7 @@ const apiServices = {
 
   createAppointment: async (appointmentData) => {
     try {
-      console.log("appointmentData", appointmentData);
       const response = await axios.post(`${API_URL}/appointments`, appointmentData);
-      console.log("Appointment created:", response.data);
       return response.data;
     } catch (error) {
       console.error("Failed to create appointment:", error);
@@ -92,21 +114,6 @@ const apiServices = {
     }
   },
 
-  fetchUserAppointments: async (userId) => {
-    try {
-      const response = await axios.get(`${API_URL}/users/${userId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          token: "autenticado",
-        },
-      });
-      return response.data.appointments;
-    } catch (error) {
-      console.error("Error fetching appointments", error);
-      throw error;
-    }
-  },
-
   getApiUserByRole: async (role) => {
     try {
       const response = await axios.get(`${API_URL}/users/role/${role}`, {
@@ -118,6 +125,21 @@ const apiServices = {
       return response.data;
     } catch (error) {
       console.error("Error fetching role", error);
+      throw error;
+    }
+  },
+
+  fetchUserAppointments: async (userId) => {
+    try {
+      const response = await axios.get(`${API_URL}/users/${userId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          token: "autenticado",
+        },
+      });
+      return response.data.appointments;
+    } catch (error) {
+      console.error("Error fetching appointments", error);
       throw error;
     }
   },

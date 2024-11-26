@@ -33,4 +33,17 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], CreateAppointmentDto.prototype, "doctorId", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)([
+        'PENDING',
+        'CONFIRMED',
+        'CANCELED',
+        'RESCHEDULED',
+        'IN_PROGRESS',
+        'COMPLETED',
+        'NO_SHOW',
+    ], { message: 'Status must be one of the allowed values' }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateAppointmentDto.prototype, "status", void 0);
 //# sourceMappingURL=create-appointment.dto.js.map

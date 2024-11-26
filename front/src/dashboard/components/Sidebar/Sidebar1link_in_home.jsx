@@ -38,22 +38,24 @@ const Sidebar = () => {
       <nav id="sidebar" className={sidebar ? "" : "close"}>
         <ul>
           <li>
-            <span className="logo">CREFI DASHBOARD</span>
+            <span className="logo">
+              <Link to="/">CREFI DASHBOARD</Link>
+            </span>
             <button onClick={toggleSidebar} id="toggle-btn" className={sidebar ? "" : "rotate"}>
               <i className="icon-angle-double-left"></i>
             </button>
           </li>
           <li className="active">
-            <a href="/">
-              <div className="icon-home"></div>
-              <span>Home</span>
-            </a>
+            <Link to="/">
+              <i className="icon-home"></i>
+              My Site
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link to="/appointments">
               <i className="icon-dashboard"></i>
-              <span>Dashboard</span>
-            </a>
+              Dashboard
+            </Link>
           </li>
           <li>
             <button onClick={() => toggleSubMenu("createMenu")} className={`dropdown-btn ${subMenus.createMenu ? "rotate" : ""}`}>
@@ -64,10 +66,16 @@ const Sidebar = () => {
             <ul className={`sub-menu ${subMenus.createMenu ? "show" : ""}`}>
               <div>
                 <li>
+                  <Link to="/appointments">Appoinments</Link>
+                </li>
+                <li>
+                  <Link to="/appointments">Pending</Link>
+                </li>
+                <li>
                   <Link to="/appointments">Calendar</Link>
                 </li>
                 <li>
-                  <Link to="/appt-create">Create</Link>
+                  <Link to="/appointments">Settings</Link>
                 </li>
               </div>
             </ul>

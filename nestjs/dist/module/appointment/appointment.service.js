@@ -38,11 +38,13 @@ let AppointmentService = class AppointmentService {
     }
     async findAll() {
         return await this.appointmentRepository.find({
+            order: { date: 'ASC' },
             relations: ['patient', 'doctor'],
             select: {
                 id: true,
                 date: true,
                 description: true,
+                status: true,
                 patient: {
                     id: true,
                     firstName: true,
@@ -64,6 +66,29 @@ let AppointmentService = class AppointmentService {
         if (!appointment)
             throw new common_1.NotFoundException(`Appointment with ID ${id} not found`);
         return appointment;
+    }
+    async findLast(count) {
+        return await this.appointmentRepository.find({
+            order: { date: 'DESC' },
+            take: Number(count),
+            relations: ['patient', 'doctor'],
+            select: {
+                id: true,
+                date: true,
+                description: true,
+                status: true,
+                patient: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                },
+                doctor: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                },
+            },
+        });
     }
     async update(id, appointmentData) {
         const appointment = await this.findOne(id);

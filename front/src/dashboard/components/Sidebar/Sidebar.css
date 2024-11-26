@@ -13,6 +13,12 @@
     transition: 300ms ease-in-out;
     overflow: hidden;
     text-wrap: nowrap;
+
+    [class^="icon-"] {
+      font-size: 1.4rem;
+      margin: auto 0.2rem;
+      cursor: pointer;
+    }
   }
   #sidebar.close {
     padding: 5px;
@@ -112,12 +118,6 @@
 
   .icon-angle-double-left {
     color: #fff;
-  }
-
-  [class^="icon-"] {
-    font-size: 1.4rem;
-    margin: auto 0.2rem;
-    cursor: pointer;
   }
 
   /* ==========  ========== */

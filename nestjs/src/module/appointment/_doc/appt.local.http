@@ -3,8 +3,9 @@ POST http://localhost:3000/api/appointments
 Content-Type: application/json
 
 {
-  "date": "2024-12-01T10:00:00.000Z",
+  "date": "2025-12-01T10:00:00.000Z",
   "description": "Annual check-up",
+  "status": "PENDING",
   "patient": {
     "id": 2
   },
@@ -15,6 +16,10 @@ Content-Type: application/json
 
 ### Get All Appointments
 GET http://localhost:3000/api/appointments
+
+### Fetch Last 10 Appointments
+GET http://localhost:3000/api/appointments/last/3
+Content-Type: application/json
 
 ### Get Appointment by ID
 GET http://localhost:3000/api/appointments/1

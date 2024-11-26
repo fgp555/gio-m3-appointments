@@ -19,60 +19,64 @@ export class AppointmentSeederService {
     threeDaysFromNow.setDate(today.getDate() + 3);
 
     const appointments: any[] = [
-      // Tasks for today
+      // Tareas para hoy
       {
         date: today.toISOString(),
-        description: 'Task 1 for today',
+        description: 'Sesión de rehabilitación postoperatoria de rodilla',
         patient: { id: 1 },
         doctor: { id: 2 },
       },
       {
         date: today.toISOString(),
-        description: 'Task 2 for today',
+        description:
+          'Tratamiento para dolor lumbar crónico con técnicas de terapia manual',
         patient: { id: 2 },
         doctor: { id: 3 },
       },
       {
         date: today.toISOString(),
-        description: 'Task 3 for today',
+        description: 'Ejercicios de fortalecimiento para esguince de tobillo',
         patient: { id: 3 },
         doctor: { id: 1 },
       },
-      // Tasks for tomorrow
+      // Tareas para mañana
       {
         date: tomorrow.toISOString(),
-        description: 'Task 1 for tomorrow',
+        description: 'Sesión de electroterapia para alivio del dolor en hombro',
         patient: { id: 1 },
         doctor: { id: 2 },
       },
       {
         date: tomorrow.toISOString(),
-        description: 'Task 2 for tomorrow',
+        description:
+          'Estiramientos y masajes para contractura muscular en cuello',
         patient: { id: 2 },
         doctor: { id: 3 },
       },
       {
         date: tomorrow.toISOString(),
-        description: 'Task 3 for tomorrow',
+        description: 'Revisión de progreso en tratamiento de fascitis plantar',
         patient: { id: 3 },
         doctor: { id: 1 },
       },
-      // Tasks for 3 days from now
+      // Tareas para dentro de 3 días
       {
         date: threeDaysFromNow.toISOString(),
-        description: 'Task 1 for 3 days from now',
+        description: 'Terapia de rehabilitación después de fractura de brazo',
         patient: { id: 1 },
         doctor: { id: 2 },
       },
       {
         date: threeDaysFromNow.toISOString(),
-        description: 'Task 2 for 3 days from now',
+        description:
+          'Ejercicios de movilidad para mejorar rango articular en rodilla',
         patient: { id: 2 },
         doctor: { id: 3 },
       },
       {
         date: threeDaysFromNow.toISOString(),
-        description: 'Task 3 for 3 days from now',
+        description:
+          'Plan de fortalecimiento muscular para prevención de lesiones',
         patient: { id: 3 },
         doctor: { id: 1 },
       },

@@ -1,0 +1,160 @@
+.DatePicker {
+  /* Contenedor de la aplicación */
+  .react-datepicker div {
+    max-width: 800px;
+    /* margin: 0 auto; */
+    padding: 6px;
+    /* background-color: #fff; */
+    border-radius: 8px;
+    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
+  }
+
+  /* Estilos del calendario */
+  .react-datepicker-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .react-datepicker__day {
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+
+  .react-datepicker__day--highlighted {
+    /* background-color: rgba(0, 123, 255, 0.5); */
+    opacity: 0.7;
+    color: white;
+  }
+  .react-datepicker__day--selected {
+    opacity: 1;
+  }
+  .react-datepicker__header {
+    background-color: #fff;
+    border: none;
+  }
+  .react-datepicker__day-names {
+    background-color: #e6e6ef;
+    /* color: #fff; */
+  }
+  .react-datepicker__day-name {
+    /* background-color: peru; */
+    font-weight: bolder;
+    color: #0008;
+  }
+  .react-datepicker__day--outside-month {
+    /* background-color: peru; */
+    opacity: 0.2;
+  }
+  /* .react-datepicker__day { */
+  /* background-color: red; */
+  /* font-weight: 600; */
+  /* } */
+  .react-datepicker__navigation {
+    background-color: #5e63ff88;
+    margin-top: 0.5em;
+    color: peru;
+  }
+}
+
+.ApptListComponent {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 2em;
+  margin: 2em;
+  flex-wrap: wrap;
+  /* === Desktop... === */
+  @media (min-width: 1290px) {
+    .calendar_section {
+      top: 2em;
+      position: sticky;
+    }
+  }
+
+  /* Estilos para las citas */
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    padding: 8px;
+    margin: 5px 0;
+    /* background-color: #f9f9f9; */
+    border-left: 4px solid #007bff;
+    border-radius: 4px;
+  }
+
+  li strong {
+    font-weight: bold;
+  }
+
+  li span {
+    font-size: 0.9em;
+    color: #777;
+  }
+  /* === Desktop... === */
+}
+
+.appt_list_container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  li {
+    border: 1px solid #8884;
+    border-left: 5px solid #228;
+    max-width: 30em;
+  }
+}
+
+.appt_list {
+  display: flex;
+  margin: 10px;
+  justify-content: space-between;
+  align-items: center;
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    min-width: 20vw;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  .name {
+    font-size: 1.2em;
+  }
+  .lastName {
+    opacity: 1;
+  }
+  .info > p {
+    margin: 0;
+    padding: 0;
+  }
+  .description {
+    font-size: 1em;
+    /* color: #000; */
+    color: #fff;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2em;
+    b {
+      font-weight: normal;
+    }
+  }
+  .date_time {
+    /* font-style: italic; */
+    /* text-decoration: underline; */
+    font-size: 1.5em;
+  }
+
+  [class^="icon-"] {
+    font-size: 1em;
+    aspect-ratio: 1/1;
+    color: #fffd;
+    margin-right: 0.4em;
+  }
+}

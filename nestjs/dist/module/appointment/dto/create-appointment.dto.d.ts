@@ -3,4 +3,5 @@ export declare class CreateAppointmentDto {
     description: string;
     patientId?: number;
     doctorId?: number;
+    status?: 'PENDING' | 'CONFIRMED' | 'CANCELED' | 'RESCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'NO_SHOW';
 }

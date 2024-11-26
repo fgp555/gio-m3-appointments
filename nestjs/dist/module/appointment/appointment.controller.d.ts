@@ -7,6 +7,7 @@ export declare class AppointmentController {
     constructor(appointmentService: AppointmentService);
     create(createAppointmentDto: CreateAppointmentDto): Promise<Appointment>;
     findAll(): Promise<Appointment[]>;
+    findLast(count: string): Promise<Appointment[]>;
     findOne(id: number): Promise<Appointment>;
     update(id: number, updateAppointmentDto: UpdateAppointmentDto): Promise<Appointment>;
     remove(id: number): Promise<void>;
