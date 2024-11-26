@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import "./DashboardLayout.css";
+import "./ApptCalendarContainer.css";
 
 const DashboardLayout = ({ children }) => {
   return (

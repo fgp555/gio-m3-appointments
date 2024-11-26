@@ -8,8 +8,8 @@ const Sidebar = () => {
   const [sidebar, setSidebar] = useState(true);
   const [subMenus, setSubMenus] = useState({});
   const [activeMenu, setActiveMenu] = useState(""); // Estado para el menú activo
-  const sidebarRef = useRef(null); // Referencia al Sidebar
-  const [isMobile, setIsMobile] = useState(false); // Estado para detectar dispositivos móviles
+  const sidebarRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,30 +39,29 @@ const Sidebar = () => {
     const handleClickOutside = (e) => {
       if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
         if (isMobile) {
-          setSubMenus({}); // Cierra todos los submenús si estamos en móvil
+          setSubMenus({});
         }
       }
     };
 
     const handleScroll = () => {
       if (isMobile) {
-        setSubMenus({}); // Cierra los submenús al hacer scroll solo en dispositivos móviles
+        setSubMenus({});
       }
     };
 
-    // Establece el tamaño de la pantalla
     const checkMobile = () => {
       if (window.innerWidth <= 768) {
-        setIsMobile(true); // Detecta dispositivos móviles
+        setIsMobile(true);
       } else {
-        setIsMobile(false); // En dispositivos no móviles
+        setIsMobile(false);
       }
     };
 
     // Agrega los event listeners
     document.body.addEventListener("click", handleClickOutside);
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", checkMobile); // Detecta cambios de tamaño
+    window.addEventListener("resize", checkMobile);
 
     // Chequea el tamaño de la pantalla al cargar
     checkMobile();
@@ -78,7 +77,7 @@ const Sidebar = () => {
   // Función para manejar el clic en el menú
   const handleMenuClick = (menuName) => {
     setActiveMenu(menuName); // Actualiza el menú activo
-    // setSubMenus({}); // Cierra todos los submenús
+    setSubMenus({}); // Cierra todos los submenús
   };
 
   return (
@@ -91,17 +90,17 @@ const Sidebar = () => {
               <i className="icon-angle-double-left"></i>
             </button>
           </li>
-          <li className={activeMenu === "home" ? "active" : ""}>
-            <Link to="/appointments" onClick={() => handleMenuClick("home")}>
-              <i className="icon-home"></i>
+          <li className={activeMenu === "home" ? "active" : ""}> {/* Aplica la clase active */}
+            <a href="/" onClick={() => handleMenuClick("home")}>
+              <div className="icon-home"></div>
               <span>Home</span>
-            </Link>
+            </a>
           </li>
           <li className={activeMenu === "dashboard" ? "active" : ""}>
-            <Link to="/appointments" onClick={() => handleMenuClick("dashboard")}>
+            <a href="#" onClick={() => handleMenuClick("dashboard")}>
               <i className="icon-dashboard"></i>
               <span>Dashboard</span>
-            </Link>
+            </a>
           </li>
           <li>
             <button onClick={() => toggleSubMenu("createMenu")} className={`dropdown-btn ${subMenus.createMenu ? "rotate" : ""}`}>
@@ -111,15 +110,11 @@ const Sidebar = () => {
             </button>
             <ul className={`sub-menu ${subMenus.createMenu ? "show" : ""}`}>
               <div>
-                <li className={activeMenu === "create" ? "active" : ""}>
-                  <Link to="/appt-create" onClick={() => handleMenuClick("create")}>
-                    Create
-                  </Link>
+                <li>
+                  <Link to="/appt-create" onClick={() => handleMenuClick("appointments")}>Create</Link>
                 </li>
-                <li className={activeMenu === "calendar" ? "active" : ""}>
-                  <Link to="/appointments" onClick={() => handleMenuClick("calendar")}>
-                    Calendar
-                  </Link>
+                <li>
+                  <Link to="/appointments" onClick={() => handleMenuClick("appointments")}>Calendar</Link>
                 </li>
               </div>
             </ul>
@@ -133,26 +128,18 @@ const Sidebar = () => {
             </button>
             <ul className={`sub-menu ${subMenus.UsersMenu ? "show" : ""}`}>
               <div>
-                <li className={activeMenu === "profesionals" ? "active" : ""}>
-                  <Link to="/appointments?1" onClick={() => handleMenuClick("profesionals")}>
-                    Profesionals
-                  </Link>
+                <li>
+                  <Link to="/appointments" onClick={() => handleMenuClick("accounts")}>Profesionals</Link>
                 </li>
-                <li className={activeMenu === "patiens" ? "active" : ""}>
-                  <Link to="/appointments?2" onClick={() => handleMenuClick("patiens")}>
-                    Patiens
-                  </Link>
+                <li>
+                  <Link to="/appointments" onClick={() => handleMenuClick("accounts")}>Patiens</Link>
                 </li>
-                <li className={activeMenu === "admin" ? "active" : ""}>
-                  <Link to="/appointments?3" onClick={() => handleMenuClick("admin")}>
-                    Admin
-                  </Link>
+                <li>
+                  <Link to="/appointments" onClick={() => handleMenuClick("accounts")}>Admin</Link>
                 </li>
               </div>
             </ul>
           </li>
-
-          {/* ========== ========== */}
 
           <li>
             <button onClick={() => toggleSubMenu("TodoListMenu")} className={`dropdown-btn ${subMenus.TodoListMenu ? "rotate" : ""}`}>
@@ -162,28 +149,22 @@ const Sidebar = () => {
             </button>
             <ul className={`sub-menu ${subMenus.TodoListMenu ? "show" : ""}`}>
               <div>
-                <li className={activeMenu === "database" ? "active" : ""}>
-                  <Link to="/appointments" onClick={() => handleMenuClick("database")}>
-                    Database
-                  </Link>
+                <li>
+                  <Link to="/appointments" onClick={() => handleMenuClick("tools")}>Database</Link>
                 </li>
-                <li className={activeMenu === "config" ? "active" : ""}>
-                  <Link to="/appointments" onClick={() => handleMenuClick("config")}>
-                    Config
-                  </Link>
+                <li>
+                  <Link to="/appointments" onClick={() => handleMenuClick("tools")}>Config</Link>
                 </li>
-                <li className={activeMenu === "about" ? "active" : ""}>
-                  <Link to="/appointments" onClick={() => handleMenuClick("about")}>
-                    About
-                  </Link>
+                <li>
+                  <Link to="/appointments" onClick={() => handleMenuClick("tools")}>About</Link>
                 </li>
               </div>
             </ul>
           </li>
-          <li className="logout-container">
-            <Link to="/login" className="logout">
+          <li>
+            <Link to="/login" className="logout" onClick={handleLogout}>
               <i className="icon-logout"></i>
-              <span onClick={handleLogout}>Logout</span>
+              <span>Logout</span>
             </Link>
           </li>
         </ul>

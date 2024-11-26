@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { format, isSameDay, isSameWeek, isSameMonth, startOfWeek, endOfWeek, startOfMonth, endOfMonth } from "date-fns";
-// import "./AppointmentsPage.css";
 import { es } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAppointments } from "../../../redux/userAppointmentsSlice";
 import apiServices from "../../../services/apiServices";
-import "./ApptListComponent.css";
+import "./ApptListPage.css";
 
-const ApptListComponent = () => {
+const ApptListPage = () => {
   const appoinmentSelector = useSelector((state) => state.appointments);
   const [selectedDay, setSelectedDay] = useState(new Date());
   const [view, setView] = useState("day");
@@ -78,7 +77,7 @@ const ApptListComponent = () => {
 
   return (
     <>
-      <div className="ApptListComponent">
+      <div className="ApptCalendarContainer">
         {/* <pre>{JSON.stringify(appoinmentSelector, null, 2)}</pre> */}
         <section className="calendar_section">
           <div className="DatePicker">
@@ -128,7 +127,7 @@ const ApptListComponent = () => {
                           <strong> {appt.patient.firstName} </strong>
                           <i className="mobile_none lastName">{appt.doctor.lastName} </i>
                         </div>
-                        <p>
+                        <p className="time_date_container">
                           <i className="icon-clock"></i>
                           <b className="date_time">
                             {view === "day" && format(new Date(appt.date), "h:mm aa", { locale: es })} {/* Only time for 'day' view */}
@@ -165,4 +164,4 @@ const ApptListComponent = () => {
   );
 };
 
-export default ApptListComponent;
+export default ApptListPage;

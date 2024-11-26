@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import apiServices from "../../../services/apiServices";
+import "./SelectComponent.css";
 
 const SelectComponent = ({ onSelectRolesChange, defaultRoles }) => {
   const [roles, setRoles] = useState({
@@ -7,7 +8,7 @@ const SelectComponent = ({ onSelectRolesChange, defaultRoles }) => {
     patient: [],
   });
 
-  const [selectRoles, setSelectRoles] = useState(defaultRoles); 
+  const [selectRoles, setSelectRoles] = useState(defaultRoles);
 
   const getUserByRole = async (role) => {
     try {
@@ -45,11 +46,29 @@ const SelectComponent = ({ onSelectRolesChange, defaultRoles }) => {
     }
   };
 
+  const handleInvalid = (e) => {
+    // Se ejecuta cuando un campo no cumple con los requisitos
+    if (!e.target.value) {
+      // Cambia el mensaje de error si no se selecciona un valor
+      e.target.setCustomValidity("Please select a valid option123.");
+    } else {
+      e.target.setCustomValidity("");
+    }
+  };
+
   return (
-    <>
-      <section>
+    <div className="SelectComponent">
+      <section className="SelectComponent patient_container">
         <label htmlFor="patientId">Patient: </label>
-        <select id="patientId" name="patientId" value={selectRoles.patientId} onChange={handleInputChange}>
+        <select
+          //
+          id="patientId"
+          name="patientId"
+          value={selectRoles.patientId}
+          onChange={handleInputChange}
+          required
+          onInvalid={handleInvalid}
+        >
           <option value="">Select Patient</option>
           {roles.patient.map((patient) => (
             <option key={patient.id} value={patient.id}>
@@ -58,9 +77,17 @@ const SelectComponent = ({ onSelectRolesChange, defaultRoles }) => {
           ))}
         </select>
       </section>
-      <section>
+      <section className="SelectComponent doctor_container">
         <label htmlFor="doctorId">Doctor: </label>
-        <select id="doctorId" name="doctorId" value={selectRoles.doctorId} onChange={handleInputChange}>
+        <select
+          //
+          id="doctorId"
+          name="doctorId"
+          value={selectRoles.doctorId}
+          onChange={handleInputChange}
+          required
+          onInvalid={handleInvalid}
+        >
           <option value="">Select Doctor</option>
           {roles.doctor.map((doctor) => (
             <option key={doctor.id} value={doctor.id}>
@@ -69,7 +96,7 @@ const SelectComponent = ({ onSelectRolesChange, defaultRoles }) => {
           ))}
         </select>
       </section>
-    </>
+    </div>
   );
 };
 

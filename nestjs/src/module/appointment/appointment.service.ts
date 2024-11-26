@@ -33,7 +33,7 @@ export class AppointmentService {
 
   async findAll(): Promise<Appointment[]> {
     return await this.appointmentRepository.find({
-      order: { date: 'ASC' },
+      order: { date: 'ASC', id: 'ASC' },
       relations: ['patient', 'doctor'],
       select: {
         id: true,

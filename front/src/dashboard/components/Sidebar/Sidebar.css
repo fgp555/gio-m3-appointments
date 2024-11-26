@@ -160,6 +160,7 @@
       position: fixed;
       top: unset;
       bottom: 0;
+      z-index: 1;
 
       > ul {
         padding: 0;

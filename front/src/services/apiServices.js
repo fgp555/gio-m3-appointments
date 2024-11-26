@@ -45,7 +45,6 @@ const apiServices = {
 
   fetchAppointments: async () => {
     try {
-      console.log("Fetching appointments...");
       const response = await axios.get(`${API_URL}/appointments`);
       return response.data; // Return the appointments data
     } catch (error) {
@@ -71,7 +70,6 @@ const apiServices = {
 
   fetchAppointmentsLastCount: async (count) => {
     try {
-      console.log("Fetching appointments...");
       const response = await axios.get(`${API_URL}/appointments/last/${count}`);
       return response.data; // Return the appointments data
     } catch (error) {

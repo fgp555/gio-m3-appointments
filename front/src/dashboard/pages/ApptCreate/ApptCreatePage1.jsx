@@ -75,11 +75,11 @@ const ApptCreatePage = () => {
                 defaultRoles={selectedRoles}
                 //
               />
-              <label>Descripción</label>
+              <label>Description</label>
               <input type="text" value={newAppointment.description} onChange={(e) => setNewAppointment({ ...newAppointment, description: e.target.value })} />
             </div>
             <div>
-              <button type="submit">Crear Cita</button>
+              <button type="submit">Add</button>
             </div>
           </form>
           <pre>{JSON.stringify(newAppointment, null, 2)}</pre>

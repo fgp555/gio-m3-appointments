@@ -1,0 +1,14 @@
+.TableApptComponent {
+  .status {
+    opacity: 0.8;
+    &.CANCELED {
+      color: red;
+    }
+    &.PENDING {
+      color: lawngreen;
+    }
+  }
+  .date_time {
+    text-transform: capitalize;
+  }
+}

@@ -1,0 +1,60 @@
+/* General container styling */
+.SelectComponent {
+  display: flex;
+  flex-direction: column;
+  /* padding: 1rem; */
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+
+  /* Section for each select */
+  section {
+    display: flex;
+    flex-direction: column;
+    /* gap: 0.5rem; */
+  }
+
+  /* Labels styling */
+  label {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  /* Select dropdown styling */
+  select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+  }
+
+  select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+  }
+
+  /* Styling for individual options (inherited from select) */
+  select option {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  /* Hover effect for dropdown */
+  select:hover {
+    border-color: #0056b3;
+  }
+
+  /* Adjust patient and doctor container styles (optional) */
+  .patient_container {
+    border-radius: 8px;
+    /* padding: 0.5rem; */
+  }
+
+  .doctor_container {
+    border-radius: 8px;
+    /* padding: 0.5rem; */
+  }
+}

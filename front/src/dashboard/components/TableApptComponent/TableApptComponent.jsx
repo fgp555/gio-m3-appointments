@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import apiServices from "../../../services/apiServices";
 import "./TableApptComponent.css";
 
-const TableApptComponent = ({ appoinmentData,  viewProps }) => {
+const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => {
   const [view, setView] = useState("month");
 
   useEffect(() => {
@@ -18,6 +18,7 @@ const TableApptComponent = ({ appoinmentData,  viewProps }) => {
     try {
       const canceledAppointment = await apiServices.cancelAppointment(appointmentId);
       console.log("Appointment canceled successfully:", canceledAppointment);
+      handleUpdateAppt();
     } catch (error) {
       console.error("Error canceling appointment:", error.message);
     }
@@ -27,6 +28,7 @@ const TableApptComponent = ({ appoinmentData,  viewProps }) => {
     try {
       await apiServices.deleteAppointment(appointmentId);
       console.log("Appointment deleted successfully.");
+      handleUpdateAppt();
     } catch (error) {
       console.error("Error deleting appointment:", error.message);
     }
@@ -72,9 +74,11 @@ const TableApptComponent = ({ appoinmentData,  viewProps }) => {
                         </p>
                       </aside>
                       <aside className="buttons">
-                        <p>{appt.status} </p>
+                        <p className={`status  ${appt.status}`}>{appt.status} </p>
                         <button onClick={() => handleCancelAppointment(appt.id)}>Cancel</button>
-                        <button onClick={() => handleDeleteAppointment(appt.id)}>Delete</button>
+                        <button onClick={() => handleDeleteAppointment(appt.id)} className="danger">
+                          Delete
+                        </button>
                       </aside>
                     </section>
                   </li>

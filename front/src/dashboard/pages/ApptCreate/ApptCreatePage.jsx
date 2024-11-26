@@ -25,14 +25,12 @@ const ApptCreatePage = () => {
 
   const handleSelectRolesChange = (newSelectRoles) => {
     setSelectedRoles(newSelectRoles);
-    console.log("Estado actualizado desde el hijo:", newSelectRoles);
   };
 
   const getAppointmentsLastCount = async () => {
     try {
       const response = await apiServices.fetchAppointmentsLastCount(selectedCount);
       setLatestAppointments(response);
-      console.log("Appointments fetched successfully:", response);
     } catch (err) {
       console.error("Error fetching appointments:", err);
     }
@@ -46,8 +44,9 @@ const ApptCreatePage = () => {
     e.preventDefault();
     try {
       const { description, date, time } = newAppointment;
+      const localDateTime = `${format(date, "yyyy-MM-dd")}T${time}:00`;
+      const formattedDate = new Date(localDateTime);
 
-      const formattedDate = new Date(`${format(date, "yyyy-MM-dd")}T${time}:00.000Z`);
       const appointmentData = {
         date: formattedDate.toISOString(),
         description: description,
@@ -58,12 +57,9 @@ const ApptCreatePage = () => {
           id: selectedRoles.doctorId,
         },
       };
-      // Crear cita
+
       await apiServices.createAppointment(appointmentData);
-
-      // Actualizar lista después de crear la cita
       await getAppointmentsLastCount();
-
       console.log("Appointment created successfully");
     } catch (err) {
       console.error("Error creating appointment:", err);
@@ -88,71 +84,128 @@ const ApptCreatePage = () => {
   const handleChange = (e) => {
     setSelectedCount(parseInt(e.target.value, 10) || 0); // Asegura que el valor sea un número
   };
+
+  const autoResize = (textarea) => {
+    textarea.style.height = "auto"; // Resetea la altura primero
+    textarea.style.height = textarea.scrollHeight + "px"; // Ajusta la altura según el contenido
+  };
+
   return (
-    <div className="AppointmentsPage">
-      <button className={view === "day" ? "active" : ""} onClick={() => handleViewChange("day")}>
-        Day
-      </button>
-      <button className={view === "week" ? "active" : ""} onClick={() => handleViewChange("week")}>
-        Week
-      </button>
-      <button className={view === "month" ? "active" : ""} onClick={() => handleViewChange("month")}>
-        Month
-      </button>
-      <form onSubmit={handleCreateAppt}>
-        <div>
-          <DatePicker
-            selected={new Date(`${format(newAppointment.date, "yyyy-MM-dd")}T${newAppointment.time}:00`)}
-            onChange={(date) => {
-              const formattedTime = format(date, "HH:mm");
-              setNewAppointment({ ...newAppointment, date, time: formattedTime });
-            }}
-            inline
-            showTimeSelect
-            timeIntervals={30}
-            timeCaption="Hora"
-            dateFormat="Pp"
-            minDate={new Date()}
-            filterDate={isWeekday}
-            minTime={new Date(new Date().setHours(9, 0, 0, 0))}
-            maxTime={new Date(new Date().setHours(17, 0, 0, 0))}
-            required
-          />
-        </div>
-        <div>
-          <p className="date-time">
-            <span className="date"> {format(newAppointment.date, "yyyy-MM-dd")} </span>
-            <span className="time"> {newAppointment.time} </span>
-          </p>
-        </div>
-        <div>
+    <div className="ApptCalendarContainer ApptCreatePage">
+      <aside className="calendar_section">
+        <form onSubmit={handleCreateAppt}>
+          <div className="DatePicker DatePicker_Container">
+            <DatePicker
+              selected={new Date(`${format(newAppointment.date, "yyyy-MM-dd")}T${newAppointment.time}:00`)}
+              onChange={(date) => {
+                const formattedTime = format(date, "HH:mm");
+                setNewAppointment({ ...newAppointment, date, time: formattedTime });
+              }}
+              inline
+              dateFormat="Pp"
+              minDate={new Date()}
+              filterDate={isWeekday}
+              required
+            />
+            <DatePicker
+              selected={new Date(`${format(newAppointment.date, "yyyy-MM-dd")}T${newAppointment.time}:00`)}
+              onChange={(date) => {
+                const formattedTime = format(date, "HH:mm");
+                setNewAppointment({ ...newAppointment, date, time: formattedTime });
+              }}
+              inline
+              // selected={selectedTime}
+              // onChange={(date) => setSelectedTime(date)}
+              showTimeSelect
+              showTimeSelectOnly // Esto asegura que solo se muestre la selección de la hora
+              timeIntervals={30} // Intervalo de 15 minutos entre las opciones de hora
+              timeCaption="Hora"
+              dateFormat="h:mm aa" // Formato de la hora (hora AM/PM)
+              // dateFormat="Pp"
+              minTime={new Date(new Date().setHours(9, 0, 0, 0))}
+              maxTime={new Date(new Date().setHours(17, 0, 0, 0))}
+            />
+          </div>
+          <div>
+            <p className="date-time-paragraph">
+              <span className="date"> {format(newAppointment.date, "yyyy-MM-dd")} </span>
+              <span className="time"> {newAppointment.time} </span>
+            </p>
+          </div>
+        </form>
+      </aside>
+      <aside>
+        <div className="inputs_container">
           <SelectComponent
             onSelectRolesChange={handleSelectRolesChange}
             defaultRoles={selectedRoles}
             //
           />
-          <label>Descripción</label>
-          <input type="text" value={newAppointment.description} onChange={(e) => setNewAppointment({ ...newAppointment, description: e.target.value })} />
+          {/* Input para la Description */}
+          <label>Description</label>
+          <textarea
+            className="description"
+            //
+            value={newAppointment.description}
+            required
+            placeholder="Description"
+            onChange={(e) => setNewAppointment({ ...newAppointment, description: e.target.value })}
+            onInput={(e) => autoResize(e.target)}
+          ></textarea>
+          <button type="button" onClick={handleCreateAppt} className="btn_handleCreateAppt">
+            Add
+          </button>
         </div>
-        <div>
-          <button type="submit">Crear Cita</button>
-        </div>
-      </form>
-      <input
-        //
-        type="number"
-        value={selectedCount}
-        onChange={handleChange}
-        min="0" // Evita valores negativos si es necesario
-      />
+        <section className="buttons_filters">
+          <button className={view === "day" ? "active" : ""} onClick={() => handleViewChange("day")}>
+            Day
+          </button>
+          <button className={view === "week" ? "active" : ""} onClick={() => handleViewChange("week")}>
+            Week
+          </button>
+          <button className={view === "month" ? "active" : ""} onClick={() => handleViewChange("month")}>
+            Month
+          </button>
 
-      <TableApptComponent
-        //
-        appoinmentData={latestAppointments}
-        viewProps={view}
-      />
+          {/* Input para seleccionar el número de citas */}
+          <span>
+            <span className="input-number-container">
+              <span
+                //
+                type="button"
+                className="btn-decrement"
+                onClick={() => setSelectedCount((prev) => Math.max(0, prev - 1))}
+              >
+                -
+              </span>
+              <input
+                //
+                id="selectedCount"
+                type="number"
+                value={selectedCount}
+                onChange={handleChange}
+                min="0"
+                className="input-number"
+              />
+              <span
+                //
+                type="button"
+                className="btn-increment"
+                onClick={() => setSelectedCount((prev) => prev + 1)}
+              >
+                +
+              </span>
+            </span>
+          </span>
+        </section>
 
-      {/* <pre>{JSON.stringify(newAppointment, null, 2)}</pre> */}
+        <TableApptComponent
+          //
+          appoinmentData={latestAppointments}
+          viewProps={view}
+          handleUpdateAppt={getAppointmentsLastCount}
+        />
+      </aside>
     </div>
   );
 };

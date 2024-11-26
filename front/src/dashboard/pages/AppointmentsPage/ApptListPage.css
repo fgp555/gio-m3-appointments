@@ -34,66 +34,57 @@
   }
   .react-datepicker__day-names {
     background-color: #e6e6ef;
-    /* color: #fff; */
   }
   .react-datepicker__day-name {
-    /* background-color: peru; */
     font-weight: bolder;
     color: #0008;
   }
   .react-datepicker__day--outside-month {
-    /* background-color: peru; */
     opacity: 0.2;
   }
-  /* .react-datepicker__day { */
-  /* background-color: red; */
-  /* font-weight: 600; */
-  /* } */
+
   .react-datepicker__navigation {
     background-color: #5e63ff88;
     margin-top: 0.5em;
     color: peru;
   }
-}
-
-.ApptListComponent {
-  display: flex;
-  justify-content: start;
-  align-items: start;
-  gap: 2em;
-  margin: 2em;
-  flex-wrap: wrap;
-  /* === Desktop... === */
-  @media (min-width: 1290px) {
-    .calendar_section {
-      top: 2em;
-      position: sticky;
-    }
+  .react-datepicker__navigation .react-datepicker__navigation--next .react-datepicker__navigation--next--with-time {
+    background-color: green;
+    margin-right: 4em !important;
   }
 
-  /* Estilos para las citas */
-  ul {
-    list-style-type: none;
-    padding: 0;
+  .react-datepicker__time-container {
+    width: 8rem;
+    border: none;
   }
 
-  li {
-    padding: 8px;
-    margin: 5px 0;
-    /* background-color: #f9f9f9; */
-    border-left: 4px solid #007bff;
-    border-radius: 4px;
+  .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
+    width: 7rem;
+  }
+  .react-datepicker__time-list {
+    height: 26em !important;
   }
 
-  li strong {
-    font-weight: bold;
+  .react-datepicker__time-list-item {
+    height: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
-
-  li span {
-    font-size: 0.9em;
-    color: #777;
+  .react-datepicker__time-list-item--disabled {
+    display: none;
   }
-  /* === Desktop... === */
+  .react-datepicker__header--time--only {
+    margin: 4.1px;
+    height: 100%;
+  }
+  .react-datepicker--time-only,
+  .react-datepicker,
+  .react-datepicker__time-container {
+    border: none;
+    border-radius: 0;
+  }
 }
 
 .appt_list_container {
@@ -116,7 +107,7 @@
   .info {
     display: flex;
     flex-direction: column;
-    min-width: 20vw;
+    min-width: 15em;
   }
   .buttons {
     display: flex;
@@ -134,11 +125,9 @@
   }
   .description {
     font-size: 1em;
-    /* color: #000; */
     color: #fff;
     opacity: 1;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     gap: 0.2em;
     b {
@@ -146,8 +135,6 @@
     }
   }
   .date_time {
-    /* font-style: italic; */
-    /* text-decoration: underline; */
     font-size: 1.5em;
   }
 
@@ -156,5 +143,13 @@
     aspect-ratio: 1/1;
     color: #fffd;
     margin-right: 0.4em;
+  }
+}
+.ApptCalendarContainer {
+  .appt_count {
+    /* background-color: peru; */
+    font-size: 1.5em;
+    color: chartreuse;
+    margin-left: 1em;
   }
 }

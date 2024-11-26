@@ -20,15 +20,25 @@
   font-family: Poppins, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5rem;
 
-  main {
-    padding: min(30px, 7%);
+  /* === Desktop... === */
+  @media (min-width: 40rem) {
+    main {
+      padding: min(0.5em, 7%);
+    }
   }
+  /* === Desktop... === */
 
-  main p {
-    color: var(--secondary-text-clr);
-    margin-top: 5px;
-    margin-bottom: 15px;
+  /* === Mobile... === */
+  @media (max-width: 80rem) {
+    main {
+      padding: min(0.5em, 7%);
+    }
+    aside {
+      margin: 1em auto;
+    }
   }
+  /* === Mobile... === */
+  padding-bottom: 5em;
 
   .container {
     border: 1px solid var(--line-clr);
@@ -42,12 +52,6 @@
     }
   }
   @media (max-width: 800px) {
-    /* #root {
-      grid-template-columns: 1fr;
-    } */
-    /* main {
-      padding: 2em 1em 60px 1em;
-    } */
     .container {
       border: none;
       padding: 0;
@@ -74,9 +78,73 @@
     cursor: not-allowed;
   }
 
+  /* button secondary */
+  button.secondary {
+    background-color: #6c757d;
+  }
+
+  button.secondary:hover {
+    background-color: #545b62;
+  }
+
+  /* button success */
+  button.success {
+    background-color: #28a745;
+  }
+
+  button.success:hover {
+    background-color: #218838;
+  }
+
+  /* button danger */
+  button.danger {
+    background-color: #dc3545;
+  }
+
+  button.danger:hover {
+    background-color: #c82333;
+  }
+
+  /* button info */
+  button.info {
+    background-color: #17a2b8;
+  }
+
+  /* button warning */
+  button.warning {
+    background-color: #ffcc00;
+    color: black;
+  }
+
+  button.warning:hover {
+    background-color: #e6b800;
+  }
+
+  /* button active */
+  button.active {
+    background-color: #28a745;
+    border-bottom: 5px solid #fff;
+  }
+
+  button.active:hover {
+    background-color: #218838;
+  }
+
   h2,
   h3 {
     font-size: 24px;
     margin-bottom: 10px;
+  }
+
+  /* === Mobile... === */
+  @media (max-width: 40rem) {
+    .mobile_none {
+      background-color: crimson;
+      display: none;
+    }
+  }
+  /* === Mobile... === */
+  main {
+    padding: 12em auto;
   }
 }

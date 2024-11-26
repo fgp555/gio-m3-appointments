@@ -9,9 +9,10 @@ import Login from "./views/Login/Login";
 import About from "./views/About/About";
 import Contact from "./views/Contact/Contact";
 import DashboardLayout from "./dashboard/layout/DashboardLayout";
-import Temp from "./dashboard/pages/AppointmentsPage/AppointmentsPage";
+// import Temp from "./dashboard/pages/AppointmentsPage/AppointmentsPage";
 import "./App.css";
 import ApptCreatePage from "./dashboard/pages/ApptCreate/ApptCreatePage";
+import ApptListPage from "./dashboard/pages/AppointmentsPage/ApptListPage";
 
 const NotFound = () => (
   <div>
@@ -84,7 +85,7 @@ const App = () => {
         element={
           <PrivateRoute>
             <DashboardLayout>
-              <Temp />
+              <ApptListPage />
             </DashboardLayout>
           </PrivateRoute>
         }

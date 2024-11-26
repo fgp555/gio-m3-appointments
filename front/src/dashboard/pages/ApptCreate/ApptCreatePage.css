@@ -1,3 +1,174 @@
 .react-datepicker__time-list-item--disabled {
   display: none;
 }
+.AppointmentsPage button.active {
+  background-color: #fff;
+  color: #000;
+}
+.ApptCreatePage {
+  .DatePicker_Container {
+    display: flex;
+    .react-datepicker__time-container {
+      width: initial !important;
+    }
+    .react-datepicker__time-container {
+      width: initial !important;
+    }
+
+    .react-datepicker__day-name,
+    .react-datepicker__day,
+    .react-datepicker__time-name {
+      width: initial !important;
+      aspect-ratio: 1/1 !important;
+    }
+
+    .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
+      width: initial !important;
+    }
+  }
+
+  textarea.description {
+    /* background-color: peru; */
+    width: 100%;
+    padding: 0.5em;
+    min-height: 7em; /* Altura mínima */
+    max-height: 300px; /* Altura máxima */
+    overflow-y: auto; /* Permite desplazamiento si se excede la altura máxima */
+    resize: none; /* Desactiva el redimensionamiento manual por el usuario */
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .btn_handleCreateAppt {
+    /* background-color: peru; */
+    width: 100%;
+    padding: 1em;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    margin: 1em auto;
+    margin-bottom: 0em;
+  }
+  .inputs_container {
+    /* background-color: peru; */
+    padding: 1em;
+    border: 1px solid #fff4;
+    border-radius: 0.2em;
+    margin-bottom: 2em;
+  }
+}
+
+.ApptCalendarContainer {
+  .date-time-paragraph {
+    /* background-color: peru; */
+    font-size: 2.5em;
+    color: greenyellow !important;
+    margin: 0.5em auto;
+    /* margin-top: 1em; */
+    /* text-align: center; */
+    color: #fff;
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+  }
+  .input-number-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .input-number {
+    flex: 1;
+    text-align: center;
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 16px;
+  }
+
+  .btn-decrement,
+  .btn-increment {
+    background-color: #f0f0f0;
+    border: none;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .btn-decrement:hover,
+  .btn-increment:hover {
+    background-color: #ddd;
+  }
+
+  .btn-decrement:active,
+  .btn-increment:active {
+    background-color: #bbb;
+  }
+
+  .btn-submit {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .btn-submit:hover {
+    background-color: #0056b3;
+  }
+
+  /* Chrome, Safari, Edge, y Opera */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  .buttons_filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* gap: 0.2em; */
+  }
+  .input-number-container {
+    background-color: #fff0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1em;
+    border: 1px solid #0000;
+    #selectedCount {
+      display: flex;
+      width: 2em;
+      background-color: #0000;
+      color: #fff;
+      /* border: 1px solid red; */
+    }
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: black;
+      /* border: 2px solid #fff8; */
+      background-color: #fff;
+
+      color: #fff;
+      color: #000;
+      border-radius: 50%;
+      user-select: none; /* Compatible con la mayoría de los navegadores modernos */
+      -webkit-user-select: none; /* Soporte para navegadores basados en WebKit */
+      -moz-user-select: none; /* Soporte para Firefox */
+      -ms-user-select: none; /* Soporte para Internet Explorer */
+    }
+  }
+}

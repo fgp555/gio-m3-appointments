@@ -38,7 +38,7 @@ let AppointmentService = class AppointmentService {
     }
     async findAll() {
         return await this.appointmentRepository.find({
-            order: { date: 'ASC' },
+            order: { date: 'ASC', id: 'ASC' },
             relations: ['patient', 'doctor'],
             select: {
                 id: true,

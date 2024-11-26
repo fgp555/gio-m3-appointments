@@ -98,15 +98,15 @@ const MisTurnos = () => {
 
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Fecha:</label>
+          <label>Date:</label>
           <input type="date" name="date" value={appoinmentState.date} onChange={handleChangeForm} required />
         </div>
         <div>
-          <label>Hora:</label>
+          <label>Time:</label>
           <input type="time" name="time" value={appoinmentState.time} onChange={handleChangeForm} required />
         </div>
         <div>
-          <label>Descripción:</label>
+          <label>Description:</label>
           <input type="text" name="description" value={appoinmentState.description} onChange={handleChangeForm} required />
         </div>
         <button type="submit">Crear Turno</button>
@@ -119,9 +119,9 @@ const MisTurnos = () => {
           <caption>Turnos Agendados</caption>
           <thead>
             <tr>
-              <th>Fecha</th>
-              <th>Hora</th>
-              <th>Descripción</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Description</th>
               {/* <th>Estado</th> */}
               <th>Estado</th>
             </tr>

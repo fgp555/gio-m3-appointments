@@ -1,0 +1,40 @@
+.ApptCalendarContainer {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 2em;
+  flex-wrap: wrap;
+  /* === Desktop... === */
+  @media (min-width: 1290px) {
+    margin: 2em;
+
+    .calendar_section {
+      top: 2em;
+      position: sticky;
+    }
+  }
+
+  /* Estilos para las citas */
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    padding: 8px;
+    margin: 5px 0;
+    /* background-color: #f9f9f9; */
+    border-left: 4px solid #007bff;
+    border-radius: 4px;
+  }
+
+  li strong {
+    font-weight: bold;
+  }
+
+  li span {
+    font-size: 0.9em;
+    color: #777;
+  }
+  /* === Desktop... === */
+}
