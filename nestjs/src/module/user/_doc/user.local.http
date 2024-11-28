@@ -10,7 +10,7 @@ GET http://localhost:3000/api/users/role/patient
 Authorization: {{token}}
 
 ###### Get users by role
-GET http://localhost:3000/api/users/role/doctor
+GET http://localhost:3000/api/users/role/professional
 Authorization: {{token}}
 
 ###
@@ -72,6 +72,6 @@ Authorization: {{token}}
 }
 
 ###
-DELETE  http://localhost:3000/api/users/1
+DELETE  http://localhost:3000/api/users/15
 Authorization: {{token}}
 

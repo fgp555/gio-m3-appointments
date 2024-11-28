@@ -43,7 +43,7 @@ export class UserController {
   // Nuevo endpoint para obtener usuarios por tipo
   @Get('role/:role')
   async findByRole(
-    @Param('role') role: 'admin' | 'patient' | 'doctor',
+    @Param('role') role: 'admin' | 'patient' | 'professional',
   ) {
     return await this.userService.findByRole(role);
   }

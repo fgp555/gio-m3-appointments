@@ -101,7 +101,7 @@ export class UserService {
     });
   }
 
-  async findByRole(role: 'admin' | 'patient' | 'doctor') {
+  async findByRole(role: 'admin' | 'patient' | 'professional') {
     return await this.userRepository.find({
       where: { role },
       relations: ['appointmentsAsPatient', 'appointmentsAsDoctor'],

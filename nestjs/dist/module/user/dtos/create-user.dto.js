@@ -69,4 +69,26 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Boolean)
 ], CreateUserDto.prototype, "isAdmin", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MaxLength)(255, {
+        message: 'Specialization should be less than 255 characters',
+    }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "title", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MaxLength)(255, {
+        message: 'Specialization should be less than 255 characters',
+    }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "specialization", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MaxLength)(1000, { message: 'Bio should be less than 1000 characters' }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "bio", void 0);
 //# sourceMappingURL=create-user.dto.js.map

@@ -13,6 +13,8 @@ import DashboardLayout from "./dashboard/layout/DashboardLayout";
 import "./App.css";
 import ApptCreatePage from "./dashboard/pages/ApptCreate/ApptCreatePage";
 import ApptListPage from "./dashboard/pages/AppointmentsPage/ApptListPage";
+import ProfessionalsPage from "./dashboard/pages/ProfessionalsPage/ProfessionalsPage";
+import AddProfessionalPage from "./dashboard/pages/AddProfessionalPage/AddProfessionalPage";
 
 const NotFound = () => (
   <div>
@@ -96,6 +98,26 @@ const App = () => {
           <PrivateRoute>
             <DashboardLayout>
               <ApptCreatePage />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/professionals"
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <ProfessionalsPage />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/add-professionals"
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <AddProfessionalPage />
             </DashboardLayout>
           </PrivateRoute>
         }

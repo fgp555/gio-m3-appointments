@@ -3,6 +3,7 @@
 import axios from "axios";
 
 const API_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api" : "https://crefi.giomr.site/api";
+// const API_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api" : "https://back.fgp.one/api";
 
 const apiServices = {
   registerUser: async (userData) => {
@@ -28,6 +29,16 @@ const apiServices = {
         console.error("Error message:", error.message);
       }
 
+      throw error; // Re-throw the error for further handling
+    }
+  },
+  
+  apiDeleteUser: async (userId) => {
+    try {
+      const response = await axios.delete(`${API_URL}/users/${userId}`);
+      return response;
+    } catch (error) {
+      console.error("Full error object:", error); // Log the full error object
       throw error; // Re-throw the error for further handling
     }
   },

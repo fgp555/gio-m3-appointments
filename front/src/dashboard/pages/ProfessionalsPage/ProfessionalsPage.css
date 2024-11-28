@@ -1,0 +1,95 @@
+.ProfessionalsPage {
+  padding: 20px;
+  .title_container {
+    display: flex;
+    justify-content: space-between;
+    /* flex-direction: row; */
+    align-items: center;
+    .title {
+      font-size: 2em;
+      /* margin: 1em auto; */
+    }
+  }
+  .cards_container {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* Card Styles */
+.ProfessionalCard {
+  /* background: #1e1e1e; */
+  border: 1px solid #8884;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px #8882;
+  overflow: hidden;
+  padding: 15px;
+
+  /* Tab Styles */
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+  }
+
+  .tab {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: #e0e0e0;
+    background: #2c2c2c;
+    transition: background 0.3s, color 0.3s;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .tab.active {
+    background: #007bff;
+    color: #ffffff;
+  }
+
+  .tab:hover {
+    background: #3a3a3a;
+  }
+
+  /* Tab Content Styles */
+  .tab_content {
+    padding: 10px;
+  }
+
+  .tab_info img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .tab_info p,
+  .tab_details p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+
+  /* Scrollable Cards */
+  .ProfessionalCard {
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #444 #1e1e1e;
+  }
+
+  .ProfessionalCard::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .ProfessionalCard::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 10px;
+  }
+}

@@ -58,11 +58,23 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         type: 'enum',
-        enum: ['patient', 'doctor', 'admin'],
+        enum: ['patient', 'professional', 'admin'],
         default: 'patient',
     }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "role", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ length: 255, nullable: true }),
+    __metadata("design:type", String)
+], UserEntity.prototype, "title", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ length: 255, nullable: true }),
+    __metadata("design:type", String)
+], UserEntity.prototype, "specialization", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ length: 1000, nullable: true }),
+    __metadata("design:type", String)
+], UserEntity.prototype, "bio", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => appointment_entity_1.Appointment, (appointment) => appointment.patient, {}),
     __metadata("design:type", Array)

@@ -1,0 +1,15 @@
+.ProfessionalsPage {
+  .cards_container {
+    display: flex;
+    .card_item {
+      /* display: flex;
+      justify-content: center;
+      align-items: center; */
+      border: 1px solid #fff;
+    }
+    img {
+      width: 100px !important;
+      aspect-ratio: 1/1;
+    }
+  }
+}

@@ -134,8 +134,8 @@ const Sidebar = () => {
             <ul className={`sub-menu ${subMenus.UsersMenu ? "show" : ""}`}>
               <div>
                 <li className={activeMenu === "profesionals" ? "active" : ""}>
-                  <Link to="/appointments?1" onClick={() => handleMenuClick("profesionals")}>
-                    Profesionals
+                  <Link to="/professionals" onClick={() => handleMenuClick("profesionals")}>
+                    Professionals
                   </Link>
                 </li>
                 <li className={activeMenu === "patiens" ? "active" : ""}>

@@ -9,4 +9,7 @@ export declare class CreateUserDto {
     nDni: string;
     image?: string;
     isAdmin?: boolean;
+    title?: string;
+    specialization?: string;
+    bio?: string;
 }

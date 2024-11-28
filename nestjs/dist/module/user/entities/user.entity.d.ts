@@ -10,7 +10,10 @@ export declare class UserEntity {
     birthdate: string;
     nDni: string;
     image: string;
-    role: 'patient' | 'doctor' | 'admin';
+    role: 'patient' | 'professional' | 'admin';
+    title: string;
+    specialization: string;
+    bio: string;
     appointmentsAsPatient: Appointment[];
     appointmentsAsDoctor: Appointment[];
     createdAt: Date;

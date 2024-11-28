@@ -15,7 +15,10 @@ export declare class AuthController {
         birthdate: string;
         nDni: string;
         image: string;
-        role: "patient" | "doctor" | "admin";
+        role: "patient" | "professional" | "admin";
+        title: string;
+        specialization: string;
+        bio: string;
         appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
         appointmentsAsDoctor: import("../appointment/entities/appointment.entity").Appointment[];
         createdAt: Date;
@@ -32,7 +35,10 @@ export declare class AuthController {
             birthdate: string;
             nDni: string;
             image: string;
-            role: "patient" | "doctor" | "admin";
+            role: "patient" | "professional" | "admin";
+            title: string;
+            specialization: string;
+            bio: string;
             appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
             appointmentsAsDoctor: import("../appointment/entities/appointment.entity").Appointment[];
             createdAt: Date;

@@ -53,4 +53,23 @@ export class CreateUserDto {
 
   @IsOptional()
   isAdmin?: boolean;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(255, {
+    message: 'Specialization should be less than 255 characters',
+  })
+  title?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(255, {
+    message: 'Specialization should be less than 255 characters',
+  })
+  specialization?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(1000, { message: 'Bio should be less than 1000 characters' })
+  bio?: string;
 }

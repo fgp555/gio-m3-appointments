@@ -41,10 +41,19 @@ export class UserEntity {
 
   @Column({
     type: 'enum',
-    enum: ['patient', 'doctor', 'admin'],
+    enum: ['patient', 'professional', 'admin'],
     default: 'patient',
   })
-  role: 'patient' | 'doctor' | 'admin';
+  role: 'patient' | 'professional' | 'admin';
+
+  @Column({ length: 255, nullable: true })
+  title: string;
+
+  @Column({ length: 255, nullable: true })
+  specialization: string;
+
+  @Column({ length: 1000, nullable: true })
+  bio: string;
 
   @OneToMany(() => Appointment, (appointment) => appointment.patient, {
     // cascade: true,
