@@ -1,5 +1,6 @@
 import { useState } from "react";
-import apiServices from "../../services/apiServices";
+import apiServices from "../../../services/apiServices";
+import { Link } from "react-router-dom";
 
 const ProfCardComp = ({ professional, refreshUsers }) => {
   const [activeTab, setActiveTab] = useState("info");
@@ -69,7 +70,9 @@ const ProfCardComp = ({ professional, refreshUsers }) => {
               <strong>Bio:</strong> {professional.bio}
             </p>
             <div>
-              <button>Edit</button>
+              <Link to={`/professional/${professional.id}`}>
+                <button>Edit</button>
+              </Link>
               <button onClick={() => handleDeleteProf(professional.id)}>Delete</button>
             </div>
           </div>

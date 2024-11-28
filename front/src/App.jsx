@@ -15,6 +15,7 @@ import ApptCreatePage from "./dashboard/pages/ApptCreate/ApptCreatePage";
 import ApptListPage from "./dashboard/pages/AppointmentsPage/ApptListPage";
 import ProfessionalsPage from "./dashboard/pages/ProfessionalsPage/ProfessionalsPage";
 import AddProfessionalPage from "./dashboard/pages/AddProfessionalPage/AddProfessionalPage";
+import ProfUpdateParam from "./dashboard/pages/ProfessionalsPage/id-update/ProfUpdateParam";
 
 const NotFound = () => (
   <div>
@@ -118,6 +119,16 @@ const App = () => {
           <PrivateRoute>
             <DashboardLayout>
               <AddProfessionalPage />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/professional/:id"
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <ProfUpdateParam />
             </DashboardLayout>
           </PrivateRoute>
         }

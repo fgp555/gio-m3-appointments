@@ -1,38 +1,29 @@
-import React, { useEffect, useState, useCallback } from "react";
-import apiServices from "../../../services/apiServices";
-// import "./AddProfessionalPage.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import "./ProfUpdateParam.css";
+import apiServices from "../../../../services/apiServices";
 
-const AddProfessionalPage = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const pageTitle =
-    location.pathname === "/add-professionals"
-      ? "Añadir Profesional" //
-      : location.pathname === "/patient"
-      ? "Añadir Pacientes"
-      : "Añadir Usuario";
-
-  const [formData, setFormData] = useState({
-    title: "Licenciada",
-    firstName: "Natali",
-    lastName: "M Russo",
-    email: "nmrusso@crefi.com",
-    whatsapp: "+5491123456797",
-    username: "doctor_giovanna",
-    password: "SecurePass@2023",
-    confirmPassword: "SecurePass@2023",
-    birthdate: "1985-08-30",
-    nDni: "28675431",
-    role: "professional",
-    image: "https://i.postimg.cc/HW2KSY5d/02.jpg",
-    specialization: "RPG, Drenaje Linfático y Pilates",
-    bio: "Licenciada Martínez Russo Giovanna cuenta con experiencia en Reeducación Postural Global (RPG), drenaje linfático y Pilates. Su dedicación y conocimientos avanzados en estas áreas son fundamentales para nuestro equipo.",
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const ProfUpdateParam = () => {
+  const { id } = useParams();
   const [message, setMessage] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userById, setUserById] = useState(null);
+  const [formData, setFormData] = useState({
+    // title: "Licenciada",
+    // firstName: "Natali",
+    // lastName: "M Russo",
+    // email: "nmrusso@crefi.com",
+    // whatsapp: "+5491123456797",
+    // username: "doctor_giovanna",
+    // password: "SecurePass@2023",
+    // confirmPassword: "SecurePass@2023",
+    // birthdate: "1985-08-30",
+    // nDni: "28675431",
+    // role: "professional",
+    // image: "https://i.postimg.cc/HW2KSY5d/02.jpg",
+    // specialization: "RPG, Drenaje Linfático y Pilates",
+    // bio: "Licenciada Martínez Russo Giovanna cuenta con experiencia en Reeducación Postural Global (RPG), drenaje linfático y Pilates. Su dedicación y conocimientos avanzados en estas áreas son fundamentales para nuestro equipo.",
+  });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -41,46 +32,31 @@ const AddProfessionalPage = () => {
       [name]: value,
     });
   };
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-    setMessage(null);
 
-    // Validaciones básicas antes de enviar
-    if (formData.password !== formData.confirmPassword) {
-      setMessage("Las contraseñas no coinciden.");
-      setIsSubmitting(false);
-      return;
-    }
-
+  const getUserById = async (id) => {
     try {
-      const response = await apiServices.registerUser(formData);
-      console.log("response", response);
-      setMessage("Profesional añadido exitosamente.");
+      const res = await apiServices.apiGetUserById(id);
+      setUserById(res);
+      setFormData(res);
+      console.log(res);
     } catch (error) {
-      // Identificar si el error tiene una respuesta del backend
-      if (error.response && error.response.data) {
-        const { message, statusCode } = error.response.data;
-
-        // Manejar errores según su mensaje o código
-        if (statusCode === 401) {
-          setMessage(`Error: ${message}`);
-        } else if (statusCode === 400) {
-          setMessage("Solicitud inválida. Verifica los datos ingresados.");
-        } else {
-          setMessage(`Error inesperado: ${message || "Intenta de nuevo más tarde."}`);
-        }
-      } else if (error.request) {
-        // Cuando no se recibe respuesta del servidor
-        setMessage("No se pudo contactar al servidor. Verifica tu conexión.");
-      } else {
-        // Error genérico
-        setMessage("Ocurrió un error inesperado. Intenta de nuevo.");
-      }
-      console.error("Error al registrar al profesional:", error);
-    } finally {
-      setIsSubmitting(false);
+      console.log(error);
     }
+  };
+
+  useEffect(() => {
+    getUserById(id);
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+      const res = apiServices.apiUpdateUser(formData, id);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+    // Lógica para enviar el formulario
   };
 
   const autoResize = (textarea) => {
@@ -91,13 +67,13 @@ const AddProfessionalPage = () => {
   const handleBack = () => {
     navigate(-1); // Volver a la página anterior en el historial
   };
-
   return (
-    <div className="AddProfessionalPage">
+    <div className="ProfUpdateParam">
+      {/* <pre>{JSON.stringify(userById, null, 2)}</pre> */}
       <button className="back-button" onClick={handleBack}>
         Regresar
       </button>
-      <h2>{pageTitle}</h2>
+      <h2>{id}</h2>
       <form onSubmit={handleSubmit}>
         <aside>
           <input type="text" name="title" placeholder="Titulo (ej. Licenciado)" value={formData.title} onChange={handleChange} required />
@@ -131,4 +107,4 @@ const AddProfessionalPage = () => {
   );
 };
 
-export default AddProfessionalPage;
+export default ProfUpdateParam;

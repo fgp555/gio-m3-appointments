@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ProfCardComp from "../../../components/ProfCardComp/ProfCardComp";
+import ProfCardComp from "../../components/ProfCardComp/ProfCardComp";
 import apiServices from "../../../services/apiServices";
 import "./ProfessionalsPage.css";
 import { Link } from "react-router-dom";

@@ -43,6 +43,26 @@ const apiServices = {
     }
   },
 
+  apiUpdateUser: async (userId, userData) => {
+    try {
+      const response = await axios.patch(`${API_URL}/users/${userId}`, userData);
+      return response;
+    } catch (error) {
+      console.error("Full error object:", error); // Log the full error object
+      throw error; // Re-throw the error for further handling
+    }
+  },
+
+  apiGetUserById: async (userId) => {
+    try {
+      const response = await axios.get(`${API_URL}/users/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error("Full error object:", error); // Log the full error object
+      throw error; // Re-throw the error for further handling
+    }
+  },
+
   login: async (logindata) => {
     try {
       const response = await axios.post(`${API_URL}/auth/signin`, logindata);
