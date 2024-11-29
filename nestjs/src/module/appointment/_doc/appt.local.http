@@ -9,8 +9,8 @@ Content-Type: application/json
   "patient": {
     "id": 2
   },
-  "doctor": {
-    "id": 3
+  "professional": {
+    "id": 5
   }
 }
 

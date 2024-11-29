@@ -80,9 +80,9 @@ __decorate([
     __metadata("design:type", Array)
 ], UserEntity.prototype, "appointmentsAsPatient", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => appointment_entity_1.Appointment, (appointment) => appointment.doctor, {}),
+    (0, typeorm_1.OneToMany)(() => appointment_entity_1.Appointment, (appointment) => appointment.professional, {}),
     __metadata("design:type", Array)
-], UserEntity.prototype, "appointmentsAsDoctor", void 0);
+], UserEntity.prototype, "appointmentsAsProfessional", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

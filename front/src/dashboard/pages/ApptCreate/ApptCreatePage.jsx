@@ -9,7 +9,7 @@ import TableApptComponent from "../../components/TableApptComponent/TableApptCom
 
 const ApptCreatePage = () => {
   const [selectedDay123, setSelectedDay] = useState(new Date());
-  const [selectedRoles, setSelectedRoles] = useState({ patientId: "3", doctorId: "7" });
+  const [selectedRoles, setSelectedRoles] = useState({ patientId: "3", professionalId: "7" });
   const [newAppointment, setNewAppointment] = useState({
     description: "description 123",
     date: selectedDay123,
@@ -53,8 +53,8 @@ const ApptCreatePage = () => {
         patient: {
           id: selectedRoles.patientId,
         },
-        doctor: {
-          id: selectedRoles.doctorId,
+        professional: {
+          id: selectedRoles.professionalId,
         },
       };
 

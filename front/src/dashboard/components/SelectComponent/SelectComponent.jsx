@@ -4,7 +4,7 @@ import "./SelectComponent.css";
 
 const SelectComponent = ({ onSelectRolesChange, defaultRoles }) => {
   const [roles, setRoles] = useState({
-    doctor: [],
+    professional: [],
     patient: [],
   });
 
@@ -23,7 +23,7 @@ const SelectComponent = ({ onSelectRolesChange, defaultRoles }) => {
   useEffect(() => {
     const fetchUsersByRoles = async () => {
       const newRoles = { ...roles };
-      for (const role of ["doctor", "patient"]) {
+      for (const role of ["professional", "patient"]) {
         const data = await getUserByRole(role);
         newRoles[role] = data;
       }
@@ -77,21 +77,21 @@ const SelectComponent = ({ onSelectRolesChange, defaultRoles }) => {
           ))}
         </select>
       </section>
-      <section className="SelectComponent doctor_container">
-        <label htmlFor="doctorId">Doctor: </label>
+      <section className="SelectComponent professional_container">
+        <label htmlFor="professionalId">Professional: </label>
         <select
           //
-          id="doctorId"
-          name="doctorId"
-          value={selectRoles.doctorId}
+          id="professionalId"
+          name="professionalId"
+          value={selectRoles.professionalId}
           onChange={handleInputChange}
           required
           onInvalid={handleInvalid}
         >
-          <option value="">Select Doctor</option>
-          {roles.doctor.map((doctor) => (
-            <option key={doctor.id} value={doctor.id}>
-              {doctor.firstName} {doctor.lastName}
+          <option value="">Select professional</option>
+          {roles.professional.map((professional) => (
+            <option key={professional.id} value={professional.id}>
+              {professional.firstName} {professional.lastName}
             </option>
           ))}
         </select>

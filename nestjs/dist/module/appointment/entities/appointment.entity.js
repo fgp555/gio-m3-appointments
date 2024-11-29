@@ -48,9 +48,9 @@ __decorate([
     __metadata("design:type", user_entity_1.UserEntity)
 ], Appointment.prototype, "patient", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.UserEntity, (user) => user.appointmentsAsDoctor),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.UserEntity, (user) => user.appointmentsAsProfessional),
     __metadata("design:type", user_entity_1.UserEntity)
-], Appointment.prototype, "doctor", void 0);
+], Appointment.prototype, "professional", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

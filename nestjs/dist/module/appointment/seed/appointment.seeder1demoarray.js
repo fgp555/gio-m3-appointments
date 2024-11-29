@@ -29,67 +29,67 @@ let AppointmentSeederService = class AppointmentSeederService {
                 date: today.toISOString(),
                 description: 'Sesión de rehabilitación postoperatoria de rodilla',
                 patient: { id: 1 },
-                doctor: { id: 2 },
+                professional: { id: 2 },
             },
             {
                 date: today.toISOString(),
                 description: 'Tratamiento para dolor lumbar crónico con técnicas de terapia manual',
                 patient: { id: 2 },
-                doctor: { id: 3 },
+                professional: { id: 3 },
             },
             {
                 date: today.toISOString(),
                 description: 'Ejercicios de fortalecimiento para esguince de tobillo',
                 patient: { id: 3 },
-                doctor: { id: 1 },
+                professional: { id: 1 },
             },
             {
                 date: tomorrow.toISOString(),
                 description: 'Sesión de electroterapia para alivio del dolor en hombro',
                 patient: { id: 1 },
-                doctor: { id: 2 },
+                professional: { id: 2 },
             },
             {
                 date: tomorrow.toISOString(),
                 description: 'Estiramientos y masajes para contractura muscular en cuello',
                 patient: { id: 2 },
-                doctor: { id: 3 },
+                professional: { id: 3 },
             },
             {
                 date: tomorrow.toISOString(),
                 description: 'Revisión de progreso en tratamiento de fascitis plantar',
                 patient: { id: 3 },
-                doctor: { id: 1 },
+                professional: { id: 1 },
             },
             {
                 date: threeDaysFromNow.toISOString(),
                 description: 'Terapia de rehabilitación después de fractura de brazo',
                 patient: { id: 1 },
-                doctor: { id: 2 },
+                professional: { id: 2 },
             },
             {
                 date: threeDaysFromNow.toISOString(),
                 description: 'Ejercicios de movilidad para mejorar rango articular en rodilla',
                 patient: { id: 2 },
-                doctor: { id: 3 },
+                professional: { id: 3 },
             },
             {
                 date: threeDaysFromNow.toISOString(),
                 description: 'Plan de fortalecimiento muscular para prevención de lesiones',
                 patient: { id: 3 },
-                doctor: { id: 1 },
+                professional: { id: 1 },
             },
         ];
         for (const appointment of appointments) {
             try {
                 const patient = await this.userService.findById(appointment.patientId);
-                const doctor = await this.userService.findById(appointment.doctorId);
-                if (!patient || !doctor) {
-                    console.log(`Patient with ID ${appointment.patientId} or Doctor with ID ${appointment.doctorId} does not exist.`);
+                const professional = await this.userService.findById(appointment.professionalId);
+                if (!patient || !professional) {
+                    console.log(`Patient with ID ${appointment.patientId} or professional with ID ${appointment.professionalId} does not exist.`);
                     continue;
                 }
                 await this.appointmentService.create(appointment);
-                console.log(`Appointment on ${appointment.date} for Patient ${appointment.patientId} and Doctor ${appointment.doctorId} created successfully.`);
+                console.log(`Appointment on ${appointment.date} for Patient ${appointment.patientId} and professional ${appointment.professionalId} created successfully.`);
             }
             catch (error) {
                 console.error(`Failed to create appointment on ${appointment.date}: ${error.message}`);

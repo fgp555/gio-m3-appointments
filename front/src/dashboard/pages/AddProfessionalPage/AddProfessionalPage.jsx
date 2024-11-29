@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import apiServices from "../../../services/apiServices";
-// import "./AddProfessionalPage.css";
+import "./AddProfessionalPage.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const AddProfessionalPage = () => {
@@ -20,7 +20,7 @@ const AddProfessionalPage = () => {
     lastName: "M Russo",
     email: "nmrusso@crefi.com",
     whatsapp: "+5491123456797",
-    username: "doctor_giovanna",
+    username: "professional_giovanna",
     password: "SecurePass@2023",
     confirmPassword: "SecurePass@2023",
     birthdate: "1985-08-30",

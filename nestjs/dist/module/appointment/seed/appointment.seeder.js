@@ -41,7 +41,7 @@ let AppointmentSeederService = class AppointmentSeederService {
             'Plan de fortalecimiento muscular para prevención de lesiones',
             'Tratamiento de terapia física para recuperación post-quirúrgica de codo',
         ];
-        const generateRandomAppointments = (date, patientId, doctorId) => {
+        const generateRandomAppointments = (date, patientId, professionalId) => {
             const appointments = [];
             const numAppointments = Math.floor(Math.random() * 3) + 2;
             const availableHours = Array.from({ length: 9 }, (_, i) => i + 9);
@@ -60,7 +60,7 @@ let AppointmentSeederService = class AppointmentSeederService {
                     date: appointmentDate.toISOString(),
                     description: randomDescription,
                     patient: { id: patientId },
-                    doctor: { id: doctorId },
+                    professional: { id: professionalId },
                 });
             });
             return appointments;
@@ -83,13 +83,13 @@ let AppointmentSeederService = class AppointmentSeederService {
         for (const appointment of appointments) {
             try {
                 const patient = await this.userService.findById(appointment.patientId);
-                const doctor = await this.userService.findById(appointment.doctorId);
-                if (!patient || !doctor) {
-                    console.log(`Patient with ID ${appointment.patientId} or Doctor with ID ${appointment.doctorId} does not exist.`);
+                const professional = await this.userService.findById(appointment.professionalId);
+                if (!patient || !professional) {
+                    console.log(`Patient with ID ${appointment.patient.id} or professional with ID ${appointment.professional.id} does not exist.`);
                     continue;
                 }
                 await this.appointmentService.create(appointment);
-                console.log(`Appointment on ${appointment.date} for Patient ${appointment.patientId} and Doctor ${appointment.doctorId} created successfully.`);
+                console.log(`Appointment on ${appointment.date} for Patient ${appointment.patient.id} and professional ${appointment.professional.id} created successfully.`);
             }
             catch (error) {
                 console.error(`Failed to create appointment on ${appointment.date}: ${error.message}`);

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import apiServices from "../../../services/apiServices";
 import { Link } from "react-router-dom";
-
+import Swal from "sweetalert2";
+import "./ProfCardComp.css"
 const ProfCardComp = ({ professional, refreshUsers }) => {
   const [activeTab, setActiveTab] = useState("info");
 
@@ -10,14 +11,38 @@ const ProfCardComp = ({ professional, refreshUsers }) => {
   };
 
   const handleDeleteProf = async (userId) => {
-    try {
-      const response = await apiServices.apiDeleteUser(userId);
-      console.log(response);
-      refreshUsers();
+    const confirmDelete = await Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Estás a punto de eliminar este usuario",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#2b4168",
+      cancelButtonColor: "#5eba98",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    });
 
-      // window.location.reload();
+    if (!confirmDelete.isConfirmed) return;
+
+    try {
+      await apiServices.apiDeleteUser(userId);
+
+      Swal.fire({
+        title: "¡Eliminado!",
+        text: "El usuario ha sido eliminado correctamente.",
+        icon: "success",
+        confirmButtonColor: "#2b4168",
+      });
+
+      refreshUsers();
     } catch (error) {
-      console.error("Error deleting user:", error);
+      Swal.fire({
+        title: "Error",
+        text: error.message || "No se pudo eliminar el usuario.",
+        icon: "error",
+        confirmButtonColor: "#2b4168",
+        confirmButtonText: "Entendido",
+      });
     }
   };
 
@@ -73,7 +98,7 @@ const ProfCardComp = ({ professional, refreshUsers }) => {
               <Link to={`/professional/${professional.id}`}>
                 <button>Edit</button>
               </Link>
-              <button onClick={() => handleDeleteProf(professional.id)}>Delete</button>
+              <button className="button danger" onClick={() => handleDeleteProf(professional.id)}>Delete</button>
             </div>
           </div>
         )}

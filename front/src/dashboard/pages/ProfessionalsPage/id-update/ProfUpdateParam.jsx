@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./ProfUpdateParam.css";
 import apiServices from "../../../../services/apiServices";
 import { useSelector } from "react-redux";
@@ -97,13 +97,15 @@ const ProfUpdateParam = () => {
     textarea.style.height = "auto"; // Resetea la altura primero
     textarea.style.height = textarea.scrollHeight + "px"; // Ajusta la altura según el contenido
   };
+  const navigate = useNavigate();
 
   const handleBack = () => {
     navigate(-1); // Volver a la página anterior en el historial
   };
+
   return (
     <div className="ProfUpdateParam">
-      <pre>{JSON.stringify(userStore, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(userStore, null, 2)}</pre> */}
       <button className="back-button" onClick={handleBack}>
         Regresar
       </button>

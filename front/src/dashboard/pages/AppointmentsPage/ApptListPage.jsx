@@ -100,18 +100,6 @@ const ApptListPage = () => {
               highlightDates={appoinmentSelector.map((appt) => new Date(appt.date))}
             />
           </div>
-
-          {/* <div style={{ marginBottom: "1em" }}>
-            <button onClick={() => setView("day")} style={getButtonStyle("day")}>
-              Día
-            </button>
-            <button onClick={() => setView("week")} style={getButtonStyle("week")}>
-              Semana
-            </button>
-            <button onClick={() => setView("month")} style={getButtonStyle("month")}>
-              Mes
-            </button>
-          </div> */}
         </section>
 
         <section>
@@ -132,7 +120,6 @@ const ApptListPage = () => {
           <TableApptComponent
             //
             appoinmentData={filteredAppointments}
-            // appoinmentData={appoinmentSelector}
             viewProps={view}
             handleUpdateAppt={fetchAppointmentsFromApi}
           />

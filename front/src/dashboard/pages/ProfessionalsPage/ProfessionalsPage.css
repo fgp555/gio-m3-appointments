@@ -13,7 +13,7 @@
   .cards_container {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 0fr));
     gap: 20px;
     padding: 0;
     margin: 0;

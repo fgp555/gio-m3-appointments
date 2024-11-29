@@ -57,7 +57,7 @@ GET http://localhost:3000/api/users/1
 Authorization: {{token}}
 
 ###
-GET http://localhost:3000/api/users/2
+GET http://localhost:3000/api/users/7
 Authorization: {{token_user}}
 
 ###
@@ -71,7 +71,7 @@ Content-Type: application/json
     "lastName": "M Russo",
     "email": "nmrusdso@crefi.com",
     "whatsapp": "+5491123456797",
-    "username": "doctor_giovanna",
+    "username": "professional_giovanna",
     "password": "SecurePass@2023",
     "confirmPassword": "SecurePass@2023",
     "birthdate": "1985-08-30",
@@ -83,6 +83,6 @@ Content-Type: application/json
   }
 
 ###
-DELETE  http://localhost:3000/api/users/15
+DELETE  http://localhost:3000/api/users/5
 Authorization: {{token}}
 

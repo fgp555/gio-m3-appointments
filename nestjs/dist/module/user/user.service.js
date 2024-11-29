@@ -64,7 +64,7 @@ let UserService = class UserService {
         }
         const user = await this.userRepository.findOne({
             where: { id: Number(id) },
-            relations: ['appointmentsAsPatient', 'appointmentsAsDoctor'],
+            relations: ['appointmentsAsPatient', 'appointmentsAsProfessional'],
         });
         if (!user) {
             throw new common_1.NotFoundException(`User with ID ${id} not found`);
@@ -74,13 +74,13 @@ let UserService = class UserService {
     async findById(userId) {
         return this.userRepository.findOne({
             where: { id: userId },
-            relations: ['appointmentsAsPatient', 'appointmentsAsDoctor'],
+            relations: ['appointmentsAsPatient', 'appointmentsAsProfessional'],
         });
     }
     async findByRole(role) {
         return await this.userRepository.find({
             where: { role },
-            relations: ['appointmentsAsPatient', 'appointmentsAsDoctor'],
+            relations: ['appointmentsAsPatient', 'appointmentsAsProfessional'],
         });
     }
     async update(id, updateUserDto) {
@@ -100,7 +100,10 @@ let UserService = class UserService {
             return await this.userRepository.remove(user);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Failed to delete user', error.message);
+            if (error.message.includes('violates foreign key constraint')) {
+                throw new common_1.InternalServerErrorException('No se puede eliminar el usuario porque está relacionado con otras entidades (como citas). Elimina primero esas relaciones.');
+            }
+            throw new common_1.InternalServerErrorException('Error al intentar eliminar al usuario. Por favor, inténtalo de nuevo más tarde.', error.message);
         }
     }
 };

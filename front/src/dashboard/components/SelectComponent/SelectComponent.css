@@ -47,13 +47,13 @@
     border-color: #0056b3;
   }
 
-  /* Adjust patient and doctor container styles (optional) */
+  /* Adjust patient and professional container styles (optional) */
   .patient_container {
     border-radius: 8px;
     /* padding: 0.5rem; */
   }
 
-  .doctor_container {
+  .professional_container {
     border-radius: 8px;
     /* padding: 0.5rem; */
   }

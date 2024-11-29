@@ -61,11 +61,11 @@ export class UserEntity {
   })
   appointmentsAsPatient: Appointment[];
 
-  @OneToMany(() => Appointment, (appointment) => appointment.doctor, {
+  @OneToMany(() => Appointment, (appointment) => appointment.professional, {
     // cascade: true,
     // eager: true,
   })
-  appointmentsAsDoctor: Appointment[];
+  appointmentsAsProfessional: Appointment[];
 
   @CreateDateColumn()
   createdAt: Date;

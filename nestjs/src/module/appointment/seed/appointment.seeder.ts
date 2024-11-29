@@ -42,7 +42,7 @@ export class AppointmentSeederService {
     const generateRandomAppointments = (
       date: Date,
       patientId: number,
-      doctorId: number,
+      professionalId: number,
     ) => {
       const appointments = [];
       const numAppointments = Math.floor(Math.random() * 3) + 2; // Aleatoriza entre 2 y 4 citas por día
@@ -71,7 +71,7 @@ export class AppointmentSeederService {
           date: appointmentDate.toISOString(),
           description: randomDescription,
           patient: { id: patientId },
-          doctor: { id: doctorId },
+          professional: { id: professionalId },
         });
       });
 
@@ -115,19 +115,22 @@ export class AppointmentSeederService {
 
     for (const appointment of appointments) {
       try {
+        // console.log("appointment",appointment)
         const patient = await this.userService.findById(appointment.patientId);
-        const doctor = await this.userService.findById(appointment.doctorId);
+        const professional = await this.userService.findById(
+          appointment.professionalId,
+        );
 
-        if (!patient || !doctor) {
+        if (!patient || !professional) {
           console.log(
-            `Patient with ID ${appointment.patientId} or Doctor with ID ${appointment.doctorId} does not exist.`,
+            `Patient with ID ${appointment.patient.id} or professional with ID ${appointment.professional.id} does not exist.`,
           );
           continue;
         }
 
         await this.appointmentService.create(appointment);
         console.log(
-          `Appointment on ${appointment.date} for Patient ${appointment.patientId} and Doctor ${appointment.doctorId} created successfully.`,
+          `Appointment on ${appointment.date} for Patient ${appointment.patient.id} and professional ${appointment.professional.id} created successfully.`,
         );
       } catch (error) {
         console.error(

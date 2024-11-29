@@ -19,9 +19,9 @@ export class CreateAppointmentDto {
   @IsOptional()
   patientId?: number; // Reference to the patient owning the appointment
 
-  @IsInt({ message: 'Doctor ID must be an integer' })
+  @IsInt({ message: 'professional ID must be an integer' })
   @IsOptional()
-  doctorId?: number; // Reference to the doctor associated with the appointment
+  professionalId?: number; // Reference to the professional associated with the appointment
 
   @IsEnum(
     [

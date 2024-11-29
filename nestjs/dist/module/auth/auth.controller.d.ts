@@ -21,7 +21,7 @@ export declare class AuthController {
         specialization: string;
         bio: string;
         appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
-        appointmentsAsDoctor: import("../appointment/entities/appointment.entity").Appointment[];
+        appointmentsAsProfessional: import("../appointment/entities/appointment.entity").Appointment[];
         createdAt: Date;
     }>;
     singin(createAuthDto: CreateAuthDto): Promise<{
@@ -41,7 +41,7 @@ export declare class AuthController {
             specialization: string;
             bio: string;
             appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
-            appointmentsAsDoctor: import("../appointment/entities/appointment.entity").Appointment[];
+            appointmentsAsProfessional: import("../appointment/entities/appointment.entity").Appointment[];
             createdAt: Date;
         };
         token: string;
@@ -61,7 +61,7 @@ export declare class AuthController {
         specialization: string;
         bio: string;
         appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
-        appointmentsAsDoctor: import("../appointment/entities/appointment.entity").Appointment[];
+        appointmentsAsProfessional: import("../appointment/entities/appointment.entity").Appointment[];
         createdAt: Date;
     }>;
 }

@@ -53,7 +53,7 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
                         <div className="name">
                           <i className="icon-user"></i>
                           <strong> {appt.patient.firstName} </strong>
-                          <i className="mobile_none lastName">{appt.doctor.lastName} </i>
+                          <i className="mobile_none lastName">{appt.professional.lastName} </i>
                         </div>
                         <p>
                           <i className="icon-clock"></i>
@@ -66,7 +66,7 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
                           </b>
                         </p>
                         <p>
-                          <i className="icon-doctor"></i> {appt.doctor.firstName}{" "}
+                          <i className="icon-doctor"></i> {appt.professional.firstName}{" "}
                         </p>
                         <p className="description">
                           <i className="icon-book"></i>

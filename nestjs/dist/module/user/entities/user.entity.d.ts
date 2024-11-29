@@ -15,6 +15,6 @@ export declare class UserEntity {
     specialization: string;
     bio: string;
     appointmentsAsPatient: Appointment[];
-    appointmentsAsDoctor: Appointment[];
+    appointmentsAsProfessional: Appointment[];
     createdAt: Date;
 }

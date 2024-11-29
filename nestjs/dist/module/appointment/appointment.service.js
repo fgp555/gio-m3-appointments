@@ -24,14 +24,14 @@ let AppointmentService = class AppointmentService {
         this.userService = userService;
     }
     async create(appointmentData) {
-        const { patient, doctor } = appointmentData;
+        const { patient, professional } = appointmentData;
         const foundPatient = await this.userService.findById(patient.id);
         if (!foundPatient) {
             throw new common_1.NotFoundException(`Patient with ID ${patient.id} not found`);
         }
-        const foundDoctor = await this.userService.findById(doctor.id);
-        if (!foundDoctor) {
-            throw new common_1.NotFoundException(`Doctor with ID ${doctor.id} not found`);
+        const foundProfessional = await this.userService.findById(professional.id);
+        if (!foundProfessional) {
+            throw new common_1.NotFoundException(`professional with ID ${professional.id} not found`);
         }
         const appointment = this.appointmentRepository.create(appointmentData);
         return await this.appointmentRepository.save(appointment);
@@ -39,7 +39,7 @@ let AppointmentService = class AppointmentService {
     async findAll() {
         return await this.appointmentRepository.find({
             order: { date: 'ASC', id: 'ASC' },
-            relations: ['patient', 'doctor'],
+            relations: ['patient', 'professional'],
             select: {
                 id: true,
                 date: true,
@@ -51,7 +51,7 @@ let AppointmentService = class AppointmentService {
                     firstName: true,
                     lastName: true,
                 },
-                doctor: {
+                professional: {
                     id: true,
                     firstName: true,
                     lastName: true,
@@ -62,7 +62,7 @@ let AppointmentService = class AppointmentService {
     async findOne(id) {
         const appointment = await this.appointmentRepository.findOne({
             where: { id },
-            relations: ['patient', 'doctor'],
+            relations: ['patient', 'professional'],
         });
         if (!appointment)
             throw new common_1.NotFoundException(`Appointment with ID ${id} not found`);
@@ -72,7 +72,7 @@ let AppointmentService = class AppointmentService {
         return await this.appointmentRepository.find({
             order: { createdAt: 'DESC' },
             take: Number(count),
-            relations: ['patient', 'doctor'],
+            relations: ['patient', 'professional'],
             select: {
                 id: true,
                 date: true,
@@ -84,7 +84,7 @@ let AppointmentService = class AppointmentService {
                     firstName: true,
                     lastName: true,
                 },
-                doctor: {
+                professional: {
                     id: true,
                     firstName: true,
                     lastName: true,

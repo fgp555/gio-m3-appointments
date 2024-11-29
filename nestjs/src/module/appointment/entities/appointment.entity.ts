@@ -43,8 +43,8 @@ export class Appointment {
   @ManyToOne(() => UserEntity, (user) => user.appointmentsAsPatient)
   patient: UserEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.appointmentsAsDoctor)
-  doctor: UserEntity;
+  @ManyToOne(() => UserEntity, (user) => user.appointmentsAsProfessional)
+  professional: UserEntity;
 
   @CreateDateColumn()
   createdAt: Date;
