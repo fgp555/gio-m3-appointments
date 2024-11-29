@@ -86,7 +86,8 @@ let UserService = class UserService {
     async update(id, updateUserDto) {
         await this.findOne(id);
         try {
-            await this.userRepository.update(id, updateUserDto);
+            const userCreate = this.userRepository.create(updateUserDto);
+            const userUpdate = await this.userRepository.update(id, userCreate);
             return this.findOne(id);
         }
         catch (error) {

@@ -9,6 +9,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   font-family: "Arial", sans-serif;
   margin: 3em auto;
+  max-width: 70rem;
 
   form {
     display: flex;

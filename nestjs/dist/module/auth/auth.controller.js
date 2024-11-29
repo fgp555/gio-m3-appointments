@@ -18,6 +18,7 @@ const create_auth_dto_1 = require("./dto/create-auth.dto");
 const user_service_1 = require("../user/user.service");
 const bcrypt = require("bcrypt");
 const jwt_1 = require("@nestjs/jwt");
+const update_user_dto_1 = require("../user/dtos/update-user.dto");
 let AuthController = class AuthController {
     constructor(userService, jwtService) {
         this.userService = userService;
@@ -49,6 +50,20 @@ let AuthController = class AuthController {
         const token = this.jwtService.sign(userPayload);
         return { login: true, user, token };
     }
+    async updateUser(id, updateUserDto) {
+        if (updateUserDto.password) {
+            updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+        }
+        try {
+            const updatedUser = await this.userService.update(id, updateUserDto);
+            const { password, ...withoutPassword } = updatedUser;
+            console.log('password', password);
+            return withoutPassword;
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Failed to update user', error.message);
+        }
+    }
 };
 exports.AuthController = AuthController;
 __decorate([
@@ -65,6 +80,14 @@ __decorate([
     __metadata("design:paramtypes", [create_auth_dto_1.CreateAuthDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "singin", null);
+__decorate([
+    (0, common_1.Patch)('update/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_user_dto_1.UpdateUserDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "updateUser", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [user_service_1.UserService,

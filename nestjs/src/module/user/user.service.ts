@@ -12,7 +12,6 @@ import { Repository } from 'typeorm';
 import { UserEntity } from './entities/user.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
-import { validate } from 'class-validator';
 
 @Injectable()
 export class UserService {
@@ -112,7 +111,8 @@ export class UserService {
     await this.findOne(id); // Ensures the user exists or throws an error
 
     try {
-      await this.userRepository.update(id, updateUserDto);
+      const userCreate = this.userRepository.create(updateUserDto);
+      const userUpdate = await this.userRepository.update(id, userCreate);
       return this.findOne(id);
     } catch (error) {
       throw new InternalServerErrorException(

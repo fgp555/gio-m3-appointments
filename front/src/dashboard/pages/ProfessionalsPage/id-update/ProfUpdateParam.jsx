@@ -2,28 +2,46 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./ProfUpdateParam.css";
 import apiServices from "../../../../services/apiServices";
+import { useSelector } from "react-redux";
 
 const ProfUpdateParam = () => {
   const { id } = useParams();
   const [message, setMessage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userById, setUserById] = useState(null);
+  const userStore = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
-    // title: "Licenciada",
-    // firstName: "Natali",
-    // lastName: "M Russo",
-    // email: "nmrusso@crefi.com",
-    // whatsapp: "+5491123456797",
-    // username: "doctor_giovanna",
-    // password: "SecurePass@2023",
-    // confirmPassword: "SecurePass@2023",
-    // birthdate: "1985-08-30",
-    // nDni: "28675431",
-    // role: "professional",
-    // image: "https://i.postimg.cc/HW2KSY5d/02.jpg",
-    // specialization: "RPG, Drenaje Linfático y Pilates",
-    // bio: "Licenciada Martínez Russo Giovanna cuenta con experiencia en Reeducación Postural Global (RPG), drenaje linfático y Pilates. Su dedicación y conocimientos avanzados en estas áreas son fundamentales para nuestro equipo.",
+    title: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    whatsapp: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    birthdate: "",
+    nDni: "",
+    role: "",
+    image: "",
+    specialization: "",
+    bio: "",
   });
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await apiServices.apiGetUserById(id);
+        setFormData((prevData) => ({
+          ...prevData,
+          ...res, // Solo reemplaza las propiedades existentes en `res`
+        }));
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
+    fetchUser();
+  }, [id]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -33,30 +51,46 @@ const ProfUpdateParam = () => {
     });
   };
 
-  const getUserById = async (id) => {
-    try {
-      const res = await apiServices.apiGetUserById(id);
-      setUserById(res);
-      setFormData(res);
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getUserById(id);
-  }, []);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = apiServices.apiUpdateUser(formData, id);
-      console.log(res);
-    } catch (error) {
-      console.log(error);
+
+    setIsSubmitting(true);
+    setMessage(null);
+
+    // Validaciones básicas antes de enviar
+    if (formData.password !== formData.confirmPassword) {
+      setMessage("Las contraseñas no coinciden.");
+      setIsSubmitting(false);
+      return;
     }
-    // Lógica para enviar el formulario
+    try {
+      const res = await apiServices.apiUpdateUser(id, formData);
+      console.log(res);
+      setMessage("Profesional actualizado exitosamente.");
+    } catch (error) {
+      // Identificar si el error tiene una respuesta del backend
+      if (error.response && error.response.data) {
+        const { message, statusCode } = error.response.data;
+
+        // Manejar errores según su mensaje o código
+        if (statusCode === 401) {
+          setMessage(`Error: ${message}`);
+        } else if (statusCode === 400) {
+          setMessage("Solicitud inválida. Verifica los datos ingresados.");
+        } else {
+          setMessage(`Error inesperado: ${message || "Intenta de nuevo más tarde."}`);
+        }
+      } else if (error.request) {
+        // Cuando no se recibe respuesta del servidor
+        setMessage("No se pudo contactar al servidor. Verifica tu conexión.");
+      } else {
+        // Error genérico
+        setMessage("Ocurrió un error inesperado. Intenta de nuevo.");
+      }
+      console.error("Error al registrar al profesional:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const autoResize = (textarea) => {
@@ -69,26 +103,26 @@ const ProfUpdateParam = () => {
   };
   return (
     <div className="ProfUpdateParam">
-      {/* <pre>{JSON.stringify(userById, null, 2)}</pre> */}
+      <pre>{JSON.stringify(userStore, null, 2)}</pre>
       <button className="back-button" onClick={handleBack}>
         Regresar
       </button>
-      <h2>{id}</h2>
+      <h2> Actualizar Profesional con ID:{id}</h2>
       <form onSubmit={handleSubmit}>
         <aside>
-          <input type="text" name="title" placeholder="Titulo (ej. Licenciado)" value={formData.title} onChange={handleChange} required />
-          <input type="text" name="firstName" placeholder="Nombre *" value={formData.firstName} onChange={handleChange} required />
-          <input type="text" name="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} required />
-          <input type="email" name="email" placeholder="Correo Electrónico" value={formData.email} onChange={handleChange} required />
+          <input type="text" name="title" placeholder="Titulo (ej. Licenciado)" value={formData.title} onChange={handleChange} />
+          <input type="text" name="firstName" placeholder="Nombre *" value={formData.firstName} onChange={handleChange} />
+          <input type="text" name="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} />
+          <input type="email" name="email" placeholder="Correo Electrónico" value={formData.email} onChange={handleChange} />
           <input type="text" name="whatsapp" placeholder="WhatsApp" value={formData.whatsapp} onChange={handleChange} />
-          <input type="text" name="username" placeholder="Nombre de Usuario" value={formData.username} onChange={handleChange} required />
-          <input type="password" name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} required />
-          <input type="password" name="confirmPassword" placeholder="Confirmar Contraseña" value={formData.confirmPassword} onChange={handleChange} required />
+          <input type="text" name="username" placeholder="Nombre de Usuario" value={formData.username} onChange={handleChange} />
+          <input type="password" name="password" placeholder="Contraseña (opcional)" value={formData.password} onChange={handleChange} />
+          <input type="password" name="confirmPassword" placeholder="Confirmar Contraseña (opcional)" value={formData.confirmPassword} onChange={handleChange} />
         </aside>
         <aside>
           <input type="date" name="birthdate" placeholder="Fecha de Nacimiento" value={formData.birthdate} onChange={handleChange} />
-          <input type="text" name="nDni" placeholder="DNI" value={formData.nDni} onChange={handleChange} required />
-          <select name="role" value={formData.role} onChange={handleChange} required>
+          <input type="text" name="nDni" placeholder="DNI" value={formData.nDni} onChange={handleChange} />
+          <select name="role" value={formData.role} onChange={handleChange}>
             <option value="patient">Paciente</option>
             <option value="professional">Profesional</option>
             <option value="admin">Administrador</option>
@@ -98,7 +132,7 @@ const ProfUpdateParam = () => {
           <textarea onInput={(e) => autoResize(e.target)} name="bio" placeholder="Biografía" value={formData.bio} onChange={handleChange}></textarea>
 
           <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Añadiendo..." : "Añadir Profesional"}
+            {isSubmitting ? "Añadiendo..." : "Actualizar"}
           </button>
           {message && <p>{message}</p>}
         </aside>

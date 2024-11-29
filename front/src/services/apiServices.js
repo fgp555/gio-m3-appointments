@@ -2,8 +2,8 @@
 
 import axios from "axios";
 
-const API_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api" : "https://crefi.giomr.site/api";
-// const API_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api" : "https://back.fgp.one/api";
+// const API_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api" : "https://crefi.giomr.site/api";
+const API_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api" : "https://back.fgp.one/api";
 
 const apiServices = {
   registerUser: async (userData) => {
@@ -32,7 +32,7 @@ const apiServices = {
       throw error; // Re-throw the error for further handling
     }
   },
-  
+
   apiDeleteUser: async (userId) => {
     try {
       const response = await axios.delete(`${API_URL}/users/${userId}`);
@@ -44,11 +44,30 @@ const apiServices = {
   },
 
   apiUpdateUser: async (userId, userData) => {
+    delete userData.appointmentsAsDoctor;
+    delete userData.appointmentsAsPatient;
+
     try {
-      const response = await axios.patch(`${API_URL}/users/${userId}`, userData);
+      const response = await axios.patch(`${API_URL}/auth/update/${userId}`, userData);
       return response;
     } catch (error) {
       console.error("Full error object:", error); // Log the full error object
+
+      if (error.response) {
+        // Request was made and the server responded with an error
+        console.error("Error response:", error.response);
+        // Log the structure of the response to inspect its contents
+        console.log("Response data structure:", error.response.data);
+        const { message, statusCode } = error.response.data; // Assuming the structure is { message, statusCode }
+        console.log(`Error message: ${message}, Status code: ${statusCode}`);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("No response received:", error.request);
+      } else {
+        // Something else went wrong
+        console.error("Error message:", error.message);
+      }
+
       throw error; // Re-throw the error for further handling
     }
   },

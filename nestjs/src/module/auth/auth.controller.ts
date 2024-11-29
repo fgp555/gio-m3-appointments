@@ -4,6 +4,10 @@ import {
   Body,
   UnauthorizedException,
   UseGuards,
+  Put,
+  Param,
+  InternalServerErrorException,
+  Patch,
 } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UserService } from '../user/user.service';
@@ -11,6 +15,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from './auth.guard';
 import { log } from 'console';
+import { UpdateUserDto } from '../user/dtos/update-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -60,5 +65,28 @@ export class AuthController {
     const token = this.jwtService.sign(userPayload);
 
     return { login: true, user, token };
+  }
+
+  @Patch('update/:id')
+  async updateUser(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    // Hash the password if it exists in the payload
+    if (updateUserDto.password) {
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+    }
+
+    try {
+      const updatedUser = await this.userService.update(id, updateUserDto);
+      const { password, ...withoutPassword } = updatedUser;
+      console.log('password', password);
+      return withoutPassword;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Failed to update user',
+        error.message,
+      );
+    }
   }
 }

@@ -61,15 +61,26 @@ GET http://localhost:3000/api/users/2
 Authorization: {{token_user}}
 
 ###
-PATCH http://localhost:3000/api/users/1
+PATCH http://localhost:3000/api/auth/update/1
 Content-Type: application/json
-Authorization: {{token}}
+# Authorization: {{token}}
 
 {
-    "firstName": "Update name",
-    "email": "email",
-    "password": "password"
-}
+    "title": "Licenciada",
+    "firstName": "Natali http",
+    "lastName": "M Russo",
+    "email": "nmrusdso@crefi.com",
+    "whatsapp": "+5491123456797",
+    "username": "doctor_giovanna",
+    "password": "SecurePass@2023",
+    "confirmPassword": "SecurePass@2023",
+    "birthdate": "1985-08-30",
+    "nDni": "28675431",
+    "role": "professional",
+    "image": "https://i.postimg.cc/HW2KSY5d/02.jpg",
+    "specialization": "RPG, Drenaje Linfático y Pilates",
+    "bio": "Licenciada Martínez Russo Giovanna cuenta con experiencia en Reeducación Postural Global (RPG), drenaje linfático y Pilates. Su dedicación y conocimientos avanzados en estas áreas son fundamentales para nuestro equipo."
+  }
 
 ###
 DELETE  http://localhost:3000/api/users/15
