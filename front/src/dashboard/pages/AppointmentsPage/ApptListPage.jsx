@@ -44,7 +44,6 @@ const ApptListPage = () => {
 
   useEffect(() => {
     fetchAppointmentsFromApi();
-    console.log("Appointments fetched successfully:", appoinmentSelector);
   }, [selectedDay]);
 
   // Filter appointments based on the selected view

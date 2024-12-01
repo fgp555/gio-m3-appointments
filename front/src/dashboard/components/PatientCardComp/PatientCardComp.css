@@ -10,7 +10,7 @@
   max-width: 20rem;
   display: flex;
   flex-direction: column;
-  border-left: 5px solid crimson;
+  border-left: 5px solid #17a2b8;
   border-radius: 6px 0 0 6px;
 
   p {
@@ -43,6 +43,10 @@
       cursor: pointer;
     }
     i.danger {
+      /* color: crimson; */
+      opacity: 0.8;
+    }
+    i.danger:hover {
       color: crimson;
     }
     i:hover {

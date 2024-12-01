@@ -26,6 +26,18 @@
   }
   #sidebar ul {
     list-style: none;
+    justify-content: space-between;
+    button {
+      margin: 0;
+      padding: 0;
+    }
+
+    i {
+      font-size: 1.3em !important;
+      aspect-ratio: 1/1;
+      width: 1.1em;
+      /* border: 1px solid #fff; */
+    }
   }
   #sidebar > ul > li:first-child {
     display: flex;
@@ -33,6 +45,9 @@
     margin-bottom: 16px;
     .logo {
       font-weight: 600;
+      /* background-color: peru; */
+      margin: 0;
+      padding: 0;
     }
   }
   #sidebar ul li.active a {
@@ -128,12 +143,13 @@
     border-radius: 0.5em;
     background: none;
     cursor: pointer;
-    background-color: red;
-    opacity: 0.8;
+    background-color: #dc3545;
+    /* opacity: 0.8; */
   }
   .logout:hover {
     opacity: 1 !important;
-    background-color: red;
+    background-color: white !important;
+    color: #000 !important;
   }
 }
 /* === Desktop... === */

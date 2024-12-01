@@ -19,6 +19,9 @@ import ProfUpdateParam from "./dashboard/pages/ProfessionalsPage/id-update/ProfU
 import PatientsPage from "./dashboard/pages/PatientsPage/PatientsPage";
 import AddPatientPage from "./dashboard/pages/PatientsPage/AddPatientPage/AddPatientPage";
 import UpdatePatientsPage from "./dashboard/pages/PatientsPage/update/UpdatePatientsPage.";
+import DatabaseBackupManager from "./dashboard/pages/DatabaseBackupManager/DatabaseBackupManager ";
+import AboutSystem from "./dashboard/pages/about-system/AboutSystem";
+import DashboardPage from "./dashboard/pages/dashboard/DashboardPage";
 
 const NotFound = () => (
   <div>
@@ -162,6 +165,36 @@ const App = () => {
           <PrivateRoute>
             <DashboardLayout>
               <UpdatePatientsPage />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/db-backup-manager"
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <DatabaseBackupManager />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/about-system"
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <AboutSystem />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <DashboardPage />
             </DashboardLayout>
           </PrivateRoute>
         }

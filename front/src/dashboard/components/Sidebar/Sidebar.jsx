@@ -86,19 +86,21 @@ const Sidebar = () => {
       <nav id="sidebar" className={sidebar ? "" : "close"}>
         <ul>
           <li>
-            <span className="logo">CREFI DASHBOARD</span>
+            <span className="logo">
+              <Link to="/">CREFI DASHBOARD</Link>
+            </span>
             <button onClick={toggleSidebar} id="toggle-btn" className={sidebar ? "" : "rotate"}>
               <i className="icon-angle-double-left"></i>
             </button>
           </li>
-          <li className={activeMenu === "home" ? "active" : ""}>
+          {/* <li className={activeMenu === "home" ? "active" : ""}>
             <Link to="/appointments" onClick={() => handleMenuClick("home")}>
               <i className="icon-home"></i>
               <span>Home</span>
             </Link>
-          </li>
+          </li> */}
           <li className={activeMenu === "dashboard" ? "active" : ""}>
-            <Link to="/appointments" onClick={() => handleMenuClick("dashboard")}>
+            <Link to="/dashboard" onClick={() => handleMenuClick("dashboard")}>
               <i className="icon-dashboard"></i>
               <span>Dashboard</span>
             </Link>
@@ -158,20 +160,15 @@ const Sidebar = () => {
             <ul className={`sub-menu ${subMenus.TodoListMenu ? "show" : ""}`}>
               <div>
                 <li className={activeMenu === "database" ? "active" : ""}>
-                  <Link to="/appointments" onClick={() => handleMenuClick("database")}>
+                  <Link to="/db-backup-manager" onClick={() => handleMenuClick("database")}>
                     Database
                   </Link>
                 </li>
-                <li className={activeMenu === "config" ? "active" : ""}>
-                  <Link to="/appointments" onClick={() => handleMenuClick("config")}>
-                    Config
+                {/* <li className={activeMenu === "about" ? "active" : ""}>
+                  <Link to="/about-system" onClick={() => handleMenuClick("about")}>
+                    About System
                   </Link>
-                </li>
-                <li className={activeMenu === "about" ? "active" : ""}>
-                  <Link to="/appointments" onClick={() => handleMenuClick("about")}>
-                    About
-                  </Link>
-                </li>
+                </li> */}
               </div>
             </ul>
           </li>

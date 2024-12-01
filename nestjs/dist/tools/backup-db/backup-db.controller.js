@@ -14,8 +14,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BackupDBController = void 0;
 const common_1 = require("@nestjs/common");
+const fs = require("fs");
 const path = require("path");
 const backup_db_service_1 = require("./backup-db.service");
+const platform_express_1 = require("@nestjs/platform-express");
 let BackupDBController = class BackupDBController {
     constructor(backupService) {
         this.backupService = backupService;
@@ -80,6 +82,15 @@ let BackupDBController = class BackupDBController {
             res.status(404).send({ error: error.message });
         }
     }
+    async restoreFileBackup(backupfile, res) {
+        try {
+            const result = await this.backupService.restoreDatabaseFromBackup(backupfile);
+            return res.json({ message: 'Database restored successfully', result });
+        }
+        catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
     async deleteBackupFile(file, res) {
         try {
             const result = await this.backupService.deleteBackupFile(file);
@@ -91,10 +102,19 @@ let BackupDBController = class BackupDBController {
             return res.status(500).json({ error: error.message });
         }
     }
-    async restoreFileBackup(backupfile, res) {
+    async uploadBackupFile(file, res) {
         try {
-            const result = await this.backupService.restoreDatabaseFromBackup(backupfile);
-            return res.json({ message: 'Database restored successfully', result });
+            const uploadDir = path.join(__dirname, '../../../backups');
+            if (!fs.existsSync(uploadDir)) {
+                fs.mkdirSync(uploadDir);
+            }
+            const filePath = path.join(uploadDir, file.originalname);
+            fs.writeFileSync(filePath, file.buffer);
+            await this.backupService.processUploadedSQLFile(filePath);
+            return res.json({
+                message: 'File uploaded successfully',
+                file: filePath,
+            });
         }
         catch (error) {
             return res.status(500).json({ error: error.message });
@@ -103,37 +123,45 @@ let BackupDBController = class BackupDBController {
 };
 exports.BackupDBController = BackupDBController;
 __decorate([
-    (0, common_1.Get)('backup'),
+    (0, common_1.Post)('create_backup'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], BackupDBController.prototype, "createBackup", null);
 __decorate([
-    (0, common_1.Get)('/backup/postgres'),
+    (0, common_1.Post)('/create_backup/postgres'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], BackupDBController.prototype, "backupPostgresDatabase", null);
 __decorate([
-    (0, common_1.Get)('/backup/mysql'),
+    (0, common_1.Post)('/create_backup/mysql'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], BackupDBController.prototype, "backupMySQLDatabase", null);
 __decorate([
-    (0, common_1.Get)('display-backups-files'),
+    (0, common_1.Post)('display_backups_files'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], BackupDBController.prototype, "displayBackupFiles", null);
 __decorate([
-    (0, common_1.Get)('download-backup/:backupfile'),
+    (0, common_1.Get)('download/:backupfile'),
     __param(0, (0, common_1.Param)('backupfile')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], BackupDBController.prototype, "downloadBackupFile", null);
+__decorate([
+    (0, common_1.Post)('restore/:backupfile'),
+    __param(0, (0, common_1.Param)('backupfile')),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], BackupDBController.prototype, "restoreFileBackup", null);
 __decorate([
     (0, common_1.Delete)('delete/:file'),
     __param(0, (0, common_1.Param)('file')),
@@ -143,13 +171,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BackupDBController.prototype, "deleteBackupFile", null);
 __decorate([
-    (0, common_1.Post)('restore-file-backup/:backupfile'),
-    __param(0, (0, common_1.Param)('backupfile')),
+    (0, common_1.Post)('upload_backup'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    __param(0, (0, common_1.UploadedFile)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
-], BackupDBController.prototype, "restoreFileBackup", null);
+], BackupDBController.prototype, "uploadBackupFile", null);
 exports.BackupDBController = BackupDBController = __decorate([
     (0, common_1.Controller)('database'),
     __metadata("design:paramtypes", [backup_db_service_1.BackupDBService])

@@ -58,7 +58,8 @@
     }
   }
 
-  button {
+  button,
+  .btn {
     padding: 8px 16px;
     margin: 5px;
     background-color: #007bff;
@@ -128,6 +129,7 @@
 
   button.active:hover {
     background-color: #218838;
+    /* color: #750dc0; */
   }
 
   h2,
@@ -146,5 +148,34 @@
   /* === Mobile... === */
   main {
     padding: 12em auto;
+  }
+
+  /* === Choose File... === */
+  .file-label {
+    display: inline-block;
+    padding: 6px 16px;
+    margin: 5px;
+    background-color: #e6b800;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .file-label:hover {
+    background-color: #b69205;
+  }
+  /* === Choose File. === */
+  textarea {
+    resize: none;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    /* color: inherit; */
+    /* background-color: inherit; */
+    border: none;
+    border-radius: inherit;
+    outline: none;
   }
 }

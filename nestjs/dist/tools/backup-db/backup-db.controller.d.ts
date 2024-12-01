@@ -36,6 +36,7 @@ export declare class BackupDBController {
         files?: undefined;
     }>;
     downloadBackupFile(backupfile: string, res: Response): Promise<void>;
-    deleteBackupFile(file: string, res: Response): Promise<Response<any, Record<string, any>>>;
     restoreFileBackup(backupfile: string, res: Response): Promise<Response<any, Record<string, any>>>;
+    deleteBackupFile(file: string, res: Response): Promise<Response<any, Record<string, any>>>;
+    uploadBackupFile(file: Express.Multer.File, res: Response): Promise<Response<any, Record<string, any>>>;
 }

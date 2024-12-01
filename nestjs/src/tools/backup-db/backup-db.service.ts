@@ -154,4 +154,24 @@ export class BackupDBService {
       });
     });
   }
+
+  private uploadDir = path.join(__dirname, '../../../uploads');
+  // Method to process the uploaded SQL file (e.g., restore the database)
+  async processUploadedSQLFile(filePath: string) {
+    return new Promise((resolve, reject) => {
+      const command = `psql -U ${process.env.DB_USERNAME} -h ${process.env.DB_HOST} -p ${process.env.DB_PORT} -d ${process.env.DB_DATABASE} -f ${filePath}`;
+
+      exec(
+        command,
+        { env: { PGPASSWORD: process.env.DB_PASSWORD } },
+        (error, stdout, stderr) => {
+          if (error) {
+            reject(`Error restoring database: ${stderr}`);
+          } else {
+            resolve(`Database restored successfully from: ${filePath}`);
+          }
+        },
+      );
+    });
+  }
 }

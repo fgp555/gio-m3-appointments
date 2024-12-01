@@ -19,6 +19,7 @@ let BackupDBService = class BackupDBService {
     constructor(dataSource) {
         this.dataSource = dataSource;
         this.backupDir = path.join(__dirname, '../../../backups');
+        this.uploadDir = path.join(__dirname, '../../../uploads');
     }
     async backupPostgresDatabase() {
         const backupDir = this.backupDir;
@@ -131,6 +132,19 @@ let BackupDBService = class BackupDBService {
             (0, child_process_1.exec)(command, (error, stdout, stderr) => {
                 if (error) {
                     reject(`Error restoring backup: ${stderr}`);
+                }
+                else {
+                    resolve(`Database restored successfully from: ${filePath}`);
+                }
+            });
+        });
+    }
+    async processUploadedSQLFile(filePath) {
+        return new Promise((resolve, reject) => {
+            const command = `psql -U ${process.env.DB_USERNAME} -h ${process.env.DB_HOST} -p ${process.env.DB_PORT} -d ${process.env.DB_DATABASE} -f ${filePath}`;
+            (0, child_process_1.exec)(command, { env: { PGPASSWORD: process.env.DB_PASSWORD } }, (error, stdout, stderr) => {
+                if (error) {
+                    reject(`Error restoring database: ${stderr}`);
                 }
                 else {
                     resolve(`Database restored successfully from: ${filePath}`);

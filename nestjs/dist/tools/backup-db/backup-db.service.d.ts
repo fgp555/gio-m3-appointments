@@ -13,4 +13,6 @@ export declare class BackupDBService {
     restoreDatabaseFromBackup(backupfile: string): Promise<string>;
     restorePostgresDatabase(filePath: string): Promise<string>;
     restoreMySQLDatabase(filePath: string): Promise<string>;
+    private uploadDir;
+    processUploadedSQLFile(filePath: string): Promise<unknown>;
 }

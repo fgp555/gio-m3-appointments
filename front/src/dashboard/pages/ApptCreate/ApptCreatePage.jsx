@@ -6,6 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import SelectComponent from "../../components/SelectComponent/SelectComponent";
 import apiServices from "../../../services/apiServices";
 import TableApptComponent from "../../components/TableApptComponent/TableApptComponent";
+import Swal from "sweetalert2";
 
 const ApptCreatePage = () => {
   const [selectedDay123, setSelectedDay] = useState(new Date());
@@ -61,8 +62,36 @@ const ApptCreatePage = () => {
       await apiServices.createAppointment(appointmentData);
       await getAppointmentsLastCount();
       console.log("Appointment created successfully");
+
+      // Show success notification
+      Swal.fire({
+        icon: "success",
+        title: "Appointment created successfully!",
+        toast: true,
+        position: "bottom-right",
+        showConfirmButton: false,
+        timer: 3000, // Duration of the notification (3 seconds)
+        background: "#28a745", // Success background color
+        color: "#fff", // Text color
+        iconColor: "#fff", // Icon color
+        timerProgressBar: true, // Display progress bar
+      });
     } catch (err) {
       console.error("Error creating appointment:", err);
+
+      // Show error notification
+      Swal.fire({
+        icon: "error",
+        title: `Error creating appointment: ${err.message}`,
+        toast: true,
+        position: "bottom-right",
+        showConfirmButton: false,
+        timer: 3000, // Duration of the notification (3 seconds)
+        background: "#dc3545", // Error background color
+        color: "#fff", // Text color
+        iconColor: "#fff", // Icon color
+        timerProgressBar: true, // Display progress bar
+      });
     }
   };
 

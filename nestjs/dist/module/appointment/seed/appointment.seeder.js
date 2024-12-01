@@ -20,70 +20,128 @@ let AppointmentSeederService = class AppointmentSeederService {
     }
     async seed() {
         const today = new Date();
-        const generateDates = (startDate, days) => {
-            const dates = [];
-            for (let i = 0; i < days; i++) {
-                const nextDay = new Date(startDate);
-                nextDay.setDate(startDate.getDate() + i);
-                dates.push(nextDay);
-            }
-            return dates;
-        };
-        const therapyDescriptions = [
-            'Sesión de rehabilitación postoperatoria de rodilla',
-            'Tratamiento para dolor lumbar crónico con técnicas de terapia manual',
-            'Ejercicios de fortalecimiento para esguince de tobillo',
-            'Sesión de electroterapia para alivio del dolor en hombro',
-            'Estiramientos y masajes para contractura muscular en cuello',
-            'Revisión de progreso en tratamiento de fascitis plantar',
-            'Terapia de rehabilitación después de fractura de brazo',
-            'Ejercicios de movilidad para mejorar rango articular en rodilla',
-            'Plan de fortalecimiento muscular para prevención de lesiones',
-            'Tratamiento de terapia física para recuperación post-quirúrgica de codo',
-        ];
-        const generateRandomAppointments = (date, patientId, professionalId) => {
-            const appointments = [];
-            const numAppointments = Math.floor(Math.random() * 3) + 2;
-            const availableHours = Array.from({ length: 9 }, (_, i) => i + 9);
-            const selectedHours = [];
-            while (selectedHours.length < numAppointments) {
-                const randomHour = availableHours[Math.floor(Math.random() * availableHours.length)];
-                if (!selectedHours.includes(randomHour)) {
-                    selectedHours.push(randomHour);
-                }
-            }
-            selectedHours.forEach((hour) => {
-                const appointmentDate = new Date(date);
-                appointmentDate.setHours(hour, 0, 0, 0);
-                const randomDescription = therapyDescriptions[Math.floor(Math.random() * therapyDescriptions.length)];
-                appointments.push({
-                    date: appointmentDate.toISOString(),
-                    description: randomDescription,
-                    patient: { id: patientId },
-                    professional: { id: professionalId },
-                });
-            });
-            return appointments;
-        };
-        const thisWeekDates = generateDates(today, 2);
-        const mondayNextWeek = new Date(today);
-        mondayNextWeek.setDate(today.getDate() + (7 - today.getDay()) + 1);
-        const nextWeekStart = new Date(today);
-        nextWeekStart.setDate(today.getDate() + (7 - today.getDay()) + 8);
-        const nextWeekDates = generateDates(nextWeekStart, 3);
-        const thirdWeekStart = new Date(today);
-        thirdWeekStart.setDate(today.getDate() + (7 - today.getDay()) + 15);
-        const thirdWeekDates = generateDates(thirdWeekStart, 2);
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+        const threeDaysFromNow = new Date(today);
+        threeDaysFromNow.setDate(today.getDate() + 3);
+        const nextWeekMonday = new Date(today);
+        nextWeekMonday.setDate(today.getDate() + (7 - today.getDay()));
+        const nextWeekTuesday = new Date(nextWeekMonday);
+        nextWeekTuesday.setDate(nextWeekMonday.getDate() + 1);
+        const nextWeekWednesday = new Date(nextWeekMonday);
+        nextWeekWednesday.setDate(nextWeekMonday.getDate() + 2);
+        const nextWeekThursday = new Date(nextWeekMonday);
+        nextWeekThursday.setDate(nextWeekMonday.getDate() + 3);
+        const nextWeekFriday = new Date(nextWeekMonday);
+        nextWeekFriday.setDate(nextWeekMonday.getDate() + 4);
         const appointments = [
-            ...thisWeekDates.flatMap((date) => generateRandomAppointments(date, 1, 2)),
-            ...[mondayNextWeek].flatMap((date) => generateRandomAppointments(date, 2, 3)),
-            ...nextWeekDates.flatMap((date) => generateRandomAppointments(date, 2, 3)),
-            ...thirdWeekDates.flatMap((date) => generateRandomAppointments(date, 3, 1)),
+            {
+                date: today.toISOString(),
+                description: 'Sesión de rehabilitación postoperatoria de rodilla',
+                patient: { id: 1 },
+                professional: { id: 8 },
+            },
+            {
+                date: today.toISOString(),
+                description: 'Tratamiento para dolor lumbar crónico con técnicas de terapia manual',
+                patient: { id: 2 },
+                professional: { id: 9 },
+            },
+            {
+                date: today.toISOString(),
+                description: 'Ejercicios de fortalecimiento para esguince de tobillo',
+                patient: { id: 3 },
+                professional: { id: 10 },
+            },
+            {
+                date: tomorrow.toISOString(),
+                description: 'Sesión de electroterapia para alivio del dolor en hombro',
+                patient: { id: 4 },
+                professional: { id: 8 },
+            },
+            {
+                date: tomorrow.toISOString(),
+                description: 'Estiramientos y masajes para contractura muscular en cuello',
+                patient: { id: 5 },
+                professional: { id: 9 },
+            },
+            {
+                date: tomorrow.toISOString(),
+                description: 'Revisión de progreso en tratamiento de fascitis plantar',
+                patient: { id: 6 },
+                professional: { id: 10 },
+            },
+            {
+                date: threeDaysFromNow.toISOString(),
+                description: 'Terapia de rehabilitación después de fractura de brazo',
+                patient: { id: 7 },
+                professional: { id: 8 },
+            },
+            {
+                date: threeDaysFromNow.toISOString(),
+                description: 'Ejercicios de movilidad para mejorar rango articular en rodilla',
+                patient: { id: 1 },
+                professional: { id: 9 },
+            },
+            {
+                date: threeDaysFromNow.toISOString(),
+                description: 'Plan de fortalecimiento muscular para prevención de lesiones',
+                patient: { id: 2 },
+                professional: { id: 10 },
+            },
+            {
+                date: nextWeekTuesday.toISOString(),
+                description: 'Consulta de control postoperatorio de rodilla',
+                patient: { id: 3 },
+                professional: { id: 8 },
+            },
+            {
+                date: nextWeekTuesday.toISOString(),
+                description: 'Tratamiento de masajes terapéuticos para cuello',
+                patient: { id: 4 },
+                professional: { id: 9 },
+            },
+            {
+                date: nextWeekThursday.toISOString(),
+                description: 'Rehabilitación para esguince de tobillo',
+                patient: { id: 5 },
+                professional: { id: 10 },
+            },
+            {
+                date: nextWeekThursday.toISOString(),
+                description: 'Evaluación de progreso en tratamiento de fascitis plantar',
+                patient: { id: 6 },
+                professional: { id: 8 },
+            },
+            {
+                date: nextWeekFriday.toISOString(),
+                description: 'Ejercicios de fortalecimiento para la parte inferior de la espalda',
+                patient: { id: 7 },
+                professional: { id: 9 },
+            },
+            {
+                date: nextWeekFriday.toISOString(),
+                description: 'Terapia de rehabilitación para fractura de brazo',
+                patient: { id: 1 },
+                professional: { id: 10 },
+            },
+            {
+                date: nextWeekFriday.toISOString(),
+                description: 'Consulta de control postoperatorio de rodilla',
+                patient: { id: 2 },
+                professional: { id: 8 },
+            },
+            {
+                date: nextWeekFriday.toISOString(),
+                description: 'Tratamiento de masajes terapéuticos para cuello',
+                patient: { id: 3 },
+                professional: { id: 9 },
+            },
         ];
         for (const appointment of appointments) {
             try {
-                const patient = await this.userService.findById(appointment.patientId);
-                const professional = await this.userService.findById(appointment.professionalId);
+                const patient = await this.userService.findById(appointment.patient.id);
+                const professional = await this.userService.findById(appointment.professional.id);
                 if (!patient || !professional) {
                     console.log(`Patient with ID ${appointment.patient.id} or professional with ID ${appointment.professional.id} does not exist.`);
                     continue;

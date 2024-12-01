@@ -1,14 +1,24 @@
-import { Controller, Delete, Get, Param, Post, Res } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Res,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 import { BackupDBService } from './backup-db.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('database')
 export class BackupDBController {
   constructor(private readonly backupService: BackupDBService) {}
 
-  @Get('backup')
+  @Post('create_backup')
   async createBackup() {
     const dbType = process.env.DB_TYPE || 'postgres';
     try {
@@ -27,7 +37,7 @@ export class BackupDBController {
     }
   }
 
-  @Get('/backup/postgres')
+  @Post('/create_backup/postgres')
   async backupPostgresDatabase() {
     try {
       const result = await this.backupService.backupPostgresDatabase();
@@ -37,7 +47,7 @@ export class BackupDBController {
     }
   }
 
-  @Get('/backup/mysql')
+  @Post('/create_backup/mysql')
   async backupMySQLDatabase() {
     try {
       const result = await this.backupService.backupMySQLDatabase();
@@ -47,7 +57,7 @@ export class BackupDBController {
     }
   }
 
-  @Get('display-backups-files')
+  @Post('display_backups_files')
   async displayBackupFiles() {
     try {
       const files = await this.backupService.getBackupFiles();
@@ -57,7 +67,7 @@ export class BackupDBController {
     }
   }
 
-  @Get('download-backup/:backupfile')
+  @Get('download/:backupfile')
   async downloadBackupFile(
     @Param('backupfile') backupfile: string,
     @Res() res: Response,
@@ -74,6 +84,21 @@ export class BackupDBController {
     }
   }
 
+  // Endpoint to restore database from a backup file
+  @Post('restore/:backupfile')
+  async restoreFileBackup(
+    @Param('backupfile') backupfile: string,
+    @Res() res: Response,
+  ) {
+    try {
+      const result =
+        await this.backupService.restoreDatabaseFromBackup(backupfile);
+      return res.json({ message: 'Database restored successfully', result });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
   @Delete('delete/:file')
   async deleteBackupFile(@Param('file') file: string, @Res() res: Response) {
     try {
@@ -86,16 +111,31 @@ export class BackupDBController {
     }
   }
 
-  // Endpoint to restore database from a backup file
-  @Post('restore-file-backup/:backupfile')
-  async restoreFileBackup(
-    @Param('backupfile') backupfile: string,
+  // Endpoint to upload a SQL file
+  @Post('upload_backup')
+  @UseInterceptors(FileInterceptor('file')) // 'file' is the field name in the form
+  async uploadBackupFile(
+    @UploadedFile() file: Express.Multer.File,
     @Res() res: Response,
   ) {
     try {
-      const result =
-        await this.backupService.restoreDatabaseFromBackup(backupfile);
-      return res.json({ message: 'Database restored successfully', result });
+      const uploadDir = path.join(__dirname, '../../../backups');
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir);
+      }
+
+      const filePath = path.join(uploadDir, file.originalname);
+
+      // Save the file
+      fs.writeFileSync(filePath, file.buffer);
+
+      // Call a method in the service to process the uploaded file if needed
+      await this.backupService.processUploadedSQLFile(filePath);
+
+      return res.json({
+        message: 'File uploaded successfully',
+        file: filePath,
+      });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }

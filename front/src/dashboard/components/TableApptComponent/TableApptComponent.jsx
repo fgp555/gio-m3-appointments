@@ -4,6 +4,7 @@ import { es } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import apiServices from "../../../services/apiServices";
 import "./TableApptComponent.css";
+import Swal from "sweetalert2";
 
 const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => {
   const [view, setView] = useState("month");
@@ -15,21 +16,106 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
   }, [viewProps]);
 
   const handleCancelAppointment = async (appointmentId) => {
+    const confirmCancel = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to cancel this appointment? This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#dc3545",
+      cancelButtonColor: "#5e63ff",
+      confirmButtonText: "Yes, cancel",
+      cancelButtonText: "No, keep it",
+      background: "#222533", // Dark background color
+      color: "#fff", // Text color in the modal
+      customClass: {
+        popup: "swal-dark-modal", // Custom class for the popup
+      },
+    });
+
+    if (!confirmCancel.isConfirmed) return;
+
     try {
       const canceledAppointment = await apiServices.cancelAppointment(appointmentId);
-      console.log("Appointment canceled successfully:", canceledAppointment);
+      Swal.fire({
+        title: "Canceled!",
+        text: "The appointment has been successfully canceled.",
+        icon: "success",
+        confirmButtonColor: "#28a745",
+        background: "#222533", // Dark background color
+        color: "#fff", // Text color in the modal
+        customClass: {
+          popup: "swal-dark-modal", // Custom class for the popup
+        },
+      });
+
       handleUpdateAppt();
     } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: `Failed to cancel the appointment: ${error.message}`,
+        icon: "error",
+        confirmButtonColor: "#dc3545",
+        confirmButtonText: "Got it",
+        background: "#222533", // Dark background color
+        color: "#fff", // Text color in the modal
+        customClass: {
+          popup: "swal-dark-modal", // Custom class for the popup
+        },
+      });
+
       console.error("Error canceling appointment:", error.message);
     }
   };
 
   const handleDeleteAppointment = async (appointmentId) => {
+    const confirmDelete = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to delete this appointment? This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#dc3545",
+      cancelButtonColor: "#5e63ff",
+      confirmButtonText: "Yes, delete",
+      cancelButtonText: "No, keep it",
+      background: "#222533", // Dark background color
+      color: "#fff", // Text color in the modal
+      customClass: {
+        popup: "swal-dark-modal", // Custom class for the popup
+      },
+    });
+
+    if (!confirmDelete.isConfirmed) return;
+
     try {
       await apiServices.deleteAppointment(appointmentId);
-      console.log("Appointment deleted successfully.");
+
+      Swal.fire({
+        title: "Deleted!",
+        text: "The appointment has been successfully deleted.",
+        icon: "success",
+        confirmButtonColor: "#28a745",
+        background: "#222533", // Dark background color
+        color: "#fff", // Text color in the modal
+        customClass: {
+          popup: "swal-dark-modal", // Custom class for the popup
+        },
+      });
+
       handleUpdateAppt();
     } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: `Failed to delete the appointment: ${error.message}`,
+        icon: "error",
+        confirmButtonColor: "#dc3545",
+        confirmButtonText: "Got it",
+        background: "#222533", // Dark background color
+        color: "#fff", // Text color in the modal
+        customClass: {
+          popup: "swal-dark-modal", // Custom class for the popup
+        },
+      });
+
       console.error("Error deleting appointment:", error.message);
     }
   };
