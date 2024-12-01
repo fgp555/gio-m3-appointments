@@ -21,17 +21,19 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<UserEntity> {
-    // Check if a user with the given email already exists
-    const existingUser = await this.findByEmail(createUserDto.email).catch(
-      () => null,
-    );
+    // Verificar si se proporcionó email y si ya existe
+    if (createUserDto.email) {
+      const existingUser = await this.findByEmail(createUserDto.email).catch(
+        () => null,
+      );
 
-    if (existingUser) {
-      throw new ConflictException('Email already exists');
+      if (existingUser) {
+        throw new ConflictException('Email already exists');
+      }
     }
 
     try {
-      // If email does not exist, create and save the new user
+      // Crear y guardar el nuevo usuario
       const user = this.userRepository.create(createUserDto);
       return await this.userRepository.save(user);
     } catch (error) {
@@ -44,7 +46,9 @@ export class UserService {
 
   async findAll(): Promise<UserEntity[]> {
     try {
-      return await this.userRepository.find();
+      return await this.userRepository.find({
+        order: { createdAt: 'DESC' },
+      });
     } catch (error) {
       throw new InternalServerErrorException(
         'Failed to fetch users',
@@ -100,11 +104,27 @@ export class UserService {
     });
   }
 
-  async findByRole(role: 'admin' | 'patient' | 'professional') {
-    return await this.userRepository.find({
-      where: { role },
-      relations: ['appointmentsAsPatient', 'appointmentsAsProfessional'],
-    });
+  async findByRole(
+    role: 'admin' | 'patient' | 'professional',
+    orderBy: string,
+    order: 'ASC' | 'DESC',
+    limit?: number,
+  ) {
+    const query = this.userRepository
+      .createQueryBuilder('user')
+      .where('user.role = :role', { role })
+      .orderBy(`user.${orderBy}`, order as 'ASC' | 'DESC')
+      .leftJoinAndSelect('user.appointmentsAsPatient', 'appointmentsAsPatient')
+      .leftJoinAndSelect(
+        'user.appointmentsAsProfessional',
+        'appointmentsAsProfessional',
+      );
+
+    if (limit) {
+      query.take(limit); // Aplica el límite si está definido
+    }
+
+    return await query.getMany();
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<UserEntity> {

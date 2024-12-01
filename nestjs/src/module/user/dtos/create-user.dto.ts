@@ -17,20 +17,22 @@ export class CreateUserDto {
   @MaxLength(100, { message: 'Last name should be less than 100 characters' })
   lastName: string;
 
+  @IsOptional()
   @IsEmail({}, { message: 'Invalid email format' })
-  @IsString()
   @MaxLength(255, { message: 'Email should be less than 255 characters' })
-  email: string;
+  email?: string;
 
   @IsString()
   @MaxLength(100, { message: 'Username should be less than 100 characters' })
   username: string;
 
+  @IsOptional()
   @IsString()
   @MinLength(6, { message: 'Password should be at least 6 characters long' })
   @MaxLength(20, { message: 'Password should be less than 20 characters' })
-  password: string;
+  password?: string;
 
+  @IsOptional()
   @IsString()
   @MinLength(6, {
     message: 'Confirm password should be at least 6 characters long',
@@ -38,7 +40,7 @@ export class CreateUserDto {
   @MaxLength(20, {
     message: 'Confirm password should be less than 20 characters',
   })
-  confirmPassword: string;
+  confirmPassword?: string;
 
   @IsDateString({}, { message: 'Birthdate must be a valid date format' })
   birthdate: string;

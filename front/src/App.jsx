@@ -16,6 +16,9 @@ import ApptListPage from "./dashboard/pages/AppointmentsPage/ApptListPage";
 import ProfessionalsPage from "./dashboard/pages/ProfessionalsPage/ProfessionalsPage";
 import AddProfessionalPage from "./dashboard/pages/AddProfessionalPage/AddProfessionalPage";
 import ProfUpdateParam from "./dashboard/pages/ProfessionalsPage/id-update/ProfUpdateParam";
+import PatientsPage from "./dashboard/pages/PatientsPage/PatientsPage";
+import AddPatientPage from "./dashboard/pages/PatientsPage/AddPatientPage/AddPatientPage";
+import UpdatePatientsPage from "./dashboard/pages/PatientsPage/update/UpdatePatientsPage.";
 
 const NotFound = () => (
   <div>
@@ -129,6 +132,36 @@ const App = () => {
           <PrivateRoute>
             <DashboardLayout>
               <ProfUpdateParam />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/patients"
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <PatientsPage />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/create-patient"
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <AddPatientPage />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/patient1/:id"
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <UpdatePatientsPage />
             </DashboardLayout>
           </PrivateRoute>
         }

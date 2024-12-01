@@ -25,14 +25,23 @@ let AuthController = class AuthController {
         this.jwtService = jwtService;
     }
     async signup(createAuthDto) {
-        const foundEmail = await this.userService.findOneEmail(createAuthDto.email);
-        if (foundEmail)
-            throw new common_1.UnauthorizedException('This email already exists');
-        const hashedPassword = await bcrypt.hash(createAuthDto.password, 10);
-        createAuthDto.password = hashedPassword;
-        const userCreate = await this.userService.create(createAuthDto);
-        const { password, ...withoutPassword } = userCreate;
-        return withoutPassword;
+        if (createAuthDto.email) {
+            const foundEmail = await this.userService.findOneEmail(createAuthDto.email);
+            if (foundEmail) {
+                throw new common_1.UnauthorizedException('This email already exists');
+            }
+        }
+        if (createAuthDto.password) {
+            createAuthDto.password = await bcrypt.hash(createAuthDto.password, 10);
+        }
+        try {
+            const userCreate = await this.userService.create(createAuthDto);
+            const { password, ...withoutPassword } = userCreate;
+            return withoutPassword;
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Failed to create user', error.message);
+        }
     }
     async singin(createAuthDto) {
         const foundEmail = await this.userService.findOneEmail(createAuthDto.email);

@@ -166,9 +166,11 @@ const apiServices = {
     }
   },
 
-  getApiUserByRole: async (role) => {
+  getApiUserByRole: async (role, orderBy = "firstName", order = "ASC", limit = 0) => {
     try {
-      const response = await axios.get(`${API_URL}/users/role/${role}`, {
+      const customPath = `${API_URL}/users/role?role=${role}&orderBy=${orderBy}&order=${order}&limit=${limit}`;
+
+      const response = await axios.get(customPath, {
         headers: {
           "Content-Type": "application/json",
           token: "autenticado",

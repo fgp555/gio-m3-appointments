@@ -25,8 +25,8 @@ __decorate([
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "lastName", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsEmail)({}, { message: 'Invalid email format' }),
-    (0, class_validator_1.IsString)(),
     (0, class_validator_1.MaxLength)(255, { message: 'Email should be less than 255 characters' }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "email", void 0);
@@ -36,12 +36,14 @@ __decorate([
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "username", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(6, { message: 'Password should be at least 6 characters long' }),
     (0, class_validator_1.MaxLength)(20, { message: 'Password should be less than 20 characters' }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "password", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(6, {
         message: 'Confirm password should be at least 6 characters long',

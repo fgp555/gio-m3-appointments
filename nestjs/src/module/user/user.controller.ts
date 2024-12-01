@@ -41,11 +41,14 @@ export class UserController {
     return await this.userService.findByEmail(email);
   }
   // Nuevo endpoint para obtener usuarios por tipo
-  @Get('role/:role')
+  @Get('role')
   async findByRole(
-    @Param('role') role: 'admin' | 'patient' | 'professional',
+    @Query('role') role: 'admin' | 'patient' | 'professional' = 'patient',
+    @Query('orderBy') orderBy: string = 'firstName',
+    @Query('order') order: 'ASC' | 'DESC' = 'ASC',
+    @Query('limit') limit?: number,
   ) {
-    return await this.userService.findByRole(role);
+    return await this.userService.findByRole(role, orderBy, order, limit);
   }
 
   @Get(':id')

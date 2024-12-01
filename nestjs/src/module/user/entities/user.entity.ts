@@ -18,7 +18,7 @@ export class UserEntity {
   @Column({ length: 100, nullable: true })
   lastName: string;
 
-  @Column({ unique: true, nullable: true })
+  @Column({ nullable: true })
   email: string;
 
   @Column({ nullable: true })
@@ -43,6 +43,7 @@ export class UserEntity {
     type: 'enum',
     enum: ['patient', 'professional', 'admin'],
     default: 'patient',
+    // nullable: true,
   })
   role: 'patient' | 'professional' | 'admin';
 

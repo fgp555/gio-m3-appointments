@@ -36,8 +36,8 @@ let UserController = class UserController {
         }
         return await this.userService.findByEmail(email);
     }
-    async findByRole(role) {
-        return await this.userService.findByRole(role);
+    async findByRole(role = 'patient', orderBy = 'firstName', order = 'ASC', limit) {
+        return await this.userService.findByRole(role, orderBy, order, limit);
     }
     async findOne(id) {
         if (!id || isNaN(Number(id))) {
@@ -80,10 +80,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "findByEmail", null);
 __decorate([
-    (0, common_1.Get)('role/:role'),
-    __param(0, (0, common_1.Param)('role')),
+    (0, common_1.Get)('role'),
+    __param(0, (0, common_1.Query)('role')),
+    __param(1, (0, common_1.Query)('orderBy')),
+    __param(2, (0, common_1.Query)('order')),
+    __param(3, (0, common_1.Query)('limit')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String, String, Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "findByRole", null);
 __decorate([

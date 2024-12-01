@@ -1,0 +1,56 @@
+.PatienCardComp {
+  max-width: 20rem;
+  /* background-color: peru; */
+  border: 1px solid #fff2;
+  list-style: none;
+  padding: 1rem;
+  flex: 1 1 16rem;
+  align-content: space-between;
+  min-width: 20rem;
+  max-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  border-left: 5px solid crimson;
+  border-radius: 6px 0 0 6px;
+
+  p {
+    font-size: 0.8rem;
+  }
+  .tab_info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5em;
+    .actions {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: end;
+      gap: 0.5em;
+    }
+    a {
+      text-decoration: none;
+    }
+    i {
+      color: #fff;
+      opacity: 0.8;
+      text-decoration: none;
+      font-style: normal;
+      font-size: 1.2em;
+      display: block;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+    }
+    i.danger {
+      color: crimson;
+    }
+    i:hover {
+      opacity: 1;
+      /* color: #fff; */
+    }
+  }
+  aside {
+    margin: initial;
+  }
+}

@@ -22,9 +22,11 @@ let UserService = class UserService {
         this.userRepository = userRepository;
     }
     async create(createUserDto) {
-        const existingUser = await this.findByEmail(createUserDto.email).catch(() => null);
-        if (existingUser) {
-            throw new common_1.ConflictException('Email already exists');
+        if (createUserDto.email) {
+            const existingUser = await this.findByEmail(createUserDto.email).catch(() => null);
+            if (existingUser) {
+                throw new common_1.ConflictException('Email already exists');
+            }
         }
         try {
             const user = this.userRepository.create(createUserDto);
@@ -36,7 +38,9 @@ let UserService = class UserService {
     }
     async findAll() {
         try {
-            return await this.userRepository.find();
+            return await this.userRepository.find({
+                order: { createdAt: 'DESC' },
+            });
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Failed to fetch users', error.message);
@@ -77,11 +81,17 @@ let UserService = class UserService {
             relations: ['appointmentsAsPatient', 'appointmentsAsProfessional'],
         });
     }
-    async findByRole(role) {
-        return await this.userRepository.find({
-            where: { role },
-            relations: ['appointmentsAsPatient', 'appointmentsAsProfessional'],
-        });
+    async findByRole(role, orderBy, order, limit) {
+        const query = this.userRepository
+            .createQueryBuilder('user')
+            .where('user.role = :role', { role })
+            .orderBy(`user.${orderBy}`, order)
+            .leftJoinAndSelect('user.appointmentsAsPatient', 'appointmentsAsPatient')
+            .leftJoinAndSelect('user.appointmentsAsProfessional', 'appointmentsAsProfessional');
+        if (limit) {
+            query.take(limit);
+        }
+        return await query.getMany();
     }
     async update(id, updateUserDto) {
         await this.findOne(id);

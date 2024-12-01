@@ -139,13 +139,8 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li className={activeMenu === "patiens" ? "active" : ""}>
-                  <Link to="/appointments?2" onClick={() => handleMenuClick("patiens")}>
-                    Patiens
-                  </Link>
-                </li>
-                <li className={activeMenu === "admin" ? "active" : ""}>
-                  <Link to="/appointments?3" onClick={() => handleMenuClick("admin")}>
-                    Admin
+                  <Link to="/patients" onClick={() => handleMenuClick("patiens")}>
+                    Patients
                   </Link>
                 </li>
               </div>

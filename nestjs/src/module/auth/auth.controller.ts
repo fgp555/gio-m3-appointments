@@ -27,16 +27,34 @@ export class AuthController {
   @Post('signup')
   // @UseGuards(AuthGuard)
   async signup(@Body() createAuthDto: any) {
-    const foundEmail = await this.userService.findOneEmail(createAuthDto.email);
+    // Verificar si se proporcionó un email
+    if (createAuthDto.email) {
+      const foundEmail = await this.userService.findOneEmail(
+        createAuthDto.email,
+      );
 
-    if (foundEmail)
-      throw new UnauthorizedException('This email already exists');
+      if (foundEmail) {
+        throw new UnauthorizedException('This email already exists');
+      }
+    }
 
-    const hashedPassword = await bcrypt.hash(createAuthDto.password, 10);
-    createAuthDto.password = hashedPassword;
-    const userCreate = await this.userService.create(createAuthDto);
-    const { password, ...withoutPassword } = userCreate;
-    return withoutPassword;
+    // Verificar y encriptar la contraseña si se proporciona
+    if (createAuthDto.password) {
+      createAuthDto.password = await bcrypt.hash(createAuthDto.password, 10);
+    }
+
+    try {
+      // Crear el usuario
+      const userCreate = await this.userService.create(createAuthDto);
+      // Excluir la contraseña de la respuesta
+      const { password, ...withoutPassword } = userCreate;
+      return withoutPassword;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Failed to create user',
+        error.message,
+      );
+    }
   }
 
   @Post('signin')

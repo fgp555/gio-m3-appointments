@@ -1,0 +1,23 @@
+.PatiensPage {
+  .title_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+  }
+  padding: 1em;
+  .cards_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 20px;
+  }
+  .add_button {
+    margin-right: 4em;
+    /* margin-bottom: 1em; */
+    /* margin-left: auto; */
+    /* display: block; */
+    text-decoration: none;
+  }
+}

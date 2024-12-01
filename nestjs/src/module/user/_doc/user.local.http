@@ -1,16 +1,19 @@
 @token=Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlkIjoxLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTczMTg5MjA2MSwiZXhwIjoxNzMyNzU2MDYxfQ.xmMMqF7RLAodN6fc7WkmNtyAM8ymNWGyH4q2YY6NZLg
 @token_user=Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlkIjoyLCJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiaWF0IjoxNzMxODkzNjU5LCJleHAiOjE3MzI3NTc2NTl9.-HQemWKbFIIDSALbyhd9rnCPcdBwygkfp7JqV3KLL3Y
 
-###### Get users by role
-GET http://localhost:3000/api/users/role/admin
+######
+GET http://localhost:3000/api/users/role
+
+######
+GET http://localhost:3000/api/users/role?role=patient&limit=2
 Authorization: {{token}}
 
-###### Get users by role
-GET http://localhost:3000/api/users/role/patient
+######
+GET http://localhost:3000/api/users/role?role=professional
 Authorization: {{token}}
 
-###### Get users by role
-GET http://localhost:3000/api/users/role/professional
+######
+GET http://localhost:3000/api/users/role?role=admin&orderBy=createdAt&order=DESC
 Authorization: {{token}}
 
 ###
@@ -28,6 +31,19 @@ Content-Type: application/json
     "confirmPassword": "P4ssWord@123",
     "birthdate": "2000-01-01",
     "nDni": "1234567"
+}
+
+### create patient
+POST http://localhost:3000/api/auth/signup
+Content-Type: application/json
+# Authorization: {{token}}
+
+{
+    "firstName": "Paciente 123",
+    "lastName": "Prueba",
+    "email": "patient31@gmail.com",
+    "whatsapp": "+5491123456497",
+    "nDni": "28675430"
 }
 
 ###
