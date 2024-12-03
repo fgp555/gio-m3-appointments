@@ -59,17 +59,9 @@ const SelectComponent = ({ onSelectRolesChange, defaultRoles }) => {
   return (
     <div className="SelectComponent">
       <section className="SelectComponent patient_container">
-        <label htmlFor="patientId">Patient: </label>
-        <select
-          //
-          id="patientId"
-          name="patientId"
-          value={selectRoles.patientId}
-          onChange={handleInputChange}
-          required
-          onInvalid={handleInvalid}
-        >
-          <option value="">Select Patient</option>
+        <label htmlFor="patientId">Paciente: </label>
+        <select id="patientId" name="patientId" value={selectRoles.patientId} onChange={handleInputChange} required onInvalid={handleInvalid}>
+          <option value="">Seleccionar Paciente</option>
           {roles.patient.map((patient) => (
             <option key={patient.id} value={patient.id}>
               {patient.firstName} {patient.lastName}
@@ -78,17 +70,9 @@ const SelectComponent = ({ onSelectRolesChange, defaultRoles }) => {
         </select>
       </section>
       <section className="SelectComponent professional_container">
-        <label htmlFor="professionalId">Professional: </label>
-        <select
-          //
-          id="professionalId"
-          name="professionalId"
-          value={selectRoles.professionalId}
-          onChange={handleInputChange}
-          required
-          onInvalid={handleInvalid}
-        >
-          <option value="">Select professional</option>
+        <label htmlFor="professionalId">Profesional: </label>
+        <select id="professionalId" name="professionalId" value={selectRoles.professionalId} onChange={handleInputChange} required onInvalid={handleInvalid}>
+          <option value="">Seleccionar Profesional</option>
           {roles.professional.map((professional) => (
             <option key={professional.id} value={professional.id}>
               {professional.firstName} {professional.lastName}

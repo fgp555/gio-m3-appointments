@@ -12,7 +12,7 @@ const ApptCreatePage = () => {
   const [selectedDay123, setSelectedDay] = useState(new Date());
   const [selectedRoles, setSelectedRoles] = useState({ patientId: "3", professionalId: "7" });
   const [newAppointment, setNewAppointment] = useState({
-    description: "description 123",
+    description: "Terapia de rehabilitación para fractura de brazo",
     date: selectedDay123,
     time: "09:00",
   });
@@ -61,36 +61,34 @@ const ApptCreatePage = () => {
 
       await apiServices.createAppointment(appointmentData);
       await getAppointmentsLastCount();
-      console.log("Appointment created successfully");
+      console.log("Cita creada exitosamente");
 
-      // Show success notification
       Swal.fire({
         icon: "success",
-        title: "Appointment created successfully!",
+        title: "¡Cita creada exitosamente!",
         toast: true,
         position: "bottom-right",
         showConfirmButton: false,
-        timer: 3000, // Duration of the notification (3 seconds)
-        background: "#28a745", // Success background color
-        color: "#fff", // Text color
-        iconColor: "#fff", // Icon color
-        timerProgressBar: true, // Display progress bar
+        timer: 3000,
+        background: "#28a745",
+        color: "#fff",
+        iconColor: "#fff",
+        timerProgressBar: true,
       });
     } catch (err) {
-      console.error("Error creating appointment:", err);
+      console.error("Error al crear la cita:", err);
 
-      // Show error notification
       Swal.fire({
         icon: "error",
-        title: `Error creating appointment: ${err.message}`,
+        title: `Error al crear la cita: ${err.message}`,
         toast: true,
         position: "bottom-right",
         showConfirmButton: false,
-        timer: 3000, // Duration of the notification (3 seconds)
-        background: "#dc3545", // Error background color
-        color: "#fff", // Text color
-        iconColor: "#fff", // Icon color
-        timerProgressBar: true, // Display progress bar
+        timer: 3000,
+        background: "#dc3545",
+        color: "#fff",
+        iconColor: "#fff",
+        timerProgressBar: true,
       });
     }
   };
@@ -171,7 +169,7 @@ const ApptCreatePage = () => {
             //
           />
           {/* Input para la Description */}
-          <label>Description</label>
+          <label>Descripción</label>
           <textarea
             className="description"
             //
@@ -182,18 +180,18 @@ const ApptCreatePage = () => {
             onInput={(e) => autoResize(e.target)}
           ></textarea>
           <button type="button" onClick={handleCreateAppt} className="btn_handleCreateAppt">
-            Add
+            Agregar
           </button>
         </div>
         <section className="buttons_filters">
           <button className={view === "day" ? "active" : ""} onClick={() => handleViewChange("day")}>
-            Day
+            Día
           </button>
           <button className={view === "week" ? "active" : ""} onClick={() => handleViewChange("week")}>
-            Week
+            Semana
           </button>
           <button className={view === "month" ? "active" : ""} onClick={() => handleViewChange("month")}>
-            Month
+            Mes
           </button>
 
           {/* Input para seleccionar el número de citas */}

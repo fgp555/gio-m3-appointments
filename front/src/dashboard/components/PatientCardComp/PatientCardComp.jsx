@@ -67,7 +67,7 @@ const PatientCardComp = ({ patient, refreshUsers }) => {
                 <strong>Email:</strong> {patient.email}
               </p>
               <p>
-                <strong>Create at:</strong> {new Date(patient.createdAt).toLocaleDateString()}
+                <strong>Creado el:</strong> {new Date(patient.createdAt).toLocaleDateString()}
               </p>
             </aside>
             <div className="actions">

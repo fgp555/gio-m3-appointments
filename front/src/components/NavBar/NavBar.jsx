@@ -41,7 +41,7 @@ const NavBar = () => {
           {isLogin ? (
             <>
               <li>
-                <Link to="/appointments">DASHBOARD</Link>
+                <Link to="/dashboard">DASHBOARD</Link>
               </li>
               <li>
                 <Link

@@ -29,18 +29,18 @@ const DatabaseBackupManager = () => {
 
   const handleCreateBackup = async () => {
     const confirmCreate = await Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to create a new backup?",
+      title: "¿Estás seguro?",
+      text: "¿Quieres crear una nueva copia de seguridad?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#28a745",
       cancelButtonColor: "#5e63ff",
-      confirmButtonText: "Yes, create",
-      cancelButtonText: "Cancel",
-      background: "#222533", // Dark background color
-      color: "#fff", // Text color in the modal
+      confirmButtonText: "Sí, crear",
+      cancelButtonText: "Cancelar",
+      background: "#222533", // Color de fondo oscuro
+      color: "#fff", // Color del texto en el modal
       customClass: {
-        popup: "swal-dark-modal", // Custom class for the popup
+        popup: "swal-dark-modal", // Clase personalizada para el popup
       },
     });
 
@@ -52,36 +52,36 @@ const DatabaseBackupManager = () => {
       setError(null);
 
       Swal.fire({
-        title: "Success!",
-        text: "The backup has been successfully created.",
+        title: "¡Éxito!",
+        text: "La copia de seguridad se ha creado correctamente.",
         icon: "success",
         confirmButtonColor: "#28a745",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
 
-      // Add a slight delay to ensure the new backup has been created on the backend
+      // Añadir un pequeño retraso para asegurar que la nueva copia de seguridad se haya creado en el backend
       setTimeout(async () => {
         const data = await apiService.getBackups();
-        setBackups(data); // Refresh the backup list
-      }, 1000); // 1-second delay to allow time for backend processing
+        setBackups(data); // Refrescar la lista de copias de seguridad
+      }, 1000); // Retraso de 1 segundo para permitir el procesamiento en el backend
     } catch (err) {
       Swal.fire({
         title: "Error",
-        text: "Failed to create backup.",
+        text: "No se pudo crear la copia de seguridad.",
         icon: "error",
         confirmButtonColor: "#dc3545",
-        confirmButtonText: "Got it",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        confirmButtonText: "Entendido",
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
-      setError("Failed to create backup");
+      setError("No se pudo crear la copia de seguridad");
     } finally {
       setIsLoading(false);
     }
@@ -89,18 +89,18 @@ const DatabaseBackupManager = () => {
 
   const handleDownloadBackup = async (backupFileName) => {
     const confirmDownload = await Swal.fire({
-      title: "Are you sure?",
-      text: `Do you want to download the backup "${backupFileName}"?`,
+      title: "¿Estás seguro?",
+      text: `¿Quieres descargar la copia de seguridad "${backupFileName}"?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#28a745",
       cancelButtonColor: "#5e63ff",
-      confirmButtonText: "Yes, download",
-      cancelButtonText: "Cancel",
-      background: "#222533", // Dark background color
-      color: "#fff", // Text color in the modal
+      confirmButtonText: "Sí, descargar",
+      cancelButtonText: "Cancelar",
+      background: "#222533", // Color de fondo oscuro
+      color: "#fff", // Color del texto en el modal
       customClass: {
-        popup: "swal-dark-modal", // Custom class for the popup
+        popup: "swal-dark-modal", // Clase personalizada para el popup
       },
     });
 
@@ -108,54 +108,54 @@ const DatabaseBackupManager = () => {
 
     try {
       const fileData = await apiService.downloadBackup(backupFileName);
-      // Create a link and trigger file download
+      // Crear un enlace y activar la descarga del archivo
       const link = document.createElement("a");
       link.href = URL.createObjectURL(fileData);
       link.download = backupFileName;
       link.click();
 
       Swal.fire({
-        title: "Success!",
-        text: `The backup "${backupFileName}" has been successfully downloaded.`,
+        title: "¡Éxito!",
+        text: `La copia de seguridad "${backupFileName}" se ha descargado correctamente.`,
         icon: "success",
         confirmButtonColor: "#28a745",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
     } catch (err) {
       Swal.fire({
         title: "Error",
-        text: `Failed to download the backup "${backupFileName}".`,
+        text: `No se pudo descargar la copia de seguridad "${backupFileName}".`,
         icon: "error",
         confirmButtonColor: "#dc3545",
-        confirmButtonText: "Got it",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        confirmButtonText: "Entendido",
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
-      setError("Failed to download backup");
+      setError("No se pudo descargar la copia de seguridad");
     }
   };
 
   const handleRestoreBackup = async (backupFileName) => {
     const confirmRestore = await Swal.fire({
-      title: "Are you sure?",
-      text: `Do you want to restore the backup "${backupFileName}"? This will overwrite current data.`,
+      title: "¿Estás seguro?",
+      text: `¿Quieres restaurar la copia de seguridad "${backupFileName}"? Esto sobrescribirá los datos actuales.`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#28a745",
       cancelButtonColor: "#5e63ff",
-      confirmButtonText: "Yes, restore",
-      cancelButtonText: "Cancel",
-      background: "#222533", // Dark background color
-      color: "#fff", // Text color in the modal
+      confirmButtonText: "Sí, restaurar",
+      cancelButtonText: "Cancelar",
+      background: "#222533", // Color de fondo oscuro
+      color: "#fff", // Color del texto en el modal
       customClass: {
-        popup: "swal-dark-modal", // Custom class for the popup
+        popup: "swal-dark-modal", // Clase personalizada para el popup
       },
     });
 
@@ -164,34 +164,34 @@ const DatabaseBackupManager = () => {
     try {
       setIsLoading(true);
       await apiService.restoreBackup(backupFileName);
-      const data = await apiService.getBackups(); // Refresh backup list
+      const data = await apiService.getBackups(); // Refrescar lista de copias de seguridad
       setBackups(data);
 
       Swal.fire({
-        title: "Success!",
-        text: `The backup "${backupFileName}" has been successfully restored.`,
+        title: "¡Éxito!",
+        text: `La copia de seguridad "${backupFileName}" se ha restaurado correctamente.`,
         icon: "success",
         confirmButtonColor: "#28a745",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
     } catch (err) {
       Swal.fire({
         title: "Error",
-        text: `Failed to restore the backup "${backupFileName}".`,
+        text: `No se pudo restaurar la copia de seguridad "${backupFileName}".`,
         icon: "error",
         confirmButtonColor: "#dc3545",
-        confirmButtonText: "Got it",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        confirmButtonText: "Entendido",
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
-      setError("Failed to restore backup");
+      setError("No se pudo restaurar la copia de seguridad");
     } finally {
       setIsLoading(false);
     }
@@ -199,18 +199,18 @@ const DatabaseBackupManager = () => {
 
   const handleDeleteBackup = async (backupFileName) => {
     const confirmDelete = await Swal.fire({
-      title: "Are you sure?",
-      text: "You are about to delete",
+      title: "¿Estás seguro?",
+      text: "Estás a punto de eliminar",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#dc3545",
       cancelButtonColor: "#5e63ff",
-      confirmButtonText: "Yes, delete",
-      cancelButtonText: "Cancel",
-      background: "#222533", // Dark background color
-      color: "#fff", // Text color in the modal
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      background: "#222533", // Color de fondo oscuro
+      color: "#fff", // Color del texto en el modal
       customClass: {
-        popup: "swal-dark-modal", // Custom class for the popup
+        popup: "swal-dark-modal", // Clase personalizada para el popup
       },
     });
 
@@ -219,17 +219,17 @@ const DatabaseBackupManager = () => {
     try {
       setIsLoading(true);
       await apiService.deleteBackup(backupFileName);
-      const data = await apiService.getBackups(); // Refresh backup list
+      const data = await apiService.getBackups(); // Refrescar lista de copias de seguridad
 
       Swal.fire({
-        title: "Deleted!",
-        text: "The backup has been successfully deleted.",
+        title: "¡Eliminado!",
+        text: "La copia de seguridad se ha eliminado correctamente.",
         icon: "success",
         confirmButtonColor: "#28a745",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
 
@@ -237,17 +237,17 @@ const DatabaseBackupManager = () => {
     } catch (err) {
       Swal.fire({
         title: "Error",
-        text: error.message || "The backup could not be deleted.",
+        text: error.message || "No se pudo eliminar la copia de seguridad.",
         icon: "error",
         confirmButtonColor: "#dc3545",
-        confirmButtonText: "Got it",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        confirmButtonText: "Entendido",
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
-      setError("Failed to delete backup");
+      setError("No se pudo eliminar la copia de seguridad");
     } finally {
       setIsLoading(false);
     }
@@ -260,36 +260,36 @@ const DatabaseBackupManager = () => {
   };
 
   const handleUploadBackup = async (event) => {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault(); // Prevenir el envío predeterminado del formulario
     if (!file) {
       Swal.fire({
         title: "Error",
-        text: "Please select a file to upload.",
+        text: "Por favor selecciona un archivo para subir.",
         icon: "error",
         confirmButtonColor: "#dc3545",
-        confirmButtonText: "Got it",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        confirmButtonText: "Entendido",
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
       return;
     }
 
     const confirmUpload = await Swal.fire({
-      title: "Are you sure?",
-      text: `Do you want to upload the selected backup file?`,
+      title: "¿Estás seguro?",
+      text: `¿Deseas subir el archivo de copia de seguridad seleccionado?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#28a745",
       cancelButtonColor: "#5e63ff",
-      confirmButtonText: "Yes, upload",
-      cancelButtonText: "Cancel",
-      background: "#222533", // Dark background color
-      color: "#fff", // Text color in the modal
+      confirmButtonText: "Sí, subir",
+      cancelButtonText: "Cancelar",
+      background: "#222533", // Color de fondo oscuro
+      color: "#fff", // Color del texto en el modal
       customClass: {
-        popup: "swal-dark-modal", // Custom class for the popup
+        popup: "swal-dark-modal", // Clase personalizada para el popup
       },
     });
 
@@ -297,39 +297,39 @@ const DatabaseBackupManager = () => {
 
     try {
       setIsLoading(true);
-      await apiService.uploadBackup(file); // Upload the selected file
+      await apiService.uploadBackup(file); // Subir el archivo seleccionado
       setError(null);
-      setFile(null); // Clear the file input after successful upload
-      setFileName(""); // Clear the file name after upload
+      setFile(null); // Limpiar el archivo después de una carga exitosa
+      setFileName(""); // Limpiar el nombre del archivo después de subirlo
 
       const data = await apiService.getBackups();
       setBackups(data);
 
       Swal.fire({
-        title: "Success!",
-        text: "The backup has been successfully uploaded.",
+        title: "¡Éxito!",
+        text: "La copia de seguridad se ha restaurado correctamente.",
         icon: "success",
         confirmButtonColor: "#28a745",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
     } catch (err) {
       Swal.fire({
         title: "Error",
-        text: "Failed to upload the backup file.",
+        text: "No se pudo subir el archivo de copia de seguridad.",
         icon: "error",
         confirmButtonColor: "#dc3545",
-        confirmButtonText: "Got it",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        confirmButtonText: "Entendido",
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
-      setError("Failed to upload backup");
+      setError("No se pudo subir la copia de seguridad");
     } finally {
       setIsLoading(false);
     }
@@ -337,25 +337,25 @@ const DatabaseBackupManager = () => {
 
   return (
     <div className="DatabaseBackupManager">
-      <h1>Database Backup Manager</h1>
+      <h1>Copias de Seguridad de Base de Datos</h1>
       <section>
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <p>Cargando...</p>}
 
-        <h2>Create Backup</h2>
+        <h2>Crear Copia de Seguridad</h2>
         {error && <p className="error">{error}</p>}
-        <button onClick={handleCreateBackup}>Create Backup</button>
+        <button onClick={handleCreateBackup}>Crear Copia de Seguridad</button>
       </section>
 
       <section>
-        <h3>Existing Backups:</h3>
+        <h3>Copias de Seguridad Existentes:</h3>
         <ul>
           {backups.length === 0 ? (
-            <p>No backups available</p>
+            <p>No hay copias de seguridad disponibles</p>
           ) : (
             backups.map((backup) => (
               <li key={backup}>
                 <span>{backup}</span>
-                <article className="hide_on_mobile ">
+                <article className="hide_on_mobile">
                   <button onClick={() => handleDownloadBackup(backup)}>
                     <i className="icon-download"></i>
                   </button>
@@ -373,22 +373,22 @@ const DatabaseBackupManager = () => {
       </section>
 
       <section>
-        <h2>Upload Backup</h2>
-        {/* File upload form */}
+        <h2>Cargar Copia de Seguridad</h2>
+        {/* Formulario de carga de archivo */}
         <form onSubmit={handleUploadBackup}>
           <input type="file" id="fileInput" onChange={handleFileChange} style={{ display: "none" }} />
           <label htmlFor="fileInput" className="file-label">
-            Choose File
+            Elegir Archivo
           </label>
           <button type="submit">
             <i className="icon-upload"></i>
           </button>
         </form>
 
-        {/* Display the selected file name if a file is selected */}
+        {/* Mostrar el nombre del archivo seleccionado si se ha seleccionado un archivo */}
         {fileName && (
           <p>
-            Selected file: <strong>{fileName}</strong>
+            Archivo seleccionado: <strong>{fileName}</strong>
           </p>
         )}
       </section>

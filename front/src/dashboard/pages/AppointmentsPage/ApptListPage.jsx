@@ -104,13 +104,13 @@ const ApptListPage = () => {
         <section>
           <section className="buttons_filters">
             <button className={view === "day" ? "active" : ""} onClick={() => handleViewChange("day")}>
-              Day
+              Día
             </button>
             <button className={view === "week" ? "active" : ""} onClick={() => handleViewChange("week")}>
-              Week
+              Semana
             </button>
             <button className={view === "month" ? "active" : ""} onClick={() => handleViewChange("month")}>
-              Month
+              Mes
             </button>
 
             <p className="appt_count"> {filteredAppointments.length}</p>

@@ -51,11 +51,12 @@ const PatientsPage = () => {
     <div className="PatiensPage">
       <section>
         <aside className="title_container">
-          <h2 className="title">Patients</h2>
+          <h2 className="title">Pacientes</h2>
           <Link className="add_button" to="/create-patient">
-            <button className="add_button">Add Patiens</button>
+            <button className="add_button">Agregar Paciente</button>
           </Link>
         </aside>
+
         <ul className="cards_container">
           {roles.patient.map((item) => (
             <PatientCardComp

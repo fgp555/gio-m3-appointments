@@ -51,11 +51,12 @@ const ProfessionalsPage = () => {
     <div className="ProfessionalsPage">
       <section>
         <aside className="title_container">
-          <h2 className="title">Professionals</h2>
+          <h2 className="title">Profesionales</h2>
           <Link to="/add-professionals">
-            <button>Add Professional</button>
+            <button>Agregar Profesional</button>
           </Link>
         </aside>
+
         <ul className="cards_container">
           {roles.professional.map((professional) => (
             <ProfCardComp

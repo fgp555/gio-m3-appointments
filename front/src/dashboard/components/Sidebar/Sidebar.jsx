@@ -93,34 +93,28 @@ const Sidebar = () => {
               <i className="icon-angle-double-left"></i>
             </button>
           </li>
-          {/* <li className={activeMenu === "home" ? "active" : ""}>
-            <Link to="/appointments" onClick={() => handleMenuClick("home")}>
-              <i className="icon-home"></i>
-              <span>Home</span>
-            </Link>
-          </li> */}
           <li className={activeMenu === "dashboard" ? "active" : ""}>
             <Link to="/dashboard" onClick={() => handleMenuClick("dashboard")}>
               <i className="icon-dashboard"></i>
-              <span>Dashboard</span>
+              <span>Mis Citas</span>
             </Link>
           </li>
           <li>
             <button onClick={() => toggleSubMenu("createMenu")} className={`dropdown-btn ${subMenus.createMenu ? "rotate" : ""}`}>
               <i className="icon-calendar"></i>
-              <span>Appoinments</span>
+              <span>Citas</span>
               <i className="icon-angle-down"></i>
             </button>
             <ul className={`sub-menu ${subMenus.createMenu ? "show" : ""}`}>
               <div>
                 <li className={activeMenu === "calendar" ? "active" : ""}>
                   <Link to="/appointments" onClick={() => handleMenuClick("calendar")}>
-                    Calendar
+                    Calendario
                   </Link>
                 </li>
                 <li className={activeMenu === "create" ? "active" : ""}>
                   <Link to="/appt-create" onClick={() => handleMenuClick("create")}>
-                    Create
+                    Crear
                   </Link>
                 </li>
               </div>
@@ -130,19 +124,19 @@ const Sidebar = () => {
           <li>
             <button onClick={() => toggleSubMenu("UsersMenu")} className={`dropdown-btn ${subMenus.UsersMenu ? "rotate" : ""}`}>
               <i className="icon-users"></i>
-              <span>Accounts</span>
+              <span>Cuentas</span>
               <i className="icon-angle-down"></i>
             </button>
             <ul className={`sub-menu ${subMenus.UsersMenu ? "show" : ""}`}>
               <div>
                 <li className={activeMenu === "profesionals" ? "active" : ""}>
                   <Link to="/professionals" onClick={() => handleMenuClick("profesionals")}>
-                    Professionals
+                    Profesionales
                   </Link>
                 </li>
                 <li className={activeMenu === "patiens" ? "active" : ""}>
                   <Link to="/patients" onClick={() => handleMenuClick("patiens")}>
-                    Patients
+                    Pacientes
                   </Link>
                 </li>
               </div>
@@ -154,28 +148,23 @@ const Sidebar = () => {
           <li>
             <button onClick={() => toggleSubMenu("TodoListMenu")} className={`dropdown-btn ${subMenus.TodoListMenu ? "rotate" : ""}`}>
               <i className="icon-tools"></i>
-              <span>Tools</span>
+              <span>Herramientas</span>
               <i className="icon-angle-down"></i>
             </button>
             <ul className={`sub-menu ${subMenus.TodoListMenu ? "show" : ""}`}>
               <div>
                 <li className={activeMenu === "database" ? "active" : ""}>
                   <Link to="/db-backup-manager" onClick={() => handleMenuClick("database")}>
-                    Database
+                    Base de Datos
                   </Link>
                 </li>
-                {/* <li className={activeMenu === "about" ? "active" : ""}>
-                  <Link to="/about-system" onClick={() => handleMenuClick("about")}>
-                    About System
-                  </Link>
-                </li> */}
               </div>
             </ul>
           </li>
           <li className="logout-container">
             <Link to="/login" className="logout">
               <i className="icon-logout"></i>
-              <span onClick={handleLogout}>Logout</span>
+              <span onClick={handleLogout}>Cerrar sesión</span>
             </Link>
           </li>
         </ul>

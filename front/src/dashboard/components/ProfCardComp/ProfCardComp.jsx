@@ -2,7 +2,7 @@ import { useState } from "react";
 import apiServices from "../../../services/apiServices";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import "./ProfCardComp.css"
+import "./ProfCardComp.css";
 const ProfCardComp = ({ professional, refreshUsers }) => {
   const [activeTab, setActiveTab] = useState("info");
 
@@ -51,10 +51,10 @@ const ProfCardComp = ({ professional, refreshUsers }) => {
       {/* <pre>{JSON.stringify(professional, null, 2)}</pre> */}
       <div className="tabs">
         <button className={`tab ${activeTab === "info" ? "active" : ""}`} onClick={() => toggleTab("info")}>
-          Info
+          Información
         </button>
         <button className={`tab ${activeTab === "details" ? "active" : ""}`} onClick={() => toggleTab("details")}>
-          More Details
+          Más Detalles
         </button>
       </div>
 
@@ -66,7 +66,7 @@ const ProfCardComp = ({ professional, refreshUsers }) => {
               {professional.title} {professional.firstName} {professional.lastName}
             </h3>
             <h4>
-              <strong>Specialization:</strong> {professional.specialization}
+              {/* <strong>Especialización:</strong> */} {professional.specialization}
             </h4>
             <p>
               <strong>WhatsApp:</strong> {professional.whatsapp}
@@ -83,22 +83,24 @@ const ProfCardComp = ({ professional, refreshUsers }) => {
         {activeTab === "details" && (
           <div className="tab_details">
             <p>
-              <strong>Birthdate:</strong> {professional.birthdate}
+              <strong>Fecha de nacimiento:</strong> {professional.birthdate}
             </p>
             <p>
               <strong>DNI:</strong> {professional.nDni}
             </p>
             <p>
-              <strong>Created At:</strong> {new Date(professional.createdAt).toLocaleDateString()}
+              <strong>Creado el:</strong> {new Date(professional.createdAt).toLocaleDateString()}
             </p>
             <p>
-              <strong>Bio:</strong> {professional.bio}
+              <strong>Biografía:</strong> {professional.bio}
             </p>
             <div>
               <Link to={`/professional/${professional.id}`}>
-                <button>Edit</button>
+                <button>Editar</button>
               </Link>
-              <button className="button danger" onClick={() => handleDeleteProf(professional.id)}>Delete</button>
+              <button className="button danger" onClick={() => handleDeleteProf(professional.id)}>
+                Eliminar
+              </button>
             </div>
           </div>
         )}

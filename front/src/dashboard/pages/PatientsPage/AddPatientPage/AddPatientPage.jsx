@@ -125,18 +125,19 @@ const AddPatientPage = () => {
     <div className="AddPatientPageContainer">
       <aside className="AddPatientPageForm">
         <button className="back-button" onClick={handleBack}>
-          Go back
+          Volver
         </button>
+
         <h2>{pageTitle}</h2>
         <form onSubmit={handleRegisterSubmit}>
           <aside>
-            <input type="text" name="firstName" placeholder="Name *" value={formData.firstName} onChange={handleChange} required />
-            <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} />
-            <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+            <input type="text" name="firstName" placeholder="Nombre *" value={formData.firstName} onChange={handleChange} required />
+            <input type="text" name="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} />
+            <input type="email" name="email" placeholder="Correo Electrónico" value={formData.email} onChange={handleChange} />
             <input type="text" name="whatsapp" placeholder="WhatsApp" value={formData.whatsapp} onChange={handleChange} />
             <input type="text" name="nDni" placeholder="DNI" value={formData.nDni} onChange={handleChange} />
             <button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Adding..." : "Add"}
+              {isSubmitting ? "Añadiendo..." : "Añadir"}
             </button>
             {message && <p>{message}</p>}
           </aside>
@@ -145,7 +146,7 @@ const AddPatientPage = () => {
       <div className="PatiensPage">
         <section>
           <aside className="title_container">
-            <h2 className="title">Last created</h2>
+            <h2 className="title">Creados recientemente</h2>
           </aside>
           <ul className="cards_container">
             {roles.patient.map((item) => (

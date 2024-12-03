@@ -17,18 +17,18 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
 
   const handleCancelAppointment = async (appointmentId) => {
     const confirmCancel = await Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to cancel this appointment? This action cannot be undone.",
+      title: "¿Estás seguro?",
+      text: "¿Quieres cancelar esta cita? Esta acción no se puede deshacer.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#dc3545",
       cancelButtonColor: "#5e63ff",
-      confirmButtonText: "Yes, cancel",
-      cancelButtonText: "No, keep it",
-      background: "#222533", // Dark background color
-      color: "#fff", // Text color in the modal
+      confirmButtonText: "Sí, cancelar",
+      cancelButtonText: "No, mantenerla",
+      background: "#222533", // Color de fondo oscuro
+      color: "#fff", // Color del texto en el modal
       customClass: {
-        popup: "swal-dark-modal", // Custom class for the popup
+        popup: "swal-dark-modal", // Clase personalizada para el popup
       },
     });
 
@@ -37,14 +37,14 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
     try {
       const canceledAppointment = await apiServices.cancelAppointment(appointmentId);
       Swal.fire({
-        title: "Canceled!",
-        text: "The appointment has been successfully canceled.",
+        title: "¡Cancelado!",
+        text: "La cita ha sido cancelada exitosamente.",
         icon: "success",
         confirmButtonColor: "#28a745",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
 
@@ -52,35 +52,35 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
     } catch (error) {
       Swal.fire({
         title: "Error",
-        text: `Failed to cancel the appointment: ${error.message}`,
+        text: `No se pudo cancelar la cita: ${error.message}`,
         icon: "error",
         confirmButtonColor: "#dc3545",
-        confirmButtonText: "Got it",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        confirmButtonText: "Entendido",
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
 
-      console.error("Error canceling appointment:", error.message);
+      console.error("Error al cancelar la cita:", error.message);
     }
   };
 
   const handleDeleteAppointment = async (appointmentId) => {
     const confirmDelete = await Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to delete this appointment? This action cannot be undone.",
+      title: "¿Estás seguro?",
+      text: "¿Quieres eliminar esta cita? Esta acción no se puede deshacer.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#dc3545",
       cancelButtonColor: "#5e63ff",
-      confirmButtonText: "Yes, delete",
-      cancelButtonText: "No, keep it",
-      background: "#222533", // Dark background color
-      color: "#fff", // Text color in the modal
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "No, mantenerla",
+      background: "#222533", // Color de fondo oscuro
+      color: "#fff", // Color del texto en el modal
       customClass: {
-        popup: "swal-dark-modal", // Custom class for the popup
+        popup: "swal-dark-modal", // Clase personalizada para el popup
       },
     });
 
@@ -90,14 +90,14 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
       await apiServices.deleteAppointment(appointmentId);
 
       Swal.fire({
-        title: "Deleted!",
-        text: "The appointment has been successfully deleted.",
+        title: "¡Eliminada!",
+        text: "La cita ha sido eliminada exitosamente.",
         icon: "success",
         confirmButtonColor: "#28a745",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
 
@@ -105,19 +105,24 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
     } catch (error) {
       Swal.fire({
         title: "Error",
-        text: `Failed to delete the appointment: ${error.message}`,
+        text: `No se pudo eliminar la cita: ${error.message}`,
         icon: "error",
         confirmButtonColor: "#dc3545",
-        confirmButtonText: "Got it",
-        background: "#222533", // Dark background color
-        color: "#fff", // Text color in the modal
+        confirmButtonText: "Entendido",
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
         customClass: {
-          popup: "swal-dark-modal", // Custom class for the popup
+          popup: "swal-dark-modal", // Clase personalizada para el popup
         },
       });
 
-      console.error("Error deleting appointment:", error.message);
+      console.error("Error al eliminar la cita:", error.message);
     }
+  };
+
+  const statusTranslation = {
+    PENDING: "Pendiente",
+    CANCELED: "Cancelada",
   };
 
   return (
@@ -160,10 +165,10 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
                         </p>
                       </aside>
                       <aside className="buttons">
-                        <p className={`status  ${appt.status}`}>{appt.status} </p>
-                        <button onClick={() => handleCancelAppointment(appt.id)}>Cancel</button>
+                        <p className={`status ${appt.status}`}>{statusTranslation[appt.status] || appt.status}</p>
+                        <button onClick={() => handleCancelAppointment(appt.id)}>Cancelar</button>
                         <button onClick={() => handleDeleteAppointment(appt.id)} className="danger">
-                          Delete
+                          Eliminar
                         </button>
                       </aside>
                     </section>
