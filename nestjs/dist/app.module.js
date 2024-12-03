@@ -21,6 +21,7 @@ const appointment_module_1 = require("./module/appointment/appointment.module");
 const user_seeder_1 = require("./module/user/seed/user.seeder");
 const appointment_seeder_1 = require("./module/appointment/seed/appointment.seeder");
 const backup_db_module_1 = require("./tools/backup-db/backup-db.module");
+const mail_module_1 = require("./module/mail/mail.module");
 let AppModule = class AppModule {
     constructor(userSeederService, appointmentSeederService) {
         this.userSeederService = userSeederService;
@@ -42,6 +43,7 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             appointment_module_1.AppointmentModule,
             backup_db_module_1.BackupDBModule,
+            mail_module_1.MailModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

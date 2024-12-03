@@ -1,0 +1,71 @@
+/* AdminLoginPages.css */
+
+.AdminLoginPages {
+  font-family: Arial, sans-serif;
+  /* padding: 20px; */
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  .form_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  form {
+    border: 1px solid #fff;
+    border-radius: 1%;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    margin: 2em;
+  }
+  form aside {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  }
+
+  .light-mode {
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  .dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    /* background-color: #fff; */
+  }
+
+  button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+
+  .dark-mode button {
+    background-color: #743fe6;
+    color: #ffffff;
+    &:hover {
+      background-color: #3700b3;
+    }
+  }
+
+  .light-mode button {
+    background-color: #f1f1f1;
+    color: #000000;
+  }
+}

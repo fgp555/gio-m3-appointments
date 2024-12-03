@@ -9,6 +9,7 @@ import { AppointmentModule } from './module/appointment/appointment.module';
 import { UserSeederService } from './module/user/seed/user.seeder';
 import { AppointmentSeederService } from './module/appointment/seed/appointment.seeder';
 import { BackupDBModule } from './tools/backup-db/backup-db.module';
+import { MailModule } from './module/mail/mail.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { BackupDBModule } from './tools/backup-db/backup-db.module';
     AuthModule,
     AppointmentModule,
     BackupDBModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

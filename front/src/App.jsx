@@ -22,6 +22,7 @@ import UpdatePatientsPage from "./dashboard/pages/PatientsPage/update/UpdatePati
 import DatabaseBackupManager from "./dashboard/pages/DatabaseBackupManager/DatabaseBackupManager ";
 import AboutSystem from "./dashboard/pages/about-system/AboutSystem";
 import DashboardPage from "./dashboard/pages/dashboard/DashboardPage";
+import AdminLoginPages from "./dashboard/pages/admin/AdminLoginPages";
 
 const NotFound = () => (
   <div>
@@ -199,6 +200,7 @@ const App = () => {
           </PrivateRoute>
         }
       />
+      <Route path="/admin" element={<AdminLoginPages />} />
     </Routes>
   );
 };
