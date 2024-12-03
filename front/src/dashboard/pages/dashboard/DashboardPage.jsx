@@ -1,29 +1,68 @@
 import React from "react";
-import AddProfessionalPage from "../AddProfessionalPage/AddProfessionalPage";
-import ApptCreatePage from "../ApptCreate/ApptCreatePage";
-import AddPatientPage from "../PatientsPage/AddPatientPage/AddPatientPage";
-import ApptListPage from "../AppointmentsPage/ApptListPage";
 import "./DashboardPage.css";
+import { useSelector } from "react-redux";
+import TableApptComponent from "../../components/TableApptComponent/TableApptComponent";
+import apiServices from "../../../services/apiServices";
+import { Link, useNavigate } from "react-router-dom";
 
 const DashboardPage = () => {
+  const userStore = useSelector((state) => state.user).user;
+  // const appointmentsUser = userStore.appointmentsAsProfessional;
+  const [appointmentsUser, setAppointmentsUser] = React.useState([]);
+
+  const fetchUser = async () => {
+    try {
+      const res = await apiServices.fetchAppointmentsByProfessional(userStore.id);
+
+      setAppointmentsUser(res);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchUser();
+  }, []);
+
   return (
     <div className="DashboardPage">
-      <section className="header">
-        <h1>Dashboard</h1>
-      </section>
+      <aside className="left">
+        <section className="header">
+          <h1 className="title">Bienvenido, {userStore.firstName}!</h1>
+        </section>
 
-      <section>
-        <h1>Create Appoinments</h1>
-        <ApptCreatePage />
-      </section>
-      <section>
-        <h1>Create Patients</h1>
-        <AddPatientPage />
-      </section>
-      <section>
-        <h1>List Appoinments</h1>
-        <ApptListPage />
-      </section>
+        {/* Profile Card */}
+        <section className="profile-card">
+          <img src={userStore.image} alt={`${userStore.firstName} ${userStore.lastName}`} className="profile-image" />
+          <h2>
+            {userStore.firstName} {userStore.lastName}
+          </h2>
+          <p className="specialization">{userStore.specialization}</p>
+          <p>{userStore.title}</p>
+          <p>{userStore.email}</p>
+          <p>{userStore.whatsapp}</p>
+          <p className="bio">{userStore.bio}</p>
+          <div>
+            <Link to="/appt-create">
+              <button>Agregar cita</button>
+            </Link>
+            <Link to={`/professional/${userStore.id}`}>
+              <button>Editar perfil</button>
+            </Link>
+          </div>
+        </section>
+      </aside>
+
+      {/* Table of Appointments */}
+      <aside>
+        <h3>Mis citas</h3>
+        <TableApptComponent
+          appoinmentData={appointmentsUser}
+          viewProps="month" // Si necesitas un tipo específico de vista, puedes ajustarlo aquí
+          handleUpdateAppt={fetchUser}
+        />
+      </aside>
+      {/* <pre>{JSON.stringify(appointmentsUser, null, 2)}</pre> */}
     </div>
   );
 };

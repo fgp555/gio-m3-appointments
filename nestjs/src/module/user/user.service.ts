@@ -84,10 +84,36 @@ export class UserService {
       throw new BadRequestException('Invalid ID format');
     }
 
-    const user = await this.userRepository.findOne({
-      where: { id: Number(id) },
-      relations: ['appointmentsAsPatient', 'appointmentsAsProfessional'],
-    });
+    const today = new Date().toISOString(); // Fecha actual en formato ISO 8601
+
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .addSelect('user.password')
+      .leftJoinAndSelect('user.appointmentsAsPatient', 'appointmentsAsPatient')
+      .leftJoinAndSelect('appointmentsAsPatient.patient', 'patient')
+      .leftJoinAndSelect('appointmentsAsPatient.professional', 'professional')
+      .andWhere('appointmentsAsPatient.status = :status', { status: 'PENDING' }) // Filtra por estado 'PENDING' en citas como paciente
+      .andWhere('appointmentsAsPatient.date >= :today', { today }) // Filtra por fecha desde hoy para citas como paciente
+
+      .leftJoinAndSelect(
+        'user.appointmentsAsProfessional',
+        'appointmentsAsProfessional',
+      )
+      .leftJoinAndSelect(
+        'appointmentsAsProfessional.patient',
+        'patientProfessional',
+      )
+      .leftJoinAndSelect(
+        'appointmentsAsProfessional.professional',
+        'professionalProfessional',
+      )
+      .andWhere('appointmentsAsProfessional.status = :status', {
+        status: 'PENDING',
+      }) // Filtra por estado 'PENDING' en citas como profesional
+      .andWhere('appointmentsAsProfessional.date >= :today', { today }) // Filtra por fecha desde hoy para citas como profesional
+
+      .where('user.id = :id', { id: Number(id) }) // Filtra por ID
+      .getOne();
 
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
@@ -97,7 +123,7 @@ export class UserService {
   }
 
   // Find user by ID for seeder
-  async findById(userId: number): Promise<UserEntity | null> {
+  async findByIdforSeeder(userId: number): Promise<UserEntity | null> {
     return this.userRepository.findOne({
       where: { id: userId },
       relations: ['appointmentsAsPatient', 'appointmentsAsProfessional'],

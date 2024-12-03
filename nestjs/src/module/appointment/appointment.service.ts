@@ -1,7 +1,7 @@
 // src/appointment/appointment.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { MoreThanOrEqual, Repository } from 'typeorm';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { UpdateAppointmentDto } from './dto/update-appointment.dto';
 import { Appointment } from './entities/appointment.entity';
@@ -18,13 +18,17 @@ export class AppointmentService {
   async create(appointmentData: Partial<Appointment>) {
     const { patient, professional } = appointmentData;
 
-    const foundPatient = await this.userService.findById(patient.id);
+    const foundPatient = await this.userService.findByIdforSeeder(patient.id);
     if (!foundPatient) {
       throw new NotFoundException(`Patient with ID ${patient.id} not found`); // Use NotFoundException
     }
-    const foundProfessional = await this.userService.findById(professional.id);
+    const foundProfessional = await this.userService.findByIdforSeeder(
+      professional.id,
+    );
     if (!foundProfessional) {
-      throw new NotFoundException(`professional with ID ${professional.id} not found`); // Use NotFoundException
+      throw new NotFoundException(
+        `professional with ID ${professional.id} not found`,
+      ); // Use NotFoundException
     }
 
     const appointment = this.appointmentRepository.create(appointmentData);
@@ -63,6 +67,38 @@ export class AppointmentService {
     if (!appointment)
       throw new NotFoundException(`Appointment with ID ${id} not found`);
     return appointment;
+  }
+
+  async findPendingAppointmentsByProfessionalId(
+    professionalId: number,
+  ): Promise<Appointment[]> {
+    const today = new Date().toISOString().split('T')[0]; // Fecha actual en formato YYYY-MM-DD
+    return await this.appointmentRepository.find({
+      where: {
+        // status: 'PENDING',
+        date: MoreThanOrEqual(today),
+        professional: { id: professionalId },
+      },
+      relations: ['patient', 'professional'],
+      select: {
+        id: true,
+        date: true,
+        description: true,
+        status: true,
+        createdAt: true,
+        patient: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+        professional: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
+      order: { date: 'ASC' },
+    });
   }
 
   async findLast(count: string): Promise<Appointment[]> {

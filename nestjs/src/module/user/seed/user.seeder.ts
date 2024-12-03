@@ -3,13 +3,20 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user.service';
 import { CreateUserDto } from '../dtos/create-user.dto';
+import { AuthController } from 'src/module/auth/auth.controller';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserSeederService {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly authController: AuthController,
+  ) {}
 
   async seed() {
     // Crear usuarios de ejemplo
+
+    const hashedPassword = await bcrypt.hash('SecurePass@2023', 10);
 
     const users: any[] = [
       // Usuarios de ejemplo
@@ -19,8 +26,8 @@ export class UserSeederService {
         email: 'lionel.messi@cliniccare.com',
         whatsapp: '+5491123456790',
         username: 'patient_lionel',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1987-06-24',
         nDni: '27894561',
         role: 'patient',
@@ -31,8 +38,8 @@ export class UserSeederService {
         email: 'frida.kahlo@cliniccare.com',
         whatsapp: '+5491123456791',
         username: 'patient_frida',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1907-07-06',
         nDni: '29123847',
         role: 'patient',
@@ -43,8 +50,8 @@ export class UserSeederService {
         email: 'albert.einstein@cliniccare.com',
         whatsapp: '+5491123456792',
         username: 'patient_albert',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1879-03-14',
         nDni: '30456789',
         role: 'patient',
@@ -55,8 +62,8 @@ export class UserSeederService {
         email: 'marie.curie@cliniccare.com',
         whatsapp: '+5491123456793',
         username: 'patient_marie',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1867-11-07',
         nDni: '29012345',
         role: 'patient',
@@ -67,8 +74,8 @@ export class UserSeederService {
         email: 'serena.williams@cliniccare.com',
         whatsapp: '+5491123456794',
         username: 'patient_serena',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1981-09-26',
         nDni: '30234567',
         role: 'patient',
@@ -79,8 +86,8 @@ export class UserSeederService {
         email: 'pablo.picasso@cliniccare.com',
         whatsapp: '+5491123456795',
         username: 'patient_pablo',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1881-10-25',
         nDni: '30123456',
         role: 'patient',
@@ -91,8 +98,8 @@ export class UserSeederService {
         email: 'malala.yousafzai@cliniccare.com',
         whatsapp: '+5491123456796',
         username: 'patient_malala',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1997-07-12',
         nDni: '30012345',
         role: 'patient',
@@ -105,8 +112,8 @@ export class UserSeederService {
         email: 'hippocrates.kos@cliniccare.com',
         whatsapp: '+5491123456802',
         username: 'professional_hippocrates',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '460 BC',
         nDni: '29543218',
         role: 'professional',
@@ -121,8 +128,8 @@ export class UserSeederService {
         email: 'jane.goodall@cliniccare.com',
         whatsapp: '+5491123456804',
         username: 'professional_jane',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1934-04-03',
         nDni: '32547890',
         role: 'professional',
@@ -137,12 +144,12 @@ export class UserSeederService {
         email: 'sigmund.freud@cliniccare.com',
         whatsapp: '+5491123456803',
         username: 'professional_sigmund',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1856-05-06',
         nDni: '29304567',
         role: 'professional',
-        image: 'https://i.postimg.cc/1tF2NNNy/03.jpg',
+        image: 'https://i.postimg.cc/ZnVM0HZC/03.jpg',
         specialization: 'Psychoanalysis',
         bio: 'The pioneer of psychoanalysis, Freud revolutionized the understanding of human psychology and behavior.',
       },
@@ -153,8 +160,8 @@ export class UserSeederService {
         email: 'valeria.silva@cliniccare.com',
         whatsapp: '+5491123456804',
         username: 'professional_valeria',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1993-02-14',
         nDni: '32547890',
         role: 'professional',
@@ -170,8 +177,8 @@ export class UserSeederService {
         email: 'admin@cliniccare.com',
         whatsapp: '+5491123456805',
         username: 'admin',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '2022-01-01',
         nDni: '30000000',
         role: 'admin',
@@ -192,6 +199,7 @@ export class UserSeederService {
         }
 
         await this.userService.create(user);
+        // await this.authController.signup(user);
         console.log(`User ${user.firstName} created successfully.`);
       } catch (error) {
         console.error(

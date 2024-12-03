@@ -17,6 +17,9 @@ Content-Type: application/json
 ### Get All Appointments
 GET http://localhost:3000/api/appointments
 
+### 
+GET http://localhost:3000/api/appointments/pending-by-professional/9
+
 ### Fetch Last 10 Appointments
 GET http://localhost:3000/api/appointments/last/3
 Content-Type: application/json

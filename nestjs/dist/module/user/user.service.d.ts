@@ -10,7 +10,7 @@ export declare class UserService {
     findByEmail(email: string): Promise<UserEntity | null>;
     findOneEmail(email: string): Promise<UserEntity>;
     findOne(id: string): Promise<UserEntity>;
-    findById(userId: number): Promise<UserEntity | null>;
+    findByIdforSeeder(userId: number): Promise<UserEntity | null>;
     findByRole(role: 'admin' | 'patient' | 'professional', orderBy: string, order: 'ASC' | 'DESC', limit?: number): Promise<UserEntity[]>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<UserEntity>;
     remove(id: string): Promise<UserEntity>;

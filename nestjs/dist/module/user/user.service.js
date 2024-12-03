@@ -66,16 +66,30 @@ let UserService = class UserService {
         if (!id || isNaN(Number(id))) {
             throw new common_1.BadRequestException('Invalid ID format');
         }
-        const user = await this.userRepository.findOne({
-            where: { id: Number(id) },
-            relations: ['appointmentsAsPatient', 'appointmentsAsProfessional'],
-        });
+        const today = new Date().toISOString();
+        const user = await this.userRepository
+            .createQueryBuilder('user')
+            .addSelect('user.password')
+            .leftJoinAndSelect('user.appointmentsAsPatient', 'appointmentsAsPatient')
+            .leftJoinAndSelect('appointmentsAsPatient.patient', 'patient')
+            .leftJoinAndSelect('appointmentsAsPatient.professional', 'professional')
+            .andWhere('appointmentsAsPatient.status = :status', { status: 'PENDING' })
+            .andWhere('appointmentsAsPatient.date >= :today', { today })
+            .leftJoinAndSelect('user.appointmentsAsProfessional', 'appointmentsAsProfessional')
+            .leftJoinAndSelect('appointmentsAsProfessional.patient', 'patientProfessional')
+            .leftJoinAndSelect('appointmentsAsProfessional.professional', 'professionalProfessional')
+            .andWhere('appointmentsAsProfessional.status = :status', {
+            status: 'PENDING',
+        })
+            .andWhere('appointmentsAsProfessional.date >= :today', { today })
+            .where('user.id = :id', { id: Number(id) })
+            .getOne();
         if (!user) {
             throw new common_1.NotFoundException(`User with ID ${id} not found`);
         }
         return user;
     }
-    async findById(userId) {
+    async findByIdforSeeder(userId) {
         return this.userRepository.findOne({
             where: { id: userId },
             relations: ['appointmentsAsPatient', 'appointmentsAsProfessional'],

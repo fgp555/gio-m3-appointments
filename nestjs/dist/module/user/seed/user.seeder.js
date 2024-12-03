@@ -12,11 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserSeederService = void 0;
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("../user.service");
+const auth_controller_1 = require("../../auth/auth.controller");
+const bcrypt = require("bcrypt");
 let UserSeederService = class UserSeederService {
-    constructor(userService) {
+    constructor(userService, authController) {
         this.userService = userService;
+        this.authController = authController;
     }
     async seed() {
+        const hashedPassword = await bcrypt.hash('SecurePass@2023', 10);
         const users = [
             {
                 firstName: 'Lionel',
@@ -24,8 +28,8 @@ let UserSeederService = class UserSeederService {
                 email: 'lionel.messi@cliniccare.com',
                 whatsapp: '+5491123456790',
                 username: 'patient_lionel',
-                password: 'SecurePass@2023',
-                confirmPassword: 'SecurePass@2023',
+                password: hashedPassword,
+                confirmPassword: hashedPassword,
                 birthdate: '1987-06-24',
                 nDni: '27894561',
                 role: 'patient',
@@ -36,8 +40,8 @@ let UserSeederService = class UserSeederService {
                 email: 'frida.kahlo@cliniccare.com',
                 whatsapp: '+5491123456791',
                 username: 'patient_frida',
-                password: 'SecurePass@2023',
-                confirmPassword: 'SecurePass@2023',
+                password: hashedPassword,
+                confirmPassword: hashedPassword,
                 birthdate: '1907-07-06',
                 nDni: '29123847',
                 role: 'patient',
@@ -48,8 +52,8 @@ let UserSeederService = class UserSeederService {
                 email: 'albert.einstein@cliniccare.com',
                 whatsapp: '+5491123456792',
                 username: 'patient_albert',
-                password: 'SecurePass@2023',
-                confirmPassword: 'SecurePass@2023',
+                password: hashedPassword,
+                confirmPassword: hashedPassword,
                 birthdate: '1879-03-14',
                 nDni: '30456789',
                 role: 'patient',
@@ -60,8 +64,8 @@ let UserSeederService = class UserSeederService {
                 email: 'marie.curie@cliniccare.com',
                 whatsapp: '+5491123456793',
                 username: 'patient_marie',
-                password: 'SecurePass@2023',
-                confirmPassword: 'SecurePass@2023',
+                password: hashedPassword,
+                confirmPassword: hashedPassword,
                 birthdate: '1867-11-07',
                 nDni: '29012345',
                 role: 'patient',
@@ -72,8 +76,8 @@ let UserSeederService = class UserSeederService {
                 email: 'serena.williams@cliniccare.com',
                 whatsapp: '+5491123456794',
                 username: 'patient_serena',
-                password: 'SecurePass@2023',
-                confirmPassword: 'SecurePass@2023',
+                password: hashedPassword,
+                confirmPassword: hashedPassword,
                 birthdate: '1981-09-26',
                 nDni: '30234567',
                 role: 'patient',
@@ -84,8 +88,8 @@ let UserSeederService = class UserSeederService {
                 email: 'pablo.picasso@cliniccare.com',
                 whatsapp: '+5491123456795',
                 username: 'patient_pablo',
-                password: 'SecurePass@2023',
-                confirmPassword: 'SecurePass@2023',
+                password: hashedPassword,
+                confirmPassword: hashedPassword,
                 birthdate: '1881-10-25',
                 nDni: '30123456',
                 role: 'patient',
@@ -96,8 +100,8 @@ let UserSeederService = class UserSeederService {
                 email: 'malala.yousafzai@cliniccare.com',
                 whatsapp: '+5491123456796',
                 username: 'patient_malala',
-                password: 'SecurePass@2023',
-                confirmPassword: 'SecurePass@2023',
+                password: hashedPassword,
+                confirmPassword: hashedPassword,
                 birthdate: '1997-07-12',
                 nDni: '30012345',
                 role: 'patient',
@@ -109,8 +113,8 @@ let UserSeederService = class UserSeederService {
                 email: 'hippocrates.kos@cliniccare.com',
                 whatsapp: '+5491123456802',
                 username: 'professional_hippocrates',
-                password: 'SecurePass@2023',
-                confirmPassword: 'SecurePass@2023',
+                password: hashedPassword,
+                confirmPassword: hashedPassword,
                 birthdate: '460 BC',
                 nDni: '29543218',
                 role: 'professional',
@@ -125,8 +129,8 @@ let UserSeederService = class UserSeederService {
                 email: 'jane.goodall@cliniccare.com',
                 whatsapp: '+5491123456804',
                 username: 'professional_jane',
-                password: 'SecurePass@2023',
-                confirmPassword: 'SecurePass@2023',
+                password: hashedPassword,
+                confirmPassword: hashedPassword,
                 birthdate: '1934-04-03',
                 nDni: '32547890',
                 role: 'professional',
@@ -141,12 +145,12 @@ let UserSeederService = class UserSeederService {
                 email: 'sigmund.freud@cliniccare.com',
                 whatsapp: '+5491123456803',
                 username: 'professional_sigmund',
-                password: 'SecurePass@2023',
-                confirmPassword: 'SecurePass@2023',
+                password: hashedPassword,
+                confirmPassword: hashedPassword,
                 birthdate: '1856-05-06',
                 nDni: '29304567',
                 role: 'professional',
-                image: 'https://i.postimg.cc/1tF2NNNy/03.jpg',
+                image: 'https://i.postimg.cc/ZnVM0HZC/03.jpg',
                 specialization: 'Psychoanalysis',
                 bio: 'The pioneer of psychoanalysis, Freud revolutionized the understanding of human psychology and behavior.',
             },
@@ -157,8 +161,8 @@ let UserSeederService = class UserSeederService {
                 email: 'valeria.silva@cliniccare.com',
                 whatsapp: '+5491123456804',
                 username: 'professional_valeria',
-                password: 'SecurePass@2023',
-                confirmPassword: 'SecurePass@2023',
+                password: hashedPassword,
+                confirmPassword: hashedPassword,
                 birthdate: '1993-02-14',
                 nDni: '32547890',
                 role: 'professional',
@@ -173,8 +177,8 @@ let UserSeederService = class UserSeederService {
                 email: 'admin@cliniccare.com',
                 whatsapp: '+5491123456805',
                 username: 'admin',
-                password: 'SecurePass@2023',
-                confirmPassword: 'SecurePass@2023',
+                password: hashedPassword,
+                confirmPassword: hashedPassword,
                 birthdate: '2022-01-01',
                 nDni: '30000000',
                 role: 'admin',
@@ -202,6 +206,7 @@ let UserSeederService = class UserSeederService {
 exports.UserSeederService = UserSeederService;
 exports.UserSeederService = UserSeederService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [user_service_1.UserService])
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        auth_controller_1.AuthController])
 ], UserSeederService);
 //# sourceMappingURL=user.seeder.js.map

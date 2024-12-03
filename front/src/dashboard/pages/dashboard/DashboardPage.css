@@ -1,4 +1,4 @@
-.DashboardPage {
+/* .DashboardPage {
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -10,5 +10,71 @@
   }
   .header {
     border: none;
+  }
+} */
+
+/* DashboardPage.css */
+
+.DashboardPage {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  display: flex;
+  /* flex-direction: column; */
+  gap: 1em;
+  align-items: start;
+  justify-content: start;
+  flex-wrap: wrap;
+
+  .title {
+    font-size: 2em;
+    margin-bottom: 1em;
+  }
+
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    /* margin: 0 auto; */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    /* background-color: #ffffff; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #fff;
+  }
+  li {
+    list-style: none;
+  }
+
+  .profile-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+
+  .profile-card h2 {
+    font-size: 24px;
+    margin: 5px 0;
+  }
+
+  .profile-card p {
+    margin: 5px 0;
+    /* color: #666; */
+    text-align: center;
+  }
+
+  .profile-card .bio {
+    margin-top: 15px;
+    font-style: italic;
+    /* color: #444; */
+    text-align: center;
+  }
+
+  .profile-card .specialization {
+    font-weight: bold;
+    /* color: #333; */
   }
 }
