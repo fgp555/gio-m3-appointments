@@ -11,4 +11,33 @@
   .date_time {
     text-transform: capitalize;
   }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    /* gap: 0.5em; */
+    .icons_container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 0.5em;
+      button {
+        padding: 0.3em;
+        aspect-ratio: 1/1;
+        width: 2em;
+        /* border-radius: 50%; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        i {
+          margin: initial;
+        }
+      }
+      button.whatsapp {
+        background-color: #25d366;
+      }
+      button.whatsapp:hover {
+        background-color: #1da851;
+      }
+    }
+  }
 }

@@ -18,6 +18,11 @@ export class MailTemplatesController {
     return await this.emailTemplatesService.createTemplate(data);
   }
 
+  @Post('/sentMailTemplate')
+  async sentMailTemplate(@Body() data: any) {
+    return await this.emailTemplatesService.sentMailRegister(data);
+  }
+
   @Get()
   async getTemplates() {
     return await this.emailTemplatesService.getTemplates();
@@ -37,4 +42,6 @@ export class MailTemplatesController {
   async deleteTemplate(@Param('id') id: number) {
     await this.emailTemplatesService.deleteTemplate(id);
   }
+
+
 }

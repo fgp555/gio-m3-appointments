@@ -13,6 +13,7 @@ const user_service_1 = require("../user/user.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("../user/entities/user.entity");
 const jwt_1 = require("@nestjs/jwt");
+const mail_module_1 = require("../mail/mail.module");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -25,6 +26,7 @@ exports.AuthModule = AuthModule = __decorate([
                 signOptions: { expiresIn: '10d' },
                 secret: process.env.JWT_SECRET,
             }),
+            mail_module_1.MailModule,
         ],
         controllers: [auth_controller_1.AuthController],
         providers: [user_service_1.UserService],

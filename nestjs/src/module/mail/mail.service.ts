@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import { config as dotenvConfig } from 'dotenv';
+import { MailDto } from './dtos/mail.dto';
 dotenvConfig({ path: '.env' });
 
 console.log('MailService-MAIL_HOST', process.env.MAIL_HOST);
@@ -23,14 +24,16 @@ export class MailService {
       },
     });
   }
- 
-  async sendMail(to: string, subject: string, text: string, html?: string) {
-    const from = `"Tu Nombre" <${process.env.MAIL_USER}>`;
+
+  async sendMail(body: MailDto) {
+    const { to, subject, text, html } = body;
+    const from = `"CREFI Fisioterapia Integral" <${process.env.MAIL_USER}>`;
     const mailOptions = { from, to, subject, text, html };
 
     try {
       const info = await this.transporter.sendMail(mailOptions);
       console.log('Email sent: ' + info.response);
+      return info;
     } catch (error) {
       console.error('Error sending email: ', error);
     }

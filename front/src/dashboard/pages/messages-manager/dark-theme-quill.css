@@ -1,0 +1,20 @@
+.email-template-editor {
+  /* background-color: #fff; */
+  max-width: 50rem;
+  padding: 1em;
+  .quill {
+    background-color: #fff;
+    > * {
+      color: #000;
+    }
+  }
+  aside {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+    input {
+      padding: 10px;
+      max-width: 16rem;
+    }
+  }
+}

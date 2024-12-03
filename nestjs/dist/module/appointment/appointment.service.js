@@ -50,6 +50,7 @@ let AppointmentService = class AppointmentService {
                     id: true,
                     firstName: true,
                     lastName: true,
+                    whatsapp: true,
                 },
                 professional: {
                     id: true,
@@ -86,6 +87,7 @@ let AppointmentService = class AppointmentService {
                     id: true,
                     firstName: true,
                     lastName: true,
+                    whatsapp: true,
                 },
                 professional: {
                     id: true,
@@ -111,6 +113,7 @@ let AppointmentService = class AppointmentService {
                     id: true,
                     firstName: true,
                     lastName: true,
+                    whatsapp: true,
                 },
                 professional: {
                     id: true,

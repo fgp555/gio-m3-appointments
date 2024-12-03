@@ -1,6 +1,6 @@
 export declare class MailTemplate {
     id: number;
-    name: string;
+    templateName: string;
     subject: string;
     htmlContent: string;
     createdAt: Date;

@@ -114,7 +114,7 @@ const Sidebar = () => {
                 </li>
                 <li className={activeMenu === "create" ? "active" : ""}>
                   <Link to="/appt-create" onClick={() => handleMenuClick("create")}>
-                    Crear
+                    Agendar
                   </Link>
                 </li>
               </div>
@@ -153,6 +153,11 @@ const Sidebar = () => {
             </button>
             <ul className={`sub-menu ${subMenus.TodoListMenu ? "show" : ""}`}>
               <div>
+                <li className={activeMenu === "database" ? "active" : ""}>
+                  <Link to="/messages-manager" onClick={() => handleMenuClick("database")}>
+                    Editar Mensajes
+                  </Link>
+                </li>
                 <li className={activeMenu === "database" ? "active" : ""}>
                   <Link to="/db-backup-manager" onClick={() => handleMenuClick("database")}>
                     Base de Datos

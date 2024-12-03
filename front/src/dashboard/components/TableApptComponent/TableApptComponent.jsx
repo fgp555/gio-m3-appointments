@@ -125,9 +125,36 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
     CANCELED: "Cancelada",
   };
 
+  const handleWhatsapp = (appointment) => {
+    const { patient, date, description, professional } = appointment;
+
+    // Formatear la fecha
+    const formattedDate = new Date(date).toLocaleString("es-ES", {
+      dateStyle: "long",
+      timeStyle: "short",
+    });
+
+    // Construir el mensaje
+    const message =
+      `Hola ${patient.firstName} ${patient.lastName},\n\n` +
+      `Le recordamos que tiene una cita programada el ${formattedDate} con ${professional.firstName} ${professional.lastName}.\n\n` +
+      `Descripción: ${description}.\n\n` +
+      `Si tiene alguna pregunta o necesita reprogramar, por favor contáctenos.`;
+
+    // Codificar el mensaje para la URL de WhatsApp
+    const encodedMessage = encodeURIComponent(message);
+
+    // Construir la URL de WhatsApp
+    const whatsappURL = `https://wa.me/${patient.whatsapp}?text=${encodedMessage}`;
+
+    // Abrir la ventana de WhatsApp
+    window.open(whatsappURL, "_blank");
+  };
+
   return (
     <>
       <div className="TableApptComponent">
+        {/* <pre>{JSON.stringify(appoinmentData, null, 2)}</pre> */}
         <section>
           <div>
             {appoinmentData.length > 0 ? (
@@ -144,7 +171,7 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
                         <div className="name">
                           <i className="icon-user"></i>
                           <strong> {appt.patient.firstName} </strong>
-                          <i className="mobile_none lastName">{appt.professional.lastName} </i>
+                          <i className="mobile_none lastName">{appt.patient.lastName} </i>
                         </div>
                         <p>
                           <i className="icon-clock"></i>
@@ -167,9 +194,14 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
                       <aside className="buttons">
                         <p className={`status ${appt.status}`}>{statusTranslation[appt.status] || appt.status}</p>
                         <button onClick={() => handleCancelAppointment(appt.id)}>Cancelar</button>
-                        <button onClick={() => handleDeleteAppointment(appt.id)} className="danger">
-                          Eliminar
-                        </button>
+                        <div className="icons_container">
+                          <button onClick={() => handleWhatsapp(appt)} className="whatsapp">
+                            <i className="icon-whatsapp"></i>
+                          </button>
+                          <button onClick={() => handleDeleteAppointment(appt.id)} className="danger">
+                            <i className="icon-trash"></i>
+                          </button>
+                        </div>
                       </aside>
                     </section>
                   </li>

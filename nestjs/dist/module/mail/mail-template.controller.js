@@ -22,6 +22,9 @@ let MailTemplatesController = class MailTemplatesController {
     async createTemplate(data) {
         return await this.emailTemplatesService.createTemplate(data);
     }
+    async sentMailTemplate(data) {
+        return await this.emailTemplatesService.sentMailRegister(data);
+    }
     async getTemplates() {
         return await this.emailTemplatesService.getTemplates();
     }
@@ -43,6 +46,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], MailTemplatesController.prototype, "createTemplate", null);
+__decorate([
+    (0, common_1.Post)('/sentMailTemplate'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], MailTemplatesController.prototype, "sentMailTemplate", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

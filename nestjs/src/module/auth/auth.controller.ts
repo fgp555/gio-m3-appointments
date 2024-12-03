@@ -8,6 +8,7 @@ import {
   Param,
   InternalServerErrorException,
   Patch,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UserService } from '../user/user.service';
@@ -15,39 +16,37 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from './auth.guard';
 import { UpdateUserDto } from '../user/dtos/update-user.dto';
+import { MailTemplatesService } from '../mail/mail-template.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
+    private readonly emailTemplatesService: MailTemplatesService, // Inyecta el servicio de plantillas
   ) {}
 
   @Post('signup')
   // @UseGuards(AuthGuard)
-  async signup(@Body() createAuthDto: any) {
-    // Verificar si se proporcionó un email
-    if (createAuthDto.email) {
-      const foundEmail = await this.userService.findOneEmail(
-        createAuthDto.email,
-      );
-
-      if (foundEmail) {
-        throw new UnauthorizedException('This email already exists');
-      }
+  async signup(@Body() body: any) {
+    if (body.email) {
+      const find = await this.userService.findOneEmail(body.email);
+      if (find) throw new UnauthorizedException('This email already exists');
     }
-
-    // Verificar y encriptar la contraseña si se proporciona
-    if (createAuthDto.password) {
-      createAuthDto.password = await bcrypt.hash(createAuthDto.password, 10);
+    if (body.password) {
+      body.password = await bcrypt.hash(body.password, 10);
     }
-
     try {
-      // Crear el usuario
-      const userCreate = await this.userService.create(createAuthDto);
-      // Excluir la contraseña de la respuesta
+      const userCreate = await this.userService.create(body);
       const { password, ...withoutPassword } = userCreate;
-      return withoutPassword;
+
+      if (body.email) {
+        const sendMail =
+          await this.emailTemplatesService.sentMailRegister(body);
+        return { withoutPassword, sendMail };
+      } else {
+        return withoutPassword;
+      }
     } catch (error) {
       throw new InternalServerErrorException(
         'Failed to create user',

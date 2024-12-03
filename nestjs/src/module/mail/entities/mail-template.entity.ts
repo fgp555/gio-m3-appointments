@@ -11,7 +11,7 @@ export class MailTemplate {
   id: number;
 
   @Column()
-  name: string;
+  templateName: string;
 
   @Column()
   subject: string;

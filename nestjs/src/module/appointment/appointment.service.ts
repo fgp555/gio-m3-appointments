@@ -49,6 +49,7 @@ export class AppointmentService {
           id: true,
           firstName: true,
           lastName: true,
+          whatsapp: true,
         },
         professional: {
           id: true,
@@ -90,6 +91,7 @@ export class AppointmentService {
           id: true,
           firstName: true,
           lastName: true,
+          whatsapp: true,
         },
         professional: {
           id: true,
@@ -116,6 +118,7 @@ export class AppointmentService {
           id: true,
           firstName: true,
           lastName: true,
+          whatsapp: true,
         },
         professional: {
           id: true,

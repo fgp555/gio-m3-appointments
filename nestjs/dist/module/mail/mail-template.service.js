@@ -17,13 +17,41 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const mail_template_entity_1 = require("./entities/mail-template.entity");
+const mail_service_1 = require("./mail.service");
 let MailTemplatesService = class MailTemplatesService {
-    constructor(emailTemplateRepository) {
+    constructor(emailTemplateRepository, mailService) {
         this.emailTemplateRepository = emailTemplateRepository;
+        this.mailService = mailService;
     }
     async createTemplate(data) {
         const template = this.emailTemplateRepository.create(data);
         return await this.emailTemplateRepository.save(template);
+    }
+    async sentMailRegister(body) {
+        const templateMail = await this.getTemplateById(1);
+        if (!templateMail) {
+            throw new common_1.NotFoundException('Plantilla no encontrada');
+        }
+        const placeholders = { name: body.firstName };
+        const personalizedHtml = this.replacePlaceholders(templateMail.htmlContent, placeholders);
+        const emailBody = {
+            to: body.email,
+            subject: templateMail.subject,
+            text: body.text || 'Este es el contenido del correo en texto plano',
+            html: personalizedHtml,
+        };
+        try {
+            const result = await this.mailService.sendMail(emailBody);
+            console.info('Email sent successfully:', result);
+            return { message: 'Correo enviado exitosamente', result };
+        }
+        catch (error) {
+            console.error('Error sending email:', error);
+            throw new common_1.InternalServerErrorException('Error al enviar el correo');
+        }
+    }
+    replacePlaceholders(template, variables) {
+        return template.replace(/{{(\w+)}}/g, (_, key) => variables[key] || `{{${key}}}`);
     }
     async getTemplates() {
         return await this.emailTemplateRepository.find();
@@ -43,6 +71,7 @@ exports.MailTemplatesService = MailTemplatesService;
 exports.MailTemplatesService = MailTemplatesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(mail_template_entity_1.MailTemplate)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        mail_service_1.MailService])
 ], MailTemplatesService);
 //# sourceMappingURL=mail-template.service.js.map

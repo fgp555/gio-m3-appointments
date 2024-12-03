@@ -30,12 +30,14 @@ let MailService = class MailService {
             },
         });
     }
-    async sendMail(to, subject, text, html) {
-        const from = `"Tu Nombre" <${process.env.MAIL_USER}>`;
+    async sendMail(body) {
+        const { to, subject, text, html } = body;
+        const from = `"CREFI Fisioterapia Integral" <${process.env.MAIL_USER}>`;
         const mailOptions = { from, to, subject, text, html };
         try {
             const info = await this.transporter.sendMail(mailOptions);
             console.log('Email sent: ' + info.response);
+            return info;
         }
         catch (error) {
             console.error('Error sending email: ', error);

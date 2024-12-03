@@ -265,6 +265,58 @@ const apiServices = {
       }
     }
   },
+
+  getMailTemplates: async () => {
+    try {
+      const response = await axios.get(`${API_URL}/mail-templates`, {
+        headers: {
+          "Content-Type": "application/json",
+          token: "autenticado",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error en getMailTemplates:", error);
+      throw error;
+    }
+  },
+
+  updateMailTemplate: async (id, data) => {
+    console.log("data", data);
+
+    const tempData = {
+      templateName: "Updated Welcome Email",
+      subject: "Welcome Aboard!",
+      htmlContent: "<!DOCTYPE html><html><head><title>Updated Welcome</title></head><body><h1>Hi {{name}}!</h1><p>We're excited to have you with us.</p></body></html>",
+    };
+    try {
+      const response = await axios.put(`${API_URL}/mail-templates/${id}`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          token: "autenticado",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error en updateMailTemplate:", error);
+      throw error;
+    }
+  },
+
+  getMailTemplateById: async (id) => {
+    try {
+      const response = await axios.get(`${API_URL}/mail-templates/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          token: "autenticado",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error en getMailTemplates:", error);
+      throw error;
+    }
+  },
 };
 
 export default apiServices;

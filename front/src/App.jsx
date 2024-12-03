@@ -23,6 +23,7 @@ import DatabaseBackupManager from "./dashboard/pages/DatabaseBackupManager/Datab
 import AboutSystem from "./dashboard/pages/about-system/AboutSystem";
 import DashboardPage from "./dashboard/pages/dashboard/DashboardPage";
 import AdminLoginPages from "./dashboard/pages/admin/AdminLoginPages";
+import MessageTemplateEditor from "./dashboard/pages/messages-manager/MessageTemplateEditor";
 
 const NotFound = () => (
   <div>
@@ -196,6 +197,16 @@ const App = () => {
           <PrivateRoute>
             <DashboardLayout>
               <DashboardPage />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/messages-manager"
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <MessageTemplateEditor />
             </DashboardLayout>
           </PrivateRoute>
         }

@@ -19,25 +19,32 @@ const user_service_1 = require("../user/user.service");
 const bcrypt = require("bcrypt");
 const jwt_1 = require("@nestjs/jwt");
 const update_user_dto_1 = require("../user/dtos/update-user.dto");
+const mail_template_service_1 = require("../mail/mail-template.service");
 let AuthController = class AuthController {
-    constructor(userService, jwtService) {
+    constructor(userService, jwtService, emailTemplatesService) {
         this.userService = userService;
         this.jwtService = jwtService;
+        this.emailTemplatesService = emailTemplatesService;
     }
-    async signup(createAuthDto) {
-        if (createAuthDto.email) {
-            const foundEmail = await this.userService.findOneEmail(createAuthDto.email);
-            if (foundEmail) {
+    async signup(body) {
+        if (body.email) {
+            const find = await this.userService.findOneEmail(body.email);
+            if (find)
                 throw new common_1.UnauthorizedException('This email already exists');
-            }
         }
-        if (createAuthDto.password) {
-            createAuthDto.password = await bcrypt.hash(createAuthDto.password, 10);
+        if (body.password) {
+            body.password = await bcrypt.hash(body.password, 10);
         }
         try {
-            const userCreate = await this.userService.create(createAuthDto);
+            const userCreate = await this.userService.create(body);
             const { password, ...withoutPassword } = userCreate;
-            return withoutPassword;
+            if (body.email) {
+                const sendMail = await this.emailTemplatesService.sentMailRegister(body);
+                return { withoutPassword, sendMail };
+            }
+            else {
+                return withoutPassword;
+            }
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Failed to create user', error.message);
@@ -100,6 +107,7 @@ __decorate([
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [user_service_1.UserService,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        mail_template_service_1.MailTemplatesService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

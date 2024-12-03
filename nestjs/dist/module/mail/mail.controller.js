@@ -15,13 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MailController = void 0;
 const common_1 = require("@nestjs/common");
 const mail_service_1 = require("./mail.service");
+const mail_dto_1 = require("./dtos/mail.dto");
 let MailController = class MailController {
     constructor(mailService) {
         this.mailService = mailService;
     }
     async sendEmail(body) {
-        const { to, subject, text, html } = body;
-        await this.mailService.sendMail(to, subject, text, html);
+        await this.mailService.sendMail(body);
         return { message: 'Corporate Email sent successfully' };
     }
 };
@@ -30,7 +30,7 @@ __decorate([
     (0, common_1.Post)('send'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [mail_dto_1.MailDto]),
     __metadata("design:returntype", Promise)
 ], MailController.prototype, "sendEmail", null);
 exports.MailController = MailController = __decorate([

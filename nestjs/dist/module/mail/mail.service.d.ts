@@ -1,5 +1,6 @@
+import { MailDto } from './dtos/mail.dto';
 export declare class MailService {
     private transporter;
     constructor();
-    sendMail(to: string, subject: string, text: string, html?: string): Promise<void>;
+    sendMail(body: MailDto): Promise<any>;
 }
