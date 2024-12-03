@@ -8,6 +8,7 @@ import {
   Put,
   Delete,
   Patch,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { AppointmentService } from './appointment.service';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
@@ -26,6 +27,15 @@ export class AppointmentController {
   @Get()
   findAll(): Promise<Appointment[]> {
     return this.appointmentService.findAll();
+  }
+
+  @Get('pending-by-professional/:professionalId')
+  findPendingAppointmentsByProfessional(
+    @Param('professionalId', ParseIntPipe) professionalId: number,
+  ): Promise<Appointment[]> {
+    return this.appointmentService.findPendingAppointmentsByProfessionalId(
+      professionalId,
+    );
   }
 
   @Get('last/:count')

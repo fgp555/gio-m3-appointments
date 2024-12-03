@@ -122,6 +122,32 @@ const apiServices = {
     }
   },
 
+  // pending-by-professional
+  fetchAppointmentsByProfessional: async (professionalId) => {
+    try {
+      const response = await axios.get(`${API_URL}/appointments/pending-by-professional/${professionalId}`);
+      return response.data; // Return the appointments data
+    } catch (error) {
+      console.error("Error occurred while fetching appointments:", error);
+
+      if (error.response) {
+        // Server responded with a status outside the 2xx range
+        console.error("Error response:", error.response);
+        console.log("Response data structure:", error.response.data);
+        const { message, statusCode } = error.response.data;
+        console.log(`Error message: ${message}, Status code: ${statusCode}`);
+      } else if (error.request) {
+        // No response received
+        console.error("No response received:", error.request);
+      } else {
+        // Other errors
+        console.error("Error message:", error.message);
+      }
+
+      throw error; // Re-throw for further handling
+    }
+  },
+
   fetchAppointmentsLastCount: async (count) => {
     try {
       const response = await axios.get(`${API_URL}/appointments/last/${count}`);

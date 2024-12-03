@@ -113,14 +113,14 @@ const Sidebar = () => {
             </button>
             <ul className={`sub-menu ${subMenus.createMenu ? "show" : ""}`}>
               <div>
-                <li className={activeMenu === "create" ? "active" : ""}>
-                  <Link to="/appt-create" onClick={() => handleMenuClick("create")}>
-                    Create
-                  </Link>
-                </li>
                 <li className={activeMenu === "calendar" ? "active" : ""}>
                   <Link to="/appointments" onClick={() => handleMenuClick("calendar")}>
                     Calendar
+                  </Link>
+                </li>
+                <li className={activeMenu === "create" ? "active" : ""}>
+                  <Link to="/appt-create" onClick={() => handleMenuClick("create")}>
+                    Create
                   </Link>
                 </li>
               </div>

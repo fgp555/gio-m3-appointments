@@ -3,13 +3,20 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user.service';
 import { CreateUserDto } from '../dtos/create-user.dto';
+import { AuthController } from 'src/module/auth/auth.controller';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserSeederService {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly authController: AuthController,
+  ) {}
 
   async seed() {
     // Crear usuarios de ejemplo
+
+    const hashedPassword = await bcrypt.hash('SecurePass@2023', 10);
 
     const users: any[] = [
       // Usuarios de ejemplo
@@ -19,8 +26,8 @@ export class UserSeederService {
         email: 'lionel.messi@cliniccare.com',
         whatsapp: '+5491123456790',
         username: 'patient_lionel',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1987-06-24',
         nDni: '27894561',
         role: 'patient',
@@ -31,8 +38,8 @@ export class UserSeederService {
         email: 'frida.kahlo@cliniccare.com',
         whatsapp: '+5491123456791',
         username: 'patient_frida',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1907-07-06',
         nDni: '29123847',
         role: 'patient',
@@ -43,8 +50,8 @@ export class UserSeederService {
         email: 'albert.einstein@cliniccare.com',
         whatsapp: '+5491123456792',
         username: 'patient_albert',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1879-03-14',
         nDni: '30456789',
         role: 'patient',
@@ -55,8 +62,8 @@ export class UserSeederService {
         email: 'marie.curie@cliniccare.com',
         whatsapp: '+5491123456793',
         username: 'patient_marie',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1867-11-07',
         nDni: '29012345',
         role: 'patient',
@@ -67,8 +74,8 @@ export class UserSeederService {
         email: 'serena.williams@cliniccare.com',
         whatsapp: '+5491123456794',
         username: 'patient_serena',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1981-09-26',
         nDni: '30234567',
         role: 'patient',
@@ -79,8 +86,8 @@ export class UserSeederService {
         email: 'pablo.picasso@cliniccare.com',
         whatsapp: '+5491123456795',
         username: 'patient_pablo',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1881-10-25',
         nDni: '30123456',
         role: 'patient',
@@ -91,8 +98,8 @@ export class UserSeederService {
         email: 'malala.yousafzai@cliniccare.com',
         whatsapp: '+5491123456796',
         username: 'patient_malala',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1997-07-12',
         nDni: '30012345',
         role: 'patient',
@@ -100,19 +107,19 @@ export class UserSeederService {
       // Profesionales
       {
         title: 'Doctor',
-        firstName: 'Hippocrates',
-        lastName: 'of Kos',
+        firstName: 'Hipócrates',
+        lastName: 'de Kos',
         email: 'hippocrates.kos@cliniccare.com',
         whatsapp: '+5491123456802',
-        username: 'professional_hippocrates',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
-        birthdate: '460 BC',
+        username: 'profesional_hipocrates',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
+        birthdate: '460 AC',
         nDni: '29543218',
         role: 'professional',
         image: 'https://i.postimg.cc/nchWgyY7/01.jpg',
-        specialization: 'General Medicine',
-        bio: 'Considered the father of medicine, Hippocrates laid the foundation of modern medical ethics and practices.',
+        specialization: 'Medicina General',
+        bio: 'Considerado el padre de la medicina, Hipócrates sentó las bases de la ética y las prácticas médicas modernas.',
       },
       {
         title: 'Licenciada',
@@ -120,15 +127,15 @@ export class UserSeederService {
         lastName: 'Goodall',
         email: 'jane.goodall@cliniccare.com',
         whatsapp: '+5491123456804',
-        username: 'professional_jane',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        username: 'profesional_jane',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1934-04-03',
         nDni: '32547890',
         role: 'professional',
         image: 'https://i.postimg.cc/HW2KSY5d/02.jpg',
-        specialization: 'Primatology',
-        bio: 'Dr. Jane Goodall is renowned for her groundbreaking research on chimpanzees and advocacy for conservation.',
+        specialization: 'Primatología',
+        bio: 'La Dra. Jane Goodall es reconocida por su investigación innovadora sobre chimpancés y su defensa de la conservación.',
       },
       {
         title: 'Doctor',
@@ -136,15 +143,15 @@ export class UserSeederService {
         lastName: 'Freud',
         email: 'sigmund.freud@cliniccare.com',
         whatsapp: '+5491123456803',
-        username: 'professional_sigmund',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        username: 'profesional_sigmund',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1856-05-06',
         nDni: '29304567',
         role: 'professional',
-        image: 'https://i.postimg.cc/1tF2NNNy/03.jpg',
-        specialization: 'Psychoanalysis',
-        bio: 'The pioneer of psychoanalysis, Freud revolutionized the understanding of human psychology and behavior.',
+        image: 'https://i.postimg.cc/ZnVM0HZC/03.jpg',
+        specialization: 'Psicoanálisis',
+        bio: 'El pionero del psicoanálisis, Freud revolucionó la comprensión de la psicología y el comportamiento humano.',
       },
       {
         title: 'Licenciada',
@@ -152,17 +159,16 @@ export class UserSeederService {
         lastName: 'Silva',
         email: 'valeria.silva@cliniccare.com',
         whatsapp: '+5491123456804',
-        username: 'professional_valeria',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        username: 'profesional_valeria',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '1993-02-14',
         nDni: '32547890',
         role: 'professional',
         image: 'https://i.postimg.cc/HW2KSY5d/02.jpg',
         specialization: 'Kinesiología Pediátrica',
-        bio: 'Licenciada Silva Valeria cuenta con una sólida experiencia en kinesiología pediátrica, ayudando a niños a superar dificultades físicas y mejorar su calidad de vida. Su pasión y empatía destacan en cada tratamiento.',
+        bio: 'La Licenciada Silva Valeria cuenta con una sólida experiencia en kinesiología pediátrica, ayudando a niños a superar dificultades físicas y mejorar su calidad de vida. Su pasión y empatía destacan en cada tratamiento.',
       },
-      // administrador
       {
         title: 'Administrador',
         firstName: 'Admin',
@@ -170,14 +176,14 @@ export class UserSeederService {
         email: 'admin@cliniccare.com',
         whatsapp: '+5491123456805',
         username: 'admin',
-        password: 'SecurePass@2023',
-        confirmPassword: 'SecurePass@2023',
+        password: hashedPassword,
+        confirmPassword: hashedPassword,
         birthdate: '2022-01-01',
         nDni: '30000000',
         role: 'admin',
         image: 'https://i.postimg.cc/1tF2NNNy/03.jpg',
-        specialization: 'Psychoanalysis',
-        bio: 'The pioneer of psychoanalysis, Freud revolutionized the understanding of human psychology and behavior.',
+        specialization: 'Psicoanálisis',
+        bio: 'El pionero del psicoanálisis, Freud revolucionó la comprensión de la psicología y el comportamiento humano.',
       },
     ];
 
@@ -192,6 +198,7 @@ export class UserSeederService {
         }
 
         await this.userService.create(user);
+        // await this.authController.signup(user);
         console.log(`User ${user.firstName} created successfully.`);
       } catch (error) {
         console.error(

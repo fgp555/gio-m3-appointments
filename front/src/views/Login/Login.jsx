@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { fetchUser } from "../../redux/userSlice";
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: "pepe@gmail.com", password: "P4ssWord@123" });
+  const [formData, setFormData] = useState({ email: "jane.goodall@cliniccare.com", password: "SecurePass@2023" });
   const [message, setMessage] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const Login = () => {
     try {
       // Intentamos hacer login
       const response = await apiServices.login(formData);
-      navigate("/appointments"); // Navegar a la página de "mis-turnos"
+      navigate("/dashboard"); // Navegar a la página de "mis-turnos"
       // Disparar la acción para almacenar los datos del usuario
       dispatch(fetchUser(response));
       console.log("response", response);

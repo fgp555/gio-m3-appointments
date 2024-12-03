@@ -6,10 +6,11 @@ import { fetchUser } from "../../../redux/userSlice";
 import "./AdminLoginPages.css";
 
 const AdminLoginPages = () => {
-  const [formData, setFormData] = useState({ email: "admin@cliniccare.com", password: "SecurePass@2023" });
+  const [formData, setFormData] = useState({ email: "jane.goodall@cliniccare.com", password: "SecurePass@2023" });
   const [message, setMessage] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [isDarkMode, setIsDarkMode] = useState(true); // Nuevo estado para dark mode
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  // Nuevo estado para dark mode
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const AdminLoginPages = () => {
 
     try {
       const response = await apiServices.login(formData);
-      navigate("/appointments");
+      navigate("/dashboard");
       dispatch(fetchUser(response));
       setMessage("Login exitoso.");
     } catch (error) {

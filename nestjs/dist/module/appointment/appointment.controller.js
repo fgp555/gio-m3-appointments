@@ -27,6 +27,9 @@ let AppointmentController = class AppointmentController {
     findAll() {
         return this.appointmentService.findAll();
     }
+    findPendingAppointmentsByProfessional(professionalId) {
+        return this.appointmentService.findPendingAppointmentsByProfessionalId(professionalId);
+    }
     findLast(count) {
         return this.appointmentService.findLast(count);
     }
@@ -57,6 +60,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AppointmentController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)('pending-by-professional/:professionalId'),
+    __param(0, (0, common_1.Param)('professionalId', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], AppointmentController.prototype, "findPendingAppointmentsByProfessional", null);
 __decorate([
     (0, common_1.Get)('last/:count'),
     __param(0, (0, common_1.Param)('count')),

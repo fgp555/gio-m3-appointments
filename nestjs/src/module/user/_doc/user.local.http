@@ -52,8 +52,8 @@ POST http://localhost:3000/api/auth/signin
 Content-Type: application/json
 
 {
-    "email": "admin@gmail.com",
-    "password": "P4ssWord@123"
+    "email": "jane.goodall@cliniccare.com",
+    "password": "SecurePass@2023"
 }
 
 ###
@@ -67,7 +67,7 @@ GET http://localhost:3000/api/users
 Authorization: {{token}}
 
 ###
-GET http://localhost:3000/api/users/1
+GET http://localhost:3000/api/users/9
 Authorization: {{token}}
 
 ###
@@ -82,7 +82,7 @@ Content-Type: application/json
 {
     "title": "Licenciada",
     "firstName": "Natali http",
-    "lastName": "M Russo",
+    "lastName": "MR",
     "email": "nmrusdso@crefi.com",
     "whatsapp": "+5491123456797",
     "username": "professional_giovanna",

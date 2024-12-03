@@ -36,14 +36,14 @@ export class AppointmentSeederService {
         date: today.toISOString(),
         description: 'Sesión de rehabilitación postoperatoria de rodilla',
         patient: { id: 1 },
-        professional: { id: 8 },
+        professional: { id: 9 },
       },
       {
         date: today.toISOString(),
         description:
           'Tratamiento para dolor lumbar crónico con técnicas de terapia manual',
         patient: { id: 2 },
-        professional: { id: 9 },
+        professional: { id: 10 },
       },
       {
         date: today.toISOString(),
@@ -63,6 +63,7 @@ export class AppointmentSeederService {
           'Estiramientos y masajes para contractura muscular en cuello',
         patient: { id: 5 },
         professional: { id: 9 },
+        // status: 'CANCELLED',
       },
       {
         date: tomorrow.toISOString(),
@@ -81,7 +82,7 @@ export class AppointmentSeederService {
         description:
           'Ejercicios de movilidad para mejorar rango articular en rodilla',
         patient: { id: 1 },
-        professional: { id: 9 },
+        professional: { id: 10 },
       },
       {
         date: threeDaysFromNow.toISOString(),
@@ -119,6 +120,7 @@ export class AppointmentSeederService {
       },
       {
         date: nextWeekFriday.toISOString(),
+        // date: '2023-08-15T00:00:00.000Z',
         description:
           'Ejercicios de fortalecimiento para la parte inferior de la espalda',
         patient: { id: 7 },
@@ -140,14 +142,16 @@ export class AppointmentSeederService {
         date: nextWeekFriday.toISOString(),
         description: 'Tratamiento de masajes terapéuticos para cuello',
         patient: { id: 3 },
-        professional: { id: 9 },
+        professional: { id: 10 },
       },
     ];
 
     for (const appointment of appointments) {
       try {
-        const patient = await this.userService.findById(appointment.patient.id);
-        const professional = await this.userService.findById(
+        const patient = await this.userService.findByIdforSeeder(
+          appointment.patient.id,
+        );
+        const professional = await this.userService.findByIdforSeeder(
           appointment.professional.id,
         );
 

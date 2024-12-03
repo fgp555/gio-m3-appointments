@@ -25,11 +25,11 @@ let AppointmentService = class AppointmentService {
     }
     async create(appointmentData) {
         const { patient, professional } = appointmentData;
-        const foundPatient = await this.userService.findById(patient.id);
+        const foundPatient = await this.userService.findByIdforSeeder(patient.id);
         if (!foundPatient) {
             throw new common_1.NotFoundException(`Patient with ID ${patient.id} not found`);
         }
-        const foundProfessional = await this.userService.findById(professional.id);
+        const foundProfessional = await this.userService.findByIdforSeeder(professional.id);
         if (!foundProfessional) {
             throw new common_1.NotFoundException(`professional with ID ${professional.id} not found`);
         }
@@ -67,6 +67,34 @@ let AppointmentService = class AppointmentService {
         if (!appointment)
             throw new common_1.NotFoundException(`Appointment with ID ${id} not found`);
         return appointment;
+    }
+    async findPendingAppointmentsByProfessionalId(professionalId) {
+        const today = new Date().toISOString().split('T')[0];
+        return await this.appointmentRepository.find({
+            where: {
+                date: (0, typeorm_2.MoreThanOrEqual)(today),
+                professional: { id: professionalId },
+            },
+            relations: ['patient', 'professional'],
+            select: {
+                id: true,
+                date: true,
+                description: true,
+                status: true,
+                createdAt: true,
+                patient: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                },
+                professional: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                },
+            },
+            order: { date: 'ASC' },
+        });
     }
     async findLast(count) {
         return await this.appointmentRepository.find({
