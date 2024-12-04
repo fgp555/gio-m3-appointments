@@ -6,7 +6,7 @@ import { fetchUser } from "../../../redux/userSlice";
 import "./AdminLoginPages.css";
 
 const AdminLoginPages = () => {
-  const [formData, setFormData] = useState({ email: "jane.goodall@cliniccare.com", password: "SecurePass@2023" });
+  const [formData, setFormData] = useState({ email: "olivia.bennett@cliniccare.com", password: "SecurePass@2023" });
   const [message, setMessage] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(true);

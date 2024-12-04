@@ -93,4 +93,11 @@ __decorate([
     (0, class_validator_1.MaxLength)(1000, { message: 'Bio should be less than 1000 characters' }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "bio", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(['woman', 'man'], {
+        message: 'Gender must be either "woman" or "man"',
+    }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "gender", void 0);
 //# sourceMappingURL=create-user.dto.js.map

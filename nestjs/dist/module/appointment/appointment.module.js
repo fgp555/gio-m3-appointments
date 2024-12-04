@@ -15,14 +15,22 @@ const appointment_entity_1 = require("./entities/appointment.entity");
 const appointment_seeder_1 = require("./seed/appointment.seeder");
 const user_service_1 = require("../user/user.service");
 const user_entity_1 = require("../user/entities/user.entity");
+const mail_module_1 = require("../mail/mail.module");
 let AppointmentModule = class AppointmentModule {
 };
 exports.AppointmentModule = AppointmentModule;
 exports.AppointmentModule = AppointmentModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([appointment_entity_1.Appointment, user_entity_1.UserEntity])],
+        imports: [
+            typeorm_1.TypeOrmModule.forFeature([appointment_entity_1.Appointment, user_entity_1.UserEntity]),
+            mail_module_1.MailModule,
+        ],
         controllers: [appointment_controller_1.AppointmentController],
-        providers: [appointment_service_1.AppointmentService, appointment_seeder_1.AppointmentSeederService, user_service_1.UserService],
+        providers: [
+            appointment_service_1.AppointmentService,
+            appointment_seeder_1.AppointmentSeederService,
+            user_service_1.UserService,
+        ],
         exports: [appointment_seeder_1.AppointmentSeederService],
     })
 ], AppointmentModule);

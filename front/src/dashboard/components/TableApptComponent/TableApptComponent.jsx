@@ -128,21 +128,31 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
   const handleWhatsapp = (appointment) => {
     const { patient, date, description, professional } = appointment;
 
-    // Formatear la fecha
+    // Determinar el título según el género
+    const professionalTitle = professional.gender === "woman" ? `la ${professional.title}` : `el ${professional.title}`;
+
+    // Formatear la fecha y hora
     const formattedDate = new Date(date).toLocaleString("es-ES", {
-      dateStyle: "long",
-      timeStyle: "short",
+      weekday: "long", // Mostrar el día de la semana
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
 
     // Construir el mensaje
     const message =
-      `Hola ${patient.firstName} ${patient.lastName},\n\n` +
-      `Le recordamos que tiene una cita programada el ${formattedDate} con ${professional.firstName} ${professional.lastName}.\n\n` +
-      `Descripción: ${description}.\n\n` +
-      `Si tiene alguna pregunta o necesita reprogramar, por favor contáctenos.`;
+      `Hola *${patient.firstName} ${patient.lastName}*,\n\n` +
+      `Le recordamos que tiene una cita programada:\n\n` +
+      `*Fecha:* ${formattedDate}\n` +
+      `*${professional.title}:*  ${professional.firstName} ${professional.lastName}\n` +
+      `*Descripción:* ${description}\n\n` +
+      `Si tiene alguna duda o necesita reprogramar, no dude en contactarnos. Estamos aquí para ayudarle.\n\n` +
+      `Saludos,\n*Clínica Fisio Terapia*`;
 
-    // Codificar el mensaje para la URL de WhatsApp
-    const encodedMessage = encodeURIComponent(message);
+    // Codificar el mensaje para WhatsApp
+    const encodedMessage = encodeURIComponent(message).replace(/%E2%80%8D/g, ""); // Elimina caracteres invisibles si los hay
 
     // Construir la URL de WhatsApp
     const whatsappURL = `https://wa.me/${patient.whatsapp}?text=${encodedMessage}`;
@@ -184,7 +194,7 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
                           </b>
                         </p>
                         <p>
-                          <i className="icon-doctor"></i> {appt.professional.firstName}{" "}
+                          <i className="icon-doctor"></i> {appt.professional.title} {appt.professional.firstName}{" "}
                         </p>
                         <p className="description">
                           <i className="icon-book"></i>

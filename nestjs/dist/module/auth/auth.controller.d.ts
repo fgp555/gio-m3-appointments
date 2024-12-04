@@ -24,6 +24,7 @@ export declare class AuthController {
         bio: string;
         appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
         appointmentsAsProfessional: import("../appointment/entities/appointment.entity").Appointment[];
+        gender?: "woman" | "man";
         createdAt: Date;
     } | {
         withoutPassword: {
@@ -42,6 +43,7 @@ export declare class AuthController {
             bio: string;
             appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
             appointmentsAsProfessional: import("../appointment/entities/appointment.entity").Appointment[];
+            gender?: "woman" | "man";
             createdAt: Date;
         };
         sendMail: {
@@ -67,6 +69,7 @@ export declare class AuthController {
             bio: string;
             appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
             appointmentsAsProfessional: import("../appointment/entities/appointment.entity").Appointment[];
+            gender?: "woman" | "man";
             createdAt: Date;
         };
         token: string;
@@ -87,6 +90,7 @@ export declare class AuthController {
         bio: string;
         appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
         appointmentsAsProfessional: import("../appointment/entities/appointment.entity").Appointment[];
+        gender?: "woman" | "man";
         createdAt: Date;
     }>;
 }

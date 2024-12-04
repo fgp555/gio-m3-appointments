@@ -68,6 +68,13 @@ export class UserEntity {
   })
   appointmentsAsProfessional: Appointment[];
 
+  @Column({
+    type: 'enum',
+    enum: ['woman', 'man'],
+    nullable: true, // Esto lo hace opcional
+  })
+  gender?: 'woman' | 'man';
+
   @CreateDateColumn()
   createdAt: Date;
 }

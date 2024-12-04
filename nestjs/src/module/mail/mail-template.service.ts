@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MailTemplate } from './entities/mail-template.entity';
 import { MailService } from './mail.service';
+import { log } from 'console';
 
 @Injectable()
 export class MailTemplatesService {
@@ -69,6 +70,10 @@ export class MailTemplatesService {
   }
 
   // ========== sentMailTemplate ==========
+
+  async createAppointmentTemplate(data: any) {
+    console.log("data", data);
+  }
 
   async getTemplates(): Promise<MailTemplate[]> {
     return await this.emailTemplateRepository.find();

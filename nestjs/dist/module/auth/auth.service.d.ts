@@ -26,6 +26,7 @@ export declare class AuthService {
         bio: string;
         appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
         appointmentsAsProfessional: import("../appointment/entities/appointment.entity").Appointment[];
+        gender?: "woman" | "man";
         createdAt: Date;
     }>;
     sendEmail(body: any): Promise<{
@@ -51,6 +52,7 @@ export declare class AuthService {
             bio: string;
             appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
             appointmentsAsProfessional: import("../appointment/entities/appointment.entity").Appointment[];
+            gender?: "woman" | "man";
             createdAt: Date;
         };
         token: string;
@@ -71,6 +73,7 @@ export declare class AuthService {
         bio: string;
         appointmentsAsPatient: import("../appointment/entities/appointment.entity").Appointment[];
         appointmentsAsProfessional: import("../appointment/entities/appointment.entity").Appointment[];
+        gender?: "woman" | "man";
         createdAt: Date;
     }>;
 }

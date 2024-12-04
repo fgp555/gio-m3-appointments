@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsDateString,
   Matches,
+  IsEnum,
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -74,4 +75,10 @@ export class CreateUserDto {
   @IsString()
   @MaxLength(1000, { message: 'Bio should be less than 1000 characters' })
   bio?: string;
+
+  @IsEnum(['woman', 'man'], {
+    message: 'Gender must be either "woman" or "man"',
+  })
+  @IsOptional()
+  gender?: 'woman' | 'man'; // Optional gender field
 }

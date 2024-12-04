@@ -12,4 +12,5 @@ export declare class CreateUserDto {
     title?: string;
     specialization?: string;
     bio?: string;
+    gender?: 'woman' | 'man';
 }

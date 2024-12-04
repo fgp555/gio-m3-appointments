@@ -53,6 +53,9 @@ let MailTemplatesService = class MailTemplatesService {
     replacePlaceholders(template, variables) {
         return template.replace(/{{(\w+)}}/g, (_, key) => variables[key] || `{{${key}}}`);
     }
+    async createAppointmentTemplate(data) {
+        console.log("data", data);
+    }
     async getTemplates() {
         return await this.emailTemplateRepository.find();
     }

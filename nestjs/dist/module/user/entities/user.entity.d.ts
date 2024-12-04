@@ -16,5 +16,6 @@ export declare class UserEntity {
     bio: string;
     appointmentsAsPatient: Appointment[];
     appointmentsAsProfessional: Appointment[];
+    gender?: 'woman' | 'man';
     createdAt: Date;
 }

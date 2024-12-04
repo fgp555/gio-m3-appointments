@@ -11,6 +11,6 @@ import { MailSeederService } from './seed/mail.seeder';
   imports: [TypeOrmModule.forFeature([MailTemplate])],
   controllers: [MailController, MailTemplatesController],
   providers: [MailService, MailTemplatesService, MailSeederService],
-  exports: [MailService, MailTemplatesService],
+  exports: [MailService, MailTemplatesService, TypeOrmModule],
 })
 export class MailModule {}

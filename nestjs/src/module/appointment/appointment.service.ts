@@ -6,6 +6,8 @@ import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { UpdateAppointmentDto } from './dto/update-appointment.dto';
 import { Appointment } from './entities/appointment.entity';
 import { UserService } from '../user/user.service';
+import { log } from 'console';
+import { MailTemplatesService } from '../mail/mail-template.service';
 
 @Injectable()
 export class AppointmentService {
@@ -13,6 +15,7 @@ export class AppointmentService {
     @InjectRepository(Appointment)
     private readonly appointmentRepository: Repository<Appointment>,
     private readonly userService: UserService, // Injecting UserService to check if a user exists
+    private readonly emailTemplatesService: MailTemplatesService, // Inyecta el servicio de plantillas
   ) {}
 
   async create(appointmentData: Partial<Appointment>) {
@@ -32,7 +35,10 @@ export class AppointmentService {
     }
 
     const appointment = this.appointmentRepository.create(appointmentData);
-    return await this.appointmentRepository.save(appointment);
+    const result = await this.appointmentRepository.save(appointment);
+    // console.log('Appointment created successfully:', result);
+
+    return result;
   }
 
   async findAll(): Promise<Appointment[]> {
@@ -53,8 +59,10 @@ export class AppointmentService {
         },
         professional: {
           id: true,
+          title: true,
           firstName: true,
           lastName: true,
+          gender: true,
         },
       },
     });
@@ -95,8 +103,10 @@ export class AppointmentService {
         },
         professional: {
           id: true,
+          title: true,
           firstName: true,
           lastName: true,
+          gender: true,
         },
       },
       order: { date: 'ASC' },
@@ -122,8 +132,10 @@ export class AppointmentService {
         },
         professional: {
           id: true,
+          title: true,
           firstName: true,
           lastName: true,
+          gender: true,
         },
       },
     });
