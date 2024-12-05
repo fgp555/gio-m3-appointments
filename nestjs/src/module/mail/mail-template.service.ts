@@ -23,7 +23,7 @@ export class MailTemplatesService {
     return await this.emailTemplateRepository.save(template);
   }
 
-  // ========== sentMailTemplate ==========
+  // ========== sentMailTemplate. start ==========
   async sentMailRegister(body: any) {
     // Obtener la plantilla de correo
     const templateMail = await this.getTemplateById(1); // ID de la plantilla
@@ -69,11 +69,96 @@ export class MailTemplatesService {
     );
   }
 
-  // ========== sentMailTemplate ==========
+  // ========== sentMailTemplate. end ==========
+
+  // ========== createAppointmentTemplate. start ==========
 
   async createAppointmentTemplate(data: any) {
-    console.log("data", data);
+    // Desestructuramos la información relevante
+    const { date, description, patient, professional, status } = data;
+
+    // Convertimos la fecha al formato adecuado en zona horaria de Argentina
+    const formattedDate = new Date(date).toLocaleString('es-ES', {
+      timeZone: 'America/Argentina/Buenos_Aires',
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    // Obtenemos nombres y apellidos del paciente y profesional
+    const patientName = `${patient.firstName} ${patient.lastName}`;
+    const professionalTitle = professional.title || '';
+    const professionalName = `${professionalTitle} ${professional.firstName} ${professional.lastName}`;
+
+    // Generamos el pronombre del profesional basado en su género
+    const pronoun = professional.gender === 'man' ? 'el' : 'la';
+
+    // Obtener la plantilla de correo desde la base de datos
+    const templateMailId2 = await this.getTemplateById(2); // ID de la plantilla
+    if (!templateMailId2) {
+      throw new NotFoundException('Plantilla no encontrada');
+    }
+
+    // Reemplazar los placeholders en la plantilla con los datos dinámicos
+    const placeholders = {
+      name: patientName,
+      formattedDate: formattedDate,
+      professionalName: `${pronoun} ${professionalName}`,
+      description: description,
+      status: status === 'PENDING' ? 'Pendiente' : status,
+    };
+
+    const personalizedHtml = this.replacePlaceholders(
+      templateMailId2.htmlContent,
+      placeholders,
+    );
+    const personalizedText = this.replacePlaceholders(
+      templateMailId2.text,
+      placeholders,
+    );
+
+    // Crear cuerpo del correo
+    const emailBody = {
+      to: patient.email, // Correo del paciente
+      subject: templateMailId2.subject, // Asunto de la plantilla
+      text:
+        personalizedText || 'Este es el contenido del correo en texto plano', // Contenido en texto plano
+      html: personalizedHtml, // Contenido en HTML
+    };
+
+    // Enviar correo
+    try {
+      const result = await this.mailService.sendMail(emailBody); // Asegúrate de que tu mailService esté configurado correctamente
+      console.info('Email sent successfully:', result);
+      return { message: 'Correo enviado exitosamente', result };
+    } catch (error) {
+      console.error('Error sending email:', error);
+      throw new InternalServerErrorException('Error al enviar el correo');
+    }
   }
+
+  // Función para reemplazar los placeholders en la plantilla
+  // private replacePlaceholders(
+  //   template: string,
+  //   variables: Record<string, string>,
+  // ): string {
+  //   return template.replace(
+  //     /{{(\w+)}}/g,
+  //     (_, key) => variables[key] || `{{${key}}}`, // Si no hay variable, mantiene el placeholder
+  //   );
+  // }
+
+  // // Función para convertir texto a HTML (si es necesario)
+  // private convertTextToHtml(text: string): string {
+  //   // Aquí puedes usar alguna librería como 'markdown-it' o construir un HTML básico.
+  //   // Ejemplo simple:
+  //   return `<p>${text.replace(/\n/g, '</p><p>')}</p>`;
+  // }
+
+  // ========== createAppointmentTemplate. end ==========
 
   async getTemplates(): Promise<MailTemplate[]> {
     return await this.emailTemplateRepository.find();

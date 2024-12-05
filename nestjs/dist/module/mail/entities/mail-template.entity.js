@@ -27,6 +27,10 @@ __decorate([
     __metadata("design:type", String)
 ], MailTemplate.prototype, "subject", void 0);
 __decorate([
+    (0, typeorm_1.Column)('text', { nullable: true }),
+    __metadata("design:type", String)
+], MailTemplate.prototype, "text", void 0);
+__decorate([
     (0, typeorm_1.Column)('text'),
     __metadata("design:type", String)
 ], MailTemplate.prototype, "htmlContent", void 0);

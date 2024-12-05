@@ -11,7 +11,10 @@ export declare class MailTemplatesService {
         result: any;
     }>;
     private replacePlaceholders;
-    createAppointmentTemplate(data: any): Promise<void>;
+    createAppointmentTemplate(data: any): Promise<{
+        message: string;
+        result: any;
+    }>;
     getTemplates(): Promise<MailTemplate[]>;
     getTemplateById(id: number): Promise<MailTemplate>;
     updateTemplate(id: number, data: Partial<MailTemplate>): Promise<MailTemplate>;

@@ -150,7 +150,9 @@ export class UserService {
       query.take(limit); // Aplica el límite si está definido
     }
 
-    return await query.getMany();
+    const users = await query.getMany();
+    // console.log('users', users);
+    return users;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<UserEntity> {

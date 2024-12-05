@@ -16,6 +16,9 @@ export class MailTemplate {
   @Column()
   subject: string;
 
+  @Column('text', { nullable: true })
+  text: string;
+
   @Column('text')
   htmlContent: string;
 

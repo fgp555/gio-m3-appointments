@@ -21,10 +21,10 @@ export class UserSeederService {
     const users: any[] = [
       // Usuarios de ejemplo
       {
-        firstName: 'Lionel',
-        lastName: 'Messi',
-        email: 'lionel.messi@cliniccare.com',
-        whatsapp: '+5491123456790',
+        firstName: 'Frank',
+        lastName: 'DEMO',
+        email: 'fgp555@gmail.com',
+        whatsapp: '+51918221790',
         username: 'patient_lionel',
         password: hashedPassword,
         confirmPassword: hashedPassword,
@@ -70,7 +70,7 @@ export class UserSeederService {
       },
       {
         firstName: 'Ava',
-        lastName: 'Davis',
+        lastName: 'Davis no email',
         email: 'ava.davis@cliniccare.com',
         whatsapp: '+5491123456794',
         username: 'patient_ava',
@@ -215,11 +215,13 @@ export class UserSeederService {
     // Insertar los usuarios en la base de datos
     for (const user of users) {
       try {
-        // Verificar si el usuario con el email ya existe
-        const existingUser = await this.userService.findByEmail(user.email);
-        if (existingUser) {
-          console.log(`User with email ${user.email} already exists.`);
-          continue; // Salta la creación de este usuario
+        if (user.email) {
+          // Verificar si el usuario con el email ya existe
+          const existingUser = await this.userService.findByEmail(user.email);
+          if (existingUser) {
+            console.log(`User with email ${user.email} already exists.`);
+            continue; // Salta la creación de este usuario
+          }
         }
 
         await this.userService.create(user);

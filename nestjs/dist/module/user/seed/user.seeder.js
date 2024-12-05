@@ -23,10 +23,10 @@ let UserSeederService = class UserSeederService {
         const hashedPassword = await bcrypt.hash('SecurePass@2023', 10);
         const users = [
             {
-                firstName: 'Lionel',
-                lastName: 'Messi',
-                email: 'lionel.messi@cliniccare.com',
-                whatsapp: '+5491123456790',
+                firstName: 'Frank',
+                lastName: 'DEMO',
+                email: 'fgp555@gmail.com',
+                whatsapp: '+51918221790',
                 username: 'patient_lionel',
                 password: hashedPassword,
                 confirmPassword: hashedPassword,
@@ -72,7 +72,7 @@ let UserSeederService = class UserSeederService {
             },
             {
                 firstName: 'Ava',
-                lastName: 'Davis',
+                lastName: 'Davis no email',
                 email: 'ava.davis@cliniccare.com',
                 whatsapp: '+5491123456794',
                 username: 'patient_ava',
@@ -214,10 +214,12 @@ let UserSeederService = class UserSeederService {
         ];
         for (const user of users) {
             try {
-                const existingUser = await this.userService.findByEmail(user.email);
-                if (existingUser) {
-                    console.log(`User with email ${user.email} already exists.`);
-                    continue;
+                if (user.email) {
+                    const existingUser = await this.userService.findByEmail(user.email);
+                    if (existingUser) {
+                        console.log(`User with email ${user.email} already exists.`);
+                        continue;
+                    }
                 }
                 await this.userService.create(user);
                 console.log(`User ${user.firstName} created successfully.`);

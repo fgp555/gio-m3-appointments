@@ -14,14 +14,26 @@ import { AppointmentService } from './appointment.service';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { UpdateAppointmentDto } from './dto/update-appointment.dto';
 import { Appointment } from './entities/appointment.entity';
+import { MailTemplatesService } from '../mail/mail-template.service';
+import { log } from 'console';
 
 @Controller('appointments')
 export class AppointmentController {
-  constructor(private readonly appointmentService: AppointmentService) {}
+  constructor(
+    private readonly appointmentService: AppointmentService,
+    private readonly emailTemplatesService: MailTemplatesService, // Inyecta el servicio de plantillas
+  ) {}
 
   @Post()
-  create(@Body() createAppointmentDto: CreateAppointmentDto) {
-    return this.appointmentService.create(createAppointmentDto);
+  async create(@Body() createAppointmentDto: CreateAppointmentDto) {
+    const result = await this.appointmentService.create(createAppointmentDto);
+
+    if (result.patient.email) {
+      console.log('result.patient.email', result.patient.email);
+      await this.emailTemplatesService.createAppointmentTemplate(result);
+    }
+
+    return result;
   }
 
   @Get()

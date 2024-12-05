@@ -54,7 +54,48 @@ let MailTemplatesService = class MailTemplatesService {
         return template.replace(/{{(\w+)}}/g, (_, key) => variables[key] || `{{${key}}}`);
     }
     async createAppointmentTemplate(data) {
-        console.log("data", data);
+        const { date, description, patient, professional, status } = data;
+        const formattedDate = new Date(date).toLocaleString('es-ES', {
+            timeZone: 'America/Argentina/Buenos_Aires',
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+        const patientName = `${patient.firstName} ${patient.lastName}`;
+        const professionalTitle = professional.title || '';
+        const professionalName = `${professionalTitle} ${professional.firstName} ${professional.lastName}`;
+        const pronoun = professional.gender === 'man' ? 'el' : 'la';
+        const templateMailId2 = await this.getTemplateById(2);
+        if (!templateMailId2) {
+            throw new common_1.NotFoundException('Plantilla no encontrada');
+        }
+        const placeholders = {
+            name: patientName,
+            formattedDate: formattedDate,
+            professionalName: `${pronoun} ${professionalName}`,
+            description: description,
+            status: status === 'PENDING' ? 'Pendiente' : status,
+        };
+        const personalizedHtml = this.replacePlaceholders(templateMailId2.htmlContent, placeholders);
+        const personalizedText = this.replacePlaceholders(templateMailId2.text, placeholders);
+        const emailBody = {
+            to: patient.email,
+            subject: templateMailId2.subject,
+            text: personalizedText || 'Este es el contenido del correo en texto plano',
+            html: personalizedHtml,
+        };
+        try {
+            const result = await this.mailService.sendMail(emailBody);
+            console.info('Email sent successfully:', result);
+            return { message: 'Correo enviado exitosamente', result };
+        }
+        catch (error) {
+            console.error('Error sending email:', error);
+            throw new common_1.InternalServerErrorException('Error al enviar el correo');
+        }
     }
     async getTemplates() {
         return await this.emailTemplateRepository.find();

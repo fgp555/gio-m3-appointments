@@ -17,12 +17,19 @@ const common_1 = require("@nestjs/common");
 const appointment_service_1 = require("./appointment.service");
 const create_appointment_dto_1 = require("./dto/create-appointment.dto");
 const update_appointment_dto_1 = require("./dto/update-appointment.dto");
+const mail_template_service_1 = require("../mail/mail-template.service");
 let AppointmentController = class AppointmentController {
-    constructor(appointmentService) {
+    constructor(appointmentService, emailTemplatesService) {
         this.appointmentService = appointmentService;
+        this.emailTemplatesService = emailTemplatesService;
     }
-    create(createAppointmentDto) {
-        return this.appointmentService.create(createAppointmentDto);
+    async create(createAppointmentDto) {
+        const result = await this.appointmentService.create(createAppointmentDto);
+        if (result.patient.email) {
+            console.log('result.patient.email', result.patient.email);
+            await this.emailTemplatesService.createAppointmentTemplate(result);
+        }
+        return result;
     }
     findAll() {
         return this.appointmentService.findAll();
@@ -52,7 +59,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_appointment_dto_1.CreateAppointmentDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AppointmentController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
@@ -105,6 +112,7 @@ __decorate([
 ], AppointmentController.prototype, "cancel", null);
 exports.AppointmentController = AppointmentController = __decorate([
     (0, common_1.Controller)('appointments'),
-    __metadata("design:paramtypes", [appointment_service_1.AppointmentService])
+    __metadata("design:paramtypes", [appointment_service_1.AppointmentService,
+        mail_template_service_1.MailTemplatesService])
 ], AppointmentController);
 //# sourceMappingURL=appointment.controller.js.map

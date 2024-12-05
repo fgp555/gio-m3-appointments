@@ -105,7 +105,8 @@ let UserService = class UserService {
         if (limit) {
             query.take(limit);
         }
-        return await query.getMany();
+        const users = await query.getMany();
+        return users;
     }
     async update(id, updateUserDto) {
         await this.findOne(id);

@@ -28,7 +28,7 @@ GET http://localhost:3000/api/mail-templates
 ###
 
 ### Get Email Template by ID
-GET http://localhost:3000/api/mail-templates/5
+GET http://localhost:3000/api/mail-templates/2
 
 ###
 

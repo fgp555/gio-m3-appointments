@@ -2,12 +2,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MoreThanOrEqual, Repository } from 'typeorm';
-import { CreateAppointmentDto } from './dto/create-appointment.dto';
-import { UpdateAppointmentDto } from './dto/update-appointment.dto';
 import { Appointment } from './entities/appointment.entity';
 import { UserService } from '../user/user.service';
-import { log } from 'console';
-import { MailTemplatesService } from '../mail/mail-template.service';
 
 @Injectable()
 export class AppointmentService {
@@ -15,7 +11,6 @@ export class AppointmentService {
     @InjectRepository(Appointment)
     private readonly appointmentRepository: Repository<Appointment>,
     private readonly userService: UserService, // Injecting UserService to check if a user exists
-    private readonly emailTemplatesService: MailTemplatesService, // Inyecta el servicio de plantillas
   ) {}
 
   async create(appointmentData: Partial<Appointment>) {
@@ -36,9 +31,34 @@ export class AppointmentService {
 
     const appointment = this.appointmentRepository.create(appointmentData);
     const result = await this.appointmentRepository.save(appointment);
-    // console.log('Appointment created successfully:', result);
 
-    return result;
+    const find = await this.appointmentRepository.findOne({
+      where: { id: result.id },
+      relations: ['patient', 'professional'], // Relaciones a incluir
+      select: {
+        id: true,
+        date: true,
+        description: true,
+        status: true,
+        createdAt: true,
+        patient: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          whatsapp: true,
+          email: true,
+        },
+        professional: {
+          id: true,
+          title: true,
+          firstName: true,
+          lastName: true,
+          gender: true,
+        },
+      },
+    });
+
+    return find;
   }
 
   async findAll(): Promise<Appointment[]> {
