@@ -10,9 +10,6 @@ import { UserSeederService } from './module/user/seed/user.seeder';
 import { AppointmentSeederService } from './module/appointment/seed/appointment.seeder';
 import { BackupDBModule } from './tools/backup-db/backup-db.module';
 import { MailModule } from './module/mail/mail.module';
-import { MailerModule } from '@nestjs-modules/mailer';
-import { config as dotenvConfig } from 'dotenv';
-dotenvConfig({ path: '.env' });
 
 @Module({
   imports: [

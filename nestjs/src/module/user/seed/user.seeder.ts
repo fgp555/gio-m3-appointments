@@ -2,16 +2,11 @@
 
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user.service';
-import { CreateUserDto } from '../dtos/create-user.dto';
-import { AuthController } from 'src/module/auth/auth.controller';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserSeederService {
-  constructor(
-    private readonly userService: UserService,
-    private readonly authController: AuthController,
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   async seed() {
     // Crear usuarios de ejemplo
@@ -21,10 +16,10 @@ export class UserSeederService {
     const users: any[] = [
       // Usuarios de ejemplo
       {
-        firstName: 'Frank',
-        lastName: 'DEMO',
-        email: 'fgp555@gmail.com',
-        whatsapp: '+51918221790',
+        firstName: 'Juan',
+        lastName: 'Lopez',
+        email: 'juan123@gmail.com',
+        whatsapp: '+51222333444',
         username: 'patient_lionel',
         password: hashedPassword,
         confirmPassword: hashedPassword,
@@ -33,11 +28,11 @@ export class UserSeederService {
         role: 'patient',
       },
       {
-        firstName: 'Frank',
-        lastName: 'GP',
-        email: 'franklingomez.pe@gmail.com',
-        whatsapp: '+51918221790',
-        username: 'frank_patient',
+        firstName: 'Pedro',
+        lastName: 'Inglés',
+        email: 'pedro123@gmail.com',
+        whatsapp: '+51912312322',
+        username: 'pedro_patient',
         password: hashedPassword,
         confirmPassword: hashedPassword,
         birthdate: '1988-04-20',
@@ -70,7 +65,7 @@ export class UserSeederService {
       },
       {
         firstName: 'Ava',
-        lastName: 'Davis no email',
+        lastName: 'Davis',
         email: 'ava.davis@cliniccare.com',
         whatsapp: '+5491123456794',
         username: 'patient_ava',

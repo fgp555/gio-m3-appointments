@@ -1,0 +1,59 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #4ea4fa; /* Un tono de celeste oscuro */
+  padding: 10px 20px;
+}
+
+.logoContainer {
+  flex: 1;
+}
+
+.logo {
+  width: 100px; /* Ajusta el tamaño del logo según sea necesario */
+}
+
+.navListContainer {
+  flex: 2;
+}
+
+.navList {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.navList li {
+  margin: 0 15px;
+}
+
+.navList a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em; /* Un tamaño de fuente más profesional */
+}
+
+.avatarContainer {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+li:hover {
+  border-bottom: 1px solid #2b82af;
+}
+
+li .logout:hover {
+  color: crimson;
+}
+

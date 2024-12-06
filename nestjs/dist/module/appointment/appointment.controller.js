@@ -24,12 +24,13 @@ let AppointmentController = class AppointmentController {
         this.emailTemplatesService = emailTemplatesService;
     }
     async create(createAppointmentDto) {
-        const result = await this.appointmentService.create(createAppointmentDto);
-        if (result.patient.email) {
-            console.log('result.patient.email', result.patient.email);
-            await this.emailTemplatesService.createAppointmentTemplate(result);
+        const resultApptCreate = await this.appointmentService.create(createAppointmentDto);
+        if (resultApptCreate.patient.email) {
+            console.log('resultApptCreate.patient.email', resultApptCreate.patient.email);
+            await this.emailTemplatesService.createAppointmentTemplate(resultApptCreate);
         }
-        return result;
+        console.log('resultApptCreate', resultApptCreate);
+        return resultApptCreate;
     }
     findAll() {
         return this.appointmentService.findAll();
