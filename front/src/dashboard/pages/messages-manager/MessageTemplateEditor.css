@@ -1,3 +1,85 @@
-.MessageTemplateEditor{
-    padding: 20px;
+.email-template-editor {
+  max-width: 800px;
+  /* margin: 0 auto; */
+  padding: 1.5em;
+  /* background-color: #f9f9f9; */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 40rem;
+}
+
+.email-template-editor h1 {
+  font-size: 1.8em;
+  margin-bottom: 1em;
+  text-align: center;
+  /* color: #333; */
+}
+
+.email-template-editor .form-group {
+  margin-bottom: 1.5em;
+}
+
+.email-template-editor label {
+  display: block;
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  /* color: #555; */
+}
+
+.email-template-editor select,
+.email-template-editor input {
+  width: 100%;
+  padding: 0.5em;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.email-template-editor select:focus,
+.email-template-editor input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
+}
+
+.email-template-editor .form-group .ql-container {
+  height: 200px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.email-template-editor button[type="submit"] {
+  width: 100%;
+  padding: 0.8em;
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.email-template-editor button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.email-template-editor button[type="submit"]:active {
+  background-color: #003f7f;
+}
+
+.email-template-editor .ql-toolbar.ql-snow {
+  border-radius: 4px 4px 0 0;
+}
+
+.email-template-editor .ql-container.ql-snow {
+  border-radius: 0 0 4px 4px;
+}
+
+.email-template-editor .ql-editor {
+  font-size: 1em;
+  color: #333;
 }

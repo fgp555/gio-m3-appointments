@@ -22,7 +22,11 @@ exports.MailModule = MailModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([mail_template_entity_1.MailTemplate])],
         controllers: [mail_controller_1.MailController, mail_template_controller_1.MailTemplatesController],
-        providers: [mail_service_1.MailService, mail_template_service_1.MailTemplatesService, mail_seeder_1.MailSeederService],
+        providers: [
+            mail_service_1.MailService,
+            mail_template_service_1.MailTemplatesService,
+            mail_seeder_1.MailSeederService,
+        ],
         exports: [mail_service_1.MailService, mail_template_service_1.MailTemplatesService, typeorm_1.TypeOrmModule],
     })
 ], MailModule);

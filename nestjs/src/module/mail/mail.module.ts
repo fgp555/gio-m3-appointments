@@ -10,7 +10,12 @@ import { MailSeederService } from './seed/mail.seeder';
 @Module({
   imports: [TypeOrmModule.forFeature([MailTemplate])],
   controllers: [MailController, MailTemplatesController],
-  providers: [MailService, MailTemplatesService, MailSeederService],
+  providers: [
+    MailService,
+    MailTemplatesService,
+    MailSeederService,
+    //
+  ],
   exports: [MailService, MailTemplatesService, TypeOrmModule],
 })
 export class MailModule {}

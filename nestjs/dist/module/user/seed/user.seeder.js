@@ -12,21 +12,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserSeederService = void 0;
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("../user.service");
-const auth_controller_1 = require("../../auth/auth.controller");
 const bcrypt = require("bcrypt");
 let UserSeederService = class UserSeederService {
-    constructor(userService, authController) {
+    constructor(userService) {
         this.userService = userService;
-        this.authController = authController;
     }
     async seed() {
         const hashedPassword = await bcrypt.hash('SecurePass@2023', 10);
         const users = [
             {
-                firstName: 'Frank',
-                lastName: 'DEMO',
-                email: 'fgp555@gmail.com',
-                whatsapp: '+51918221790',
+                firstName: 'Juan',
+                lastName: 'Lopez',
+                email: 'juan123@gmail.com',
+                whatsapp: '+51222333444',
                 username: 'patient_lionel',
                 password: hashedPassword,
                 confirmPassword: hashedPassword,
@@ -35,11 +33,11 @@ let UserSeederService = class UserSeederService {
                 role: 'patient',
             },
             {
-                firstName: 'Frank',
-                lastName: 'GP',
-                email: 'franklingomez.pe@gmail.com',
-                whatsapp: '+51918221790',
-                username: 'frank_patient',
+                firstName: 'Pedro',
+                lastName: 'Inglés',
+                email: 'pedro123@gmail.com',
+                whatsapp: '+51912312322',
+                username: 'pedro_patient',
                 password: hashedPassword,
                 confirmPassword: hashedPassword,
                 birthdate: '1988-04-20',
@@ -72,7 +70,7 @@ let UserSeederService = class UserSeederService {
             },
             {
                 firstName: 'Ava',
-                lastName: 'Davis no email',
+                lastName: 'Davis',
                 email: 'ava.davis@cliniccare.com',
                 whatsapp: '+5491123456794',
                 username: 'patient_ava',
@@ -233,7 +231,6 @@ let UserSeederService = class UserSeederService {
 exports.UserSeederService = UserSeederService;
 exports.UserSeederService = UserSeederService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [user_service_1.UserService,
-        auth_controller_1.AuthController])
+    __metadata("design:paramtypes", [user_service_1.UserService])
 ], UserSeederService);
 //# sourceMappingURL=user.seeder.js.map

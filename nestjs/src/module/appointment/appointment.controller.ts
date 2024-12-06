@@ -26,14 +26,21 @@ export class AppointmentController {
 
   @Post()
   async create(@Body() createAppointmentDto: CreateAppointmentDto) {
-    const result = await this.appointmentService.create(createAppointmentDto);
+    const resultApptCreate =
+      await this.appointmentService.create(createAppointmentDto);
 
-    if (result.patient.email) {
-      console.log('result.patient.email', result.patient.email);
-      await this.emailTemplatesService.createAppointmentTemplate(result);
+    if (resultApptCreate.patient.email) {
+      console.log(
+        'resultApptCreate.patient.email',
+        resultApptCreate.patient.email,
+      );
+      await this.emailTemplatesService.createAppointmentTemplate(
+        resultApptCreate,
+      );
     }
+    console.log('resultApptCreate', resultApptCreate);
 
-    return result;
+    return resultApptCreate;
   }
 
   @Get()

@@ -8,3 +8,6 @@ add button whatsapp to patien card
 en /appt-create validar que se haya seleccionado un profesional y un patient
 
 al crear turno mostrar loaging
+
+Usar MongoDB 
+Almacenamiento de backups en Google drive 

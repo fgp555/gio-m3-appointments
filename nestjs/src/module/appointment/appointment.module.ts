@@ -7,7 +7,6 @@ import { Appointment } from './entities/appointment.entity';
 import { AppointmentSeederService } from './seed/appointment.seeder';
 import { UserService } from '../user/user.service';
 import { UserEntity } from '../user/entities/user.entity';
-import { MailTemplatesService } from '../mail/mail-template.service';
 import { MailModule } from '../mail/mail.module';
 
 @Module({
@@ -21,7 +20,6 @@ import { MailModule } from '../mail/mail.module';
     AppointmentService,
     AppointmentSeederService,
     UserService,
-    // MailTemplatesService,
   ],
   exports: [AppointmentSeederService],
 })

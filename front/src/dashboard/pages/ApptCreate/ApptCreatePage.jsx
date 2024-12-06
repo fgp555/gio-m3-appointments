@@ -10,11 +10,11 @@ import Swal from "sweetalert2";
 
 const ApptCreatePage = () => {
   const [selectedDay123, setSelectedDay] = useState(new Date());
-  const [selectedRoles, setSelectedRoles] = useState({ patientId: "3", professionalId: "7" });
+  const [selectedRoles, setSelectedRoles] = useState({ patientId: "2", professionalId: "11" });
   const [newAppointment, setNewAppointment] = useState({
     description: "Terapia de rehabilitación para fractura de brazo",
     date: selectedDay123,
-    time: "09:00",
+    time: format(new Date(), "HH:mm"), // Hora actual por defecto
   });
 
   const [selectedCount, setSelectedCount] = useState(() => {
@@ -45,6 +45,14 @@ const ApptCreatePage = () => {
     e.preventDefault();
     try {
       const { description, date, time } = newAppointment;
+
+      // Validar que la hora seleccionada sea válida
+      const currentDateTime = new Date();
+      const selectedDateTime = new Date(`${format(date, "yyyy-MM-dd")}T${time}:00`);
+      if (selectedDateTime < currentDateTime) {
+        throw new Error("La hora seleccionada debe ser mayor o igual a la hora actual.");
+      }
+
       const localDateTime = `${format(date, "yyyy-MM-dd")}T${time}:00`;
       const formattedDate = new Date(localDateTime);
 
@@ -98,6 +106,15 @@ const ApptCreatePage = () => {
     return day >= 1 && day <= 5;
   };
 
+  const filterTime = (time) => {
+    const selectedDate = set(new Date(), {
+      hours: time.getHours(),
+      minutes: time.getMinutes(),
+      seconds: 0,
+    });
+    return selectedDate >= new Date(); // Filtra las horas menores a la actual
+  };
+
   const [view, setView] = useState("month");
 
   const handleViewChange = (view) => {
@@ -120,6 +137,8 @@ const ApptCreatePage = () => {
   return (
     <div className="ApptCalendarContainer ApptCreatePage">
       <aside className="calendar_section">
+        <h1>Crear Cita</h1>
+        <br />
         <form onSubmit={handleCreateAppt}>
           <div className="DatePicker DatePicker_Container">
             <DatePicker
@@ -143,14 +162,15 @@ const ApptCreatePage = () => {
               inline
               // selected={selectedTime}
               // onChange={(date) => setSelectedTime(date)}
+              filterTime={filterTime}
               showTimeSelect
               showTimeSelectOnly // Esto asegura que solo se muestre la selección de la hora
               timeIntervals={30} // Intervalo de 15 minutos entre las opciones de hora
               timeCaption="Hora"
               dateFormat="h:mm aa" // Formato de la hora (hora AM/PM)
               // dateFormat="Pp"
-              minTime={new Date(new Date().setHours(9, 0, 0, 0))}
-              maxTime={new Date(new Date().setHours(17, 0, 0, 0))}
+              minTime={new Date(new Date().setHours(7, 0, 0, 0))}
+              maxTime={new Date(new Date().setHours(19, 0, 0, 0))}
             />
           </div>
           <div>
