@@ -48,4 +48,12 @@ export class Appointment {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  // Nueva propiedad booleana para saber si se ha enviado el correo electrónico
+  @Column({ default: false })
+  emailSent: boolean;
+
+  // Nueva propiedad booleana para saber si se ha enviado el mensaje de WhatsApp
+  @Column({ default: false })
+  whatsappSent: boolean;
 }

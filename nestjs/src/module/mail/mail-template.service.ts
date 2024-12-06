@@ -7,7 +7,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MailTemplate } from './entities/mail-template.entity';
 import { MailService } from './mail.service';
-import { log } from 'console';
 
 @Injectable()
 export class MailTemplatesService {

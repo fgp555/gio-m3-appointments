@@ -153,9 +153,9 @@ const Sidebar = () => {
             </button>
             <ul className={`sub-menu ${subMenus.TodoListMenu ? "show" : ""}`}>
               <div>
-                <li className={activeMenu === "database" ? "active" : ""}>
-                  <Link to="/messages-manager" onClick={() => handleMenuClick("database")}>
-                    Editar Mensajes
+                <li className={activeMenu === "mail" ? "active" : ""}>
+                  <Link to="/messages-manager" onClick={() => handleMenuClick("mail")}>
+                    Plantillas Email
                   </Link>
                 </li>
                 <li className={activeMenu === "database" ? "active" : ""}>
@@ -167,7 +167,7 @@ const Sidebar = () => {
             </ul>
           </li>
           <li className="logout-container">
-            <Link to="/login" className="logout">
+            <Link to="/admin" className="logout">
               <i className="icon-logout"></i>
               <span onClick={handleLogout}>Cerrar sesión</span>
             </Link>

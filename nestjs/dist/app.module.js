@@ -22,8 +22,6 @@ const user_seeder_1 = require("./module/user/seed/user.seeder");
 const appointment_seeder_1 = require("./module/appointment/seed/appointment.seeder");
 const backup_db_module_1 = require("./tools/backup-db/backup-db.module");
 const mail_module_1 = require("./module/mail/mail.module");
-const dotenv_1 = require("dotenv");
-(0, dotenv_1.config)({ path: '.env' });
 let AppModule = class AppModule {
     constructor(userSeederService, appointmentSeederService) {
         this.userSeederService = userSeederService;

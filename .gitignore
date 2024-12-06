@@ -1,7 +1,10 @@
 node_modules
 .env*
+!*example*
 # dist
 backups
 /tmp
 *.dev
 # back-m3
+qr-code.png
+sessions

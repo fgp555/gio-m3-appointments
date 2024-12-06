@@ -42,3 +42,6 @@ Content-Type: application/json
 
 ### Delete Appointment
 DELETE http://localhost:3000/api/appointments/1
+
+### tempApptWhatsapp
+POST http://localhost:3000/api/appointments/whatsapp
