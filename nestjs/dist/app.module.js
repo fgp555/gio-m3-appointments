@@ -23,6 +23,7 @@ const appointment_seeder_1 = require("./module/appointment/seed/appointment.seed
 const backup_db_module_1 = require("./tools/backup-db/backup-db.module");
 const mail_module_1 = require("./module/mail/mail.module");
 const dotenv_1 = require("dotenv");
+const whatsapp_module_1 = require("./module/whatsapp/whatsapp.module");
 (0, dotenv_1.config)({ path: '.env' });
 let AppModule = class AppModule {
     constructor(userSeederService, appointmentSeederService) {
@@ -46,6 +47,7 @@ exports.AppModule = AppModule = __decorate([
             appointment_module_1.AppointmentModule,
             backup_db_module_1.BackupDBModule,
             mail_module_1.MailModule,
+            whatsapp_module_1.WhatsappModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

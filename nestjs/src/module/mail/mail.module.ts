@@ -6,11 +6,17 @@ import { MailTemplatesController } from './mail-template.controller';
 import { MailTemplate } from './entities/mail-template.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MailSeederService } from './seed/mail.seeder';
+import { WhatsappService } from '../whatsapp/whatsapp.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([MailTemplate])],
   controllers: [MailController, MailTemplatesController],
-  providers: [MailService, MailTemplatesService, MailSeederService],
+  providers: [
+    MailService,
+    MailTemplatesService,
+    MailSeederService,
+    //
+  ],
   exports: [MailService, MailTemplatesService, TypeOrmModule],
 })
 export class MailModule {}

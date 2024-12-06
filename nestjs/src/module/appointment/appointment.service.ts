@@ -4,6 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { MoreThanOrEqual, Repository } from 'typeorm';
 import { Appointment } from './entities/appointment.entity';
 import { UserService } from '../user/user.service';
+import { WhatsappService } from '../whatsapp/whatsapp.service';
+import { log } from 'console';
 
 @Injectable()
 export class AppointmentService {
@@ -11,6 +13,7 @@ export class AppointmentService {
     @InjectRepository(Appointment)
     private readonly appointmentRepository: Repository<Appointment>,
     private readonly userService: UserService, // Injecting UserService to check if a user exists
+    private readonly whatsappService: WhatsappService,
   ) {}
 
   async create(appointmentData: Partial<Appointment>) {
@@ -197,5 +200,9 @@ export class AppointmentService {
     appointment.status = 'CANCELED';
 
     return await this.appointmentRepository.save(appointment);
+  }
+
+  async sendWhatsAppTemplate(resultApptCreate: any) {
+    this.whatsappService.whatsappSentApptCreate(resultApptCreate);
   }
 }

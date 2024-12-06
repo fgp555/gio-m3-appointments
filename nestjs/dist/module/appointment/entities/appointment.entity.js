@@ -55,6 +55,14 @@ __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], Appointment.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: false }),
+    __metadata("design:type", Boolean)
+], Appointment.prototype, "emailSent", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: false }),
+    __metadata("design:type", Boolean)
+], Appointment.prototype, "whatsappSent", void 0);
 exports.Appointment = Appointment = __decorate([
     (0, typeorm_1.Entity)()
 ], Appointment);

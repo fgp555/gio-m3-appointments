@@ -7,4 +7,6 @@ export declare class Appointment {
     patient: UserEntity;
     professional: UserEntity;
     createdAt: Date;
+    emailSent: boolean;
+    whatsappSent: boolean;
 }

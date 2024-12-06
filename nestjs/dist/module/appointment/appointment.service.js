@@ -18,10 +18,12 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const appointment_entity_1 = require("./entities/appointment.entity");
 const user_service_1 = require("../user/user.service");
+const whatsapp_service_1 = require("../whatsapp/whatsapp.service");
 let AppointmentService = class AppointmentService {
-    constructor(appointmentRepository, userService) {
+    constructor(appointmentRepository, userService, whatsappService) {
         this.appointmentRepository = appointmentRepository;
         this.userService = userService;
+        this.whatsappService = whatsappService;
     }
     async create(appointmentData) {
         const { patient, professional } = appointmentData;
@@ -179,12 +181,16 @@ let AppointmentService = class AppointmentService {
         appointment.status = 'CANCELED';
         return await this.appointmentRepository.save(appointment);
     }
+    async sendWhatsAppTemplate(resultApptCreate) {
+        this.whatsappService.whatsappSentApptCreate(resultApptCreate);
+    }
 };
 exports.AppointmentService = AppointmentService;
 exports.AppointmentService = AppointmentService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(appointment_entity_1.Appointment)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        user_service_1.UserService])
+        user_service_1.UserService,
+        whatsapp_service_1.WhatsappService])
 ], AppointmentService);
 //# sourceMappingURL=appointment.service.js.map

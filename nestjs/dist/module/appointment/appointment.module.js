@@ -16,6 +16,7 @@ const appointment_seeder_1 = require("./seed/appointment.seeder");
 const user_service_1 = require("../user/user.service");
 const user_entity_1 = require("../user/entities/user.entity");
 const mail_module_1 = require("../mail/mail.module");
+const whatsapp_service_1 = require("../whatsapp/whatsapp.service");
 let AppointmentModule = class AppointmentModule {
 };
 exports.AppointmentModule = AppointmentModule;
@@ -30,6 +31,7 @@ exports.AppointmentModule = AppointmentModule = __decorate([
             appointment_service_1.AppointmentService,
             appointment_seeder_1.AppointmentSeederService,
             user_service_1.UserService,
+            whatsapp_service_1.WhatsappService,
         ],
         exports: [appointment_seeder_1.AppointmentSeederService],
     })

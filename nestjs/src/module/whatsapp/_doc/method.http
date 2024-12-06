@@ -1,0 +1,29 @@
+### Obtener el código QR
+GET http://localhost:3000/api/
+
+### Obtener el código QR
+GET http://localhost:3000/api/whatsapp/qr
+
+### Enviar mensaje a un número de WhatsApp
+POST http://localhost:3000/api/whatsapp/send
+Content-Type: application/json
+
+{
+  "phoneNumber": "51918654055",
+  "message": "¡Hola desde mi API de WhatsApp en NestJS!"
+}
+
+### Enviar mensaje a otro número de WhatsApp
+POST http://localhost:3000/api/whatsapp/send
+Content-Type: application/json
+
+{
+  "phoneNumber": "51918221790",
+  "message": "¡Hola desde mi API de WhatsApp en NestJS!"
+}
+
+### Limpiar los recursos (qr-code.png y carpeta sessions)
+POST  http://localhost:3000/api/whatsapp/cleanup
+
+### Iniciar conexión con WhatsApp
+POST http://localhost:3000/api/whatsapp/start

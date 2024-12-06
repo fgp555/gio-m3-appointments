@@ -18,18 +18,20 @@ const appointment_service_1 = require("./appointment.service");
 const create_appointment_dto_1 = require("./dto/create-appointment.dto");
 const update_appointment_dto_1 = require("./dto/update-appointment.dto");
 const mail_template_service_1 = require("../mail/mail-template.service");
+const whatsapp_service_1 = require("../whatsapp/whatsapp.service");
 let AppointmentController = class AppointmentController {
-    constructor(appointmentService, emailTemplatesService) {
+    constructor(appointmentService, emailTemplatesService, whatsappService) {
         this.appointmentService = appointmentService;
         this.emailTemplatesService = emailTemplatesService;
+        this.whatsappService = whatsappService;
     }
     async create(createAppointmentDto) {
-        const result = await this.appointmentService.create(createAppointmentDto);
-        if (result.patient.email) {
-            console.log('result.patient.email', result.patient.email);
-            await this.emailTemplatesService.createAppointmentTemplate(result);
+        const resultApptCreate = await this.appointmentService.create(createAppointmentDto);
+        if (resultApptCreate.patient.whatsapp) {
+            console.log('result.patient.whatsapp', resultApptCreate.patient.whatsapp);
+            await this.appointmentService.sendWhatsAppTemplate(resultApptCreate);
         }
-        return result;
+        return resultApptCreate;
     }
     findAll() {
         return this.appointmentService.findAll();
@@ -51,6 +53,10 @@ let AppointmentController = class AppointmentController {
     }
     cancel(id) {
         return this.appointmentService.cancel(id);
+    }
+    async tempApptWhatsapp() {
+        await this.appointmentService.sendWhatsAppTemplate({});
+        return 'tempApptWhatsapp';
     }
 };
 exports.AppointmentController = AppointmentController;
@@ -110,9 +116,16 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], AppointmentController.prototype, "cancel", null);
+__decorate([
+    (0, common_1.Post)('whatsapp'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AppointmentController.prototype, "tempApptWhatsapp", null);
 exports.AppointmentController = AppointmentController = __decorate([
     (0, common_1.Controller)('appointments'),
     __metadata("design:paramtypes", [appointment_service_1.AppointmentService,
-        mail_template_service_1.MailTemplatesService])
+        mail_template_service_1.MailTemplatesService,
+        whatsapp_service_1.WhatsappService])
 ], AppointmentController);
 //# sourceMappingURL=appointment.controller.js.map

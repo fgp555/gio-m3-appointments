@@ -12,6 +12,7 @@ import { BackupDBModule } from './tools/backup-db/backup-db.module';
 import { MailModule } from './module/mail/mail.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { config as dotenvConfig } from 'dotenv';
+import { WhatsappModule } from './module/whatsapp/whatsapp.module';
 dotenvConfig({ path: '.env' });
 
 @Module({
@@ -23,6 +24,7 @@ dotenvConfig({ path: '.env' });
     AppointmentModule,
     BackupDBModule,
     MailModule,
+    WhatsappModule,
   ],
   controllers: [AppController],
   providers: [AppService],

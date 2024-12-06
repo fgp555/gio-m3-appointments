@@ -16,24 +16,33 @@ import { UpdateAppointmentDto } from './dto/update-appointment.dto';
 import { Appointment } from './entities/appointment.entity';
 import { MailTemplatesService } from '../mail/mail-template.service';
 import { log } from 'console';
+import { WhatsappService } from '../whatsapp/whatsapp.service';
 
 @Controller('appointments')
 export class AppointmentController {
   constructor(
     private readonly appointmentService: AppointmentService,
     private readonly emailTemplatesService: MailTemplatesService, // Inyecta el servicio de plantillas
+    private readonly whatsappService: WhatsappService,
   ) {}
 
   @Post()
   async create(@Body() createAppointmentDto: CreateAppointmentDto) {
-    const result = await this.appointmentService.create(createAppointmentDto);
+    const resultApptCreate = await this.appointmentService.create(createAppointmentDto);
 
-    if (result.patient.email) {
-      console.log('result.patient.email', result.patient.email);
-      await this.emailTemplatesService.createAppointmentTemplate(result);
+    // if (result.patient.email) {
+    //   console.log('result.patient.email', result.patient.email);
+    //   await this.emailTemplatesService.createAppointmentTemplate(result);
+    // }
+    // console.log('result', result);
+
+    if (resultApptCreate.patient.whatsapp) {
+      console.log('result.patient.whatsapp', resultApptCreate.patient.whatsapp);
+      await this.appointmentService.sendWhatsAppTemplate(resultApptCreate);
+      // await this.whatsappService.tempWhatsapp();
     }
 
-    return result;
+    return resultApptCreate;
   }
 
   @Get()
@@ -76,5 +85,11 @@ export class AppointmentController {
   @Patch('cancel/:id')
   cancel(@Param('id') id: number): Promise<Appointment> {
     return this.appointmentService.cancel(id);
+  }
+
+  @Post('whatsapp')
+  async tempApptWhatsapp() {
+    await this.appointmentService.sendWhatsAppTemplate({});
+    return 'tempApptWhatsapp';
   }
 }
