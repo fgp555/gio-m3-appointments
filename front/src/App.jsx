@@ -24,6 +24,7 @@ import AboutSystem from "./dashboard/pages/about-system/AboutSystem";
 import DashboardPage from "./dashboard/pages/dashboard/DashboardPage";
 import AdminLoginPages from "./dashboard/pages/admin/AdminLoginPages";
 import MessageTemplateEditor from "./dashboard/pages/messages-manager/MessageTemplateEditor";
+import './index.css';
 
 const NotFound = () => (
   <div>
