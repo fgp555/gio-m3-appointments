@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "../components/NavBar/NavBar";
 import "./PublicLayout.css";
+import Footer from "../components/Footer/Footer";
 
 const PublicLayout = ({ children }) => {
   return (
@@ -9,6 +10,7 @@ const PublicLayout = ({ children }) => {
       <div className="page-content-app">
         <main>{children}</main>
       </div>
+      <Footer />
     </div>
   );
 };
