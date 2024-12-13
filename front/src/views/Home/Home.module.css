@@ -1,7 +1,7 @@
-.homeContainer {
+/* .homeContainer {
   padding: 50px;
-  background-color: #e0f7fa; /* Fondo celeste claro */
-  color: #004d40; /* Texto en verde azulado oscuro */
+  background-color: #e0f7fa;
+  color: #004d40;
   text-align: center;
 }
 
@@ -42,8 +42,8 @@
 
 .actionButton {
   margin: 0 10px;
-  background-color: #fff; /* Botón en color blanco */
-  color: #004d40; /* Texto en verde azulado oscuro */
+  background-color: #fff;
+  color: #004d40;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -54,6 +54,82 @@
 }
 
 .actionButton:hover {
-  background-color: #e8edf1; /* Cambio de color al pasar el cursor */
-  color: #357abd; /* Texto en color blanco */
+  background-color: #e8edf1;
+  color: #357abd; 
+} */
+
+.homeContainer {
+  background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+  padding: 2rem;
+  color: #333;
+  text-align: center;
+  font-family: "Arial", sans-serif;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #1565c0;
+  font-weight: bold;
+}
+
+.description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.services, .schedule {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.services h2, .schedule h2 {
+  color: #1976d2;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.services ul {
+  list-style: none;
+  padding: 0;
+}
+
+.services li {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.schedule p {
+  font-size: 1.1rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.actionButton {
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background: #1e88e5;
+  transition: background 0.3s ease;
+}
+
+.actionButton:hover {
+  background: #1565c0;
+}
+
+@media (min-width: 768px) {
+  .homeContainer {
+    max-width: 800px;
+    margin: 0 auto;
+  }
 }
