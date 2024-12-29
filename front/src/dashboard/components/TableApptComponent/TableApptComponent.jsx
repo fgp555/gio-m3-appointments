@@ -5,15 +5,82 @@ import "react-datepicker/dist/react-datepicker.css";
 import apiServices from "../../../services/apiServices";
 import "./TableApptComponent.css";
 import Swal from "sweetalert2";
+import DatePicker from "react-datepicker";
 
 const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => {
   const [view, setView] = useState("month");
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [currentAppointment, setCurrentAppointment] = useState(null); // Almacena la cita que se está editando
+  const [editedDate, setEditedDate] = useState(new Date()); // Fecha editada
+  const [editedTime, setEditedTime] = useState(""); // Hora editada
+  const [editedDescription, setEditedDescription] = useState(""); // Descripción editada
 
   useEffect(() => {
     if (viewProps) {
       setView(viewProps);
     }
   }, [viewProps]);
+
+  // Función para abrir el modal de edición
+  const openEditModal = (appointment) => {
+    setCurrentAppointment(appointment);
+    setEditedDate(new Date(appointment.date));
+    setEditedTime(appointment.time);
+    setEditedDescription(appointment.description || ""); // Usar descripción actual de la cita
+    setIsEditModalOpen(true);
+  };
+
+  // Función para actualizar la cita
+  const handleUpdateAppointment = async () => {
+    const updatedAppointment = {
+      ...currentAppointment,
+      date: editedDate,
+      time: editedTime,
+      description: editedDescription,
+    };
+
+    try {
+      await apiServices.updateAppointment(updatedAppointment);
+
+      Swal.fire({
+        title: "¡Actualizada!",
+        text: "La cita ha sido actualizada exitosamente.",
+        icon: "success",
+        confirmButtonColor: "#28a745",
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
+        customClass: {
+          popup: "swal-dark-modal", // Clase personalizada para el popup
+        },
+      });
+
+      handleUpdateAppt(); // Actualiza el estado en el componente padre
+      setIsEditModalOpen(false); // Cierra el modal
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: `No se pudo actualizar la cita: ${error.message}`,
+        icon: "error",
+        confirmButtonColor: "#dc3545",
+        confirmButtonText: "Entendido",
+        background: "#222533", // Color de fondo oscuro
+        color: "#fff", // Color del texto en el modal
+        customClass: {
+          popup: "swal-dark-modal", // Clase personalizada para el popup
+        },
+      });
+      console.error("Error al actualizar la cita:", error.message);
+    }
+  };
+
+  // Función para manejar la cancelación del modal
+  const handleCancelEdit = () => {
+    setIsEditModalOpen(false); // Cierra el modal
+    setCurrentAppointment(null); // Limpia la cita actual
+    setEditedDate(new Date()); // Restablece la fecha
+    setEditedTime(""); // Restablece la hora
+    setEditedDescription(""); // Restablece la descripción
+  };
 
   const handleCancelAppointment = async (appointmentId) => {
     const confirmCancel = await Swal.fire({
@@ -208,6 +275,9 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
                           <button onClick={() => handleWhatsapp(appt)} className="whatsapp">
                             <i className="icon-whatsapp"></i>
                           </button>
+                          <button onClick={() => openEditModal(appt)}>
+                            <i className="icon-pencil"></i>
+                          </button>
                           <button onClick={() => handleDeleteAppointment(appt.id)} className="danger">
                             <i className="icon-trash"></i>
                           </button>
@@ -221,6 +291,25 @@ const TableApptComponent = ({ appoinmentData, viewProps, handleUpdateAppt }) => 
               <p>No hay citas para esta vista.</p>
             )}
           </div>
+        </section>
+        <section>
+          {/* Aquí va la lógica para mostrar las citas */}
+          {isEditModalOpen && currentAppointment && (
+            <div className="edit-modal">
+              <aside className="modal-content">
+                <h3>Editar cita</h3>
+                <div>
+                  <input type="time" value={editedTime} onChange={(e) => setEditedTime(e.target.value)} />
+                  <DatePicker selected={editedDate} onChange={(date) => setEditedDate(date)} locale={es} dateFormat="dd/MM/yyyy" />
+                </div>
+                <textarea value={editedDescription} onChange={(e) => setEditedDescription(e.target.value)} placeholder="Descripción de la cita" />
+                <div>
+                  <button onClick={handleUpdateAppointment}>Guardar cambios</button>
+                  <button onClick={handleCancelEdit}>Cancelar</button>
+                </div>
+              </aside>
+            </div>
+          )}
         </section>
       </div>
     </>
