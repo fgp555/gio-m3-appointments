@@ -41,7 +41,7 @@ const AdminLoginPages = () => {
 
     try {
       const response = await apiServices.login(formData);
-      navigate("/dashboard");
+      navigate("/appointments");
       dispatch(fetchUser(response));
       setMessage("Login exitoso.");
     } catch (error) {

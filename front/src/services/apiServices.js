@@ -2,10 +2,39 @@
 
 import axios from "axios";
 
-const API_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api" : "https://crefi.giomr.site/api";
+const API_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api" : "/api";
+// const API_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api" : "https://crefi.giomr.site/api";
 // const API_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api" : "https://back.fgp.one/api";
 
 const apiServices = {
+  updateAppointment: async (appointmentData) => {
+    const { id, description, date, time } = appointmentData;
+    console.log({ id, description, date, time });
+
+    // Verifica si 'date' es un objeto Date y conviértelo en una cadena 'YYYY-MM-DD'
+    const dateOnly = date instanceof Date ? date.toISOString().split("T")[0] : date.split("T")[0];
+
+    // Combina la fecha extraída con la nueva hora
+    const combinedDateTime = new Date(`${dateOnly}T${time}:00`);
+
+    // Convierte la fecha combinada a formato ISO
+    const isoDateTime = combinedDateTime.toISOString();
+    console.log("ISO DateTime: ", isoDateTime);
+
+    const updatedAppointmentData = {
+      date: isoDateTime,
+      description,
+    };
+
+    try {
+      const response = await axios.put(`${API_URL}/appointments/${id}`, updatedAppointmentData);
+      return response.data;
+    } catch (error) {
+      console.error("Error al actualizar la cita:", error.message);
+      throw new Error("Error al actualizar la cita.");
+    }
+  },
+
   registerUser: async (userData) => {
     try {
       console.log("userData", userData);

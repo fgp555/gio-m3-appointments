@@ -48,6 +48,9 @@
       /* background-color: peru; */
       margin: 0;
       padding: 0;
+      /* width: 100%; */
+      margin-right: 4em;
+
     }
   }
   #sidebar ul li.active a {

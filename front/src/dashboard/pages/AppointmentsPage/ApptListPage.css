@@ -152,4 +152,9 @@
     color: chartreuse;
     margin-left: 1em;
   }
+  .appt-create {
+    text-align: center;
+    margin: 1em auto;
+    display: block;
+  }
 }

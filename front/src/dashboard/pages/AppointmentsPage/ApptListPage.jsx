@@ -8,6 +8,7 @@ import { fetchAppointments } from "../../../redux/userAppointmentsSlice";
 import apiServices from "../../../services/apiServices";
 import "./ApptListPage.css";
 import TableApptComponent from "../../components/TableApptComponent/TableApptComponent";
+import { Link } from "react-router-dom";
 
 const ApptListPage = () => {
   const appoinmentSelector = useSelector((state) => state.appointments);
@@ -99,6 +100,9 @@ const ApptListPage = () => {
               highlightDates={appoinmentSelector.map((appt) => new Date(appt.date))}
             />
           </div>
+          <Link to="/appt-create" className="appt-create">
+            <button>Crear Cita</button>
+          </Link>
         </section>
 
         <section>
