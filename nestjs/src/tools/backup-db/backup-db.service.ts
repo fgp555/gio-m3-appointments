@@ -68,7 +68,7 @@ export class BackupDBService {
   async getBackupFiles() {
     const backupDir = this.backupDir;
     if (!fs.existsSync(backupDir)) {
-      throw new Error('Backup directory does not exist.');
+      fs.mkdirSync(backupDir);
     }
     const files = fs.readdirSync(backupDir);
     return files.filter((file) => file.endsWith('.sql'));

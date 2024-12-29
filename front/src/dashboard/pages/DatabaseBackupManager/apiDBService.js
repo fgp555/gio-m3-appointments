@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_BASE_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api/database" : "https://crefi.giomr.site/api/database";
+const API_BASE_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api/database" : "/api/database";
+// const API_BASE_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api/database" : "https://crefi.giomr.site/api/database";
 // const API_BASE_URL = window.location.hostname === "localhost" ? "http://localhost:3000/api/database" : "https://back.fgp.one/api";
 
 const apiDBService = {

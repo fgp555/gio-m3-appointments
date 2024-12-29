@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Sidebar.css";
 import { useDispatch } from "react-redux";
 import { cleanUser } from "../../../redux/userSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
   const [sidebar, setSidebar] = useState(true);
@@ -13,6 +13,7 @@ const Sidebar = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation(); // Hook para obtener la ruta actual
 
   const toggleSidebar = () => {
     setSidebar(!sidebar);
@@ -75,6 +76,14 @@ const Sidebar = () => {
     };
   }, [isMobile]);
 
+  // Abre el menú "appointments" automáticamente si estamos en la ruta "/appointments"
+  useEffect(() => {
+    if (location.pathname === "/appointments") {
+      setSubMenus((prev) => ({ ...prev, appointments: true }));
+      setActiveMenu("appointments");
+    }
+  }, [location.pathname]);
+
   // Función para manejar el clic en el menú
   const handleMenuClick = (menuName) => {
     setActiveMenu(menuName); // Actualiza el menú activo
@@ -87,18 +96,18 @@ const Sidebar = () => {
         <ul>
           <li>
             <span className="logo">
-              <Link to="/">CREFI DASHBOARD</Link>
+              <Link to="/">DASHBOARD</Link>
             </span>
             <button onClick={toggleSidebar} id="toggle-btn" className={sidebar ? "" : "rotate"}>
               <i className="icon-angle-double-left"></i>
             </button>
           </li>
-          <li className={activeMenu === "dashboard" ? "active" : ""}>
+          {/* <li className={activeMenu === "dashboard" ? "active" : ""}>
             <Link to="/dashboard" onClick={() => handleMenuClick("dashboard")}>
               <i className="icon-dashboard"></i>
               <span>Mis Citas</span>
             </Link>
-          </li>
+          </li> */}
           <li>
             <button onClick={() => toggleSubMenu("createMenu")} className={`dropdown-btn ${subMenus.createMenu ? "rotate" : ""}`}>
               <i className="icon-calendar"></i>
@@ -107,8 +116,8 @@ const Sidebar = () => {
             </button>
             <ul className={`sub-menu ${subMenus.createMenu ? "show" : ""}`}>
               <div>
-                <li className={activeMenu === "calendar" ? "active" : ""}>
-                  <Link to="/appointments" onClick={() => handleMenuClick("calendar")}>
+                <li className={activeMenu === "appointments" ? "active" : ""}>
+                  <Link to="/appointments" onClick={() => handleMenuClick("appointments")}>
                     Calendario
                   </Link>
                 </li>

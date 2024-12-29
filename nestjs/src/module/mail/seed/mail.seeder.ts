@@ -6,7 +6,7 @@ export class MailSeederService implements OnModuleInit {
   constructor(private readonly emailTemplatesService: MailTemplatesService) {}
 
   async onModuleInit() {
-    await this.seed();
+    // await this.seed();
   }
 
   private async seed(): Promise<void> {

@@ -50,11 +50,11 @@ const AddPatientPage = () => {
   // }
 
   const pageTitle =
-    location.pathname === "/add-professionals"
-      ? "Add Professional" //
-      : location.pathname === "/patient"
-      ? "Add Patients"
-      : "Add User";
+  location.pathname === "/add-professionals"
+    ? "Agregar Profesional"
+    : location.pathname === "/patient"
+    ? "Agregar Paciente"
+    : "Agregar Paciente";
 
   const [formData, setFormData] = useState({
     firstName: "Paciente 123",

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
-import { format, set } from "date-fns";
+import { format, set, isSameDay } from "date-fns";
 import "./ApptCreatePage.css";
 import "react-datepicker/dist/react-datepicker.css";
 import SelectComponent from "../../components/SelectComponent/SelectComponent";
 import apiServices from "../../../services/apiServices";
 import TableApptComponent from "../../components/TableApptComponent/TableApptComponent";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const ApptCreatePage = () => {
   const [selectedDay123, setSelectedDay] = useState(new Date());
@@ -101,9 +102,19 @@ const ApptCreatePage = () => {
     }
   };
 
+  // Función para determinar si es un día hábil (lunes a viernes)
   const isWeekday = (date) => {
     const day = date.getDay();
-    return day >= 1 && day <= 5;
+    return day !== 0 && day !== 6; // Excluye domingo (0) y sábado (6)
+  };
+
+  // Función para obtener el siguiente día hábil
+  const getNextWeekday = (date) => {
+    let nextDay = date;
+    while (!isWeekday(nextDay)) {
+      nextDay = addDays(nextDay, 1); // Incrementa el día hasta encontrar un día hábil
+    }
+    return nextDay;
   };
 
   const filterTime = (time) => {
@@ -112,7 +123,9 @@ const ApptCreatePage = () => {
       minutes: time.getMinutes(),
       seconds: 0,
     });
-    return selectedDate >= new Date(); // Filtra las horas menores a la actual
+
+    const isSameDay2 = isSameDay(new Date(), newAppointment.date);
+    return !isSameDay2 || selectedDate >= new Date(); // Permite todas las horas si no es el día actual
   };
 
   const [view, setView] = useState("month");
@@ -160,19 +173,17 @@ const ApptCreatePage = () => {
                 setNewAppointment({ ...newAppointment, date, time: formattedTime });
               }}
               inline
-              // selected={selectedTime}
-              // onChange={(date) => setSelectedTime(date)}
-              filterTime={filterTime}
+              // filterTime={filterTime}
               showTimeSelect
-              showTimeSelectOnly // Esto asegura que solo se muestre la selección de la hora
-              timeIntervals={30} // Intervalo de 15 minutos entre las opciones de hora
+              showTimeSelectOnly
+              timeIntervals={30}
               timeCaption="Hora"
-              dateFormat="h:mm aa" // Formato de la hora (hora AM/PM)
-              // dateFormat="Pp"
+              dateFormat="h:mm aa"
               minTime={new Date(new Date().setHours(7, 0, 0, 0))}
               maxTime={new Date(new Date().setHours(19, 0, 0, 0))}
             />
           </div>
+
           <div>
             <p className="date-time-paragraph">
               <span className="date"> {format(newAppointment.date, "yyyy-MM-dd")} </span>
@@ -182,6 +193,14 @@ const ApptCreatePage = () => {
         </form>
       </aside>
       <aside>
+        <div className="add-account">
+          <Link to="/add-professionals" className="add-professionals">
+            <button>Agregar Professional</button>
+          </Link>
+          <Link to="/add-professionals" className="add-professionals">
+            <button>Agregar Paciente</button>
+          </Link>
+        </div>
         <div className="inputs_container">
           <SelectComponent
             onSelectRolesChange={handleSelectRolesChange}
@@ -204,7 +223,7 @@ const ApptCreatePage = () => {
           </button>
         </div>
         <section className="buttons_filters">
-          <button className={view === "day" ? "active" : ""} onClick={() => handleViewChange("day")}>
+          {/* <button className={view === "day" ? "active" : ""} onClick={() => handleViewChange("day")}>
             Día
           </button>
           <button className={view === "week" ? "active" : ""} onClick={() => handleViewChange("week")}>
@@ -212,7 +231,8 @@ const ApptCreatePage = () => {
           </button>
           <button className={view === "month" ? "active" : ""} onClick={() => handleViewChange("month")}>
             Mes
-          </button>
+          </button> */}
+          <p>Ultimas Citas agregadas</p>
 
           {/* Input para seleccionar el número de citas */}
           <span>

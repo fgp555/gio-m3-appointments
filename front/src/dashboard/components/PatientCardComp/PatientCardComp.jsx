@@ -48,8 +48,6 @@ const PatientCardComp = ({ patient, refreshUsers }) => {
 
   return (
     <li key={patient.id} className="PatienCardComp">
-      {/* <pre>{JSON.stringify(, null, 2)}</pre> */}
-
       <div className="tab_content">
         {activeTab === "info" && (
           <div className="tab_info">
@@ -99,14 +97,6 @@ const PatientCardComp = ({ patient, refreshUsers }) => {
           </div>
         )}
       </div>
-      {/* <div className="tabs">
-        <button className={`tab ${activeTab === "info" ? "active" : ""}`} onClick={() => toggleTab("info")}>
-          Info
-        </button>
-        <button className={`tab ${activeTab === "details" ? "active" : ""}`} onClick={() => toggleTab("details")}>
-          More Details
-        </button>
-      </div> */}
     </li>
   );
 };

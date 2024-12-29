@@ -40,4 +40,41 @@
       }
     }
   }
+
+  /* Estilos para el modal de edición de cita */
+  .edit-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* flex-direction: column; */
+    /* gap: 1em; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+    z-index: 1000;
+  }
+
+  .modal-content {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    flex-direction: column;
+    gap: 1em;
+    background-color: #060606;
+    border-radius: 8px;
+    padding: 2em;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    z-index: 1000000;
+    input,
+    textarea {
+      margin-right: 1em;
+      padding: 0.5em;
+      margin: 0.3em;
+    }
+  }
 }

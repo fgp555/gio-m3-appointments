@@ -17,7 +17,7 @@ export class UserSeederService {
       // Usuarios de ejemplo
       {
         firstName: 'Juan',
-        lastName: 'Lopez',
+        // lastName: 'Lopez',
         email: 'juan123@gmail.com',
         whatsapp: '+51222333444',
         username: 'patient_lionel',
@@ -29,7 +29,7 @@ export class UserSeederService {
       },
       {
         firstName: 'Pedro',
-        lastName: 'Inglés',
+        // lastName: 'Inglés',
         email: 'pedro123@gmail.com',
         whatsapp: '+51912312322',
         username: 'pedro_patient',
@@ -41,7 +41,7 @@ export class UserSeederService {
       },
       {
         firstName: 'Liam',
-        lastName: 'Johnson',
+        // lastName: 'Johnson',
         email: 'liam.johnson@cliniccare.com',
         whatsapp: '+5491123456792',
         username: 'patient_liam',
@@ -53,7 +53,7 @@ export class UserSeederService {
       },
       {
         firstName: 'Sophia',
-        lastName: 'Williams',
+        // lastName: 'Williams',
         email: 'sophia.williams@cliniccare.com',
         whatsapp: '+5491123456793',
         username: 'patient_sophia',
@@ -65,7 +65,7 @@ export class UserSeederService {
       },
       {
         firstName: 'Ava',
-        lastName: 'Davis',
+        // lastName: 'Davis',
         email: 'ava.davis@cliniccare.com',
         whatsapp: '+5491123456794',
         username: 'patient_ava',
@@ -77,7 +77,7 @@ export class UserSeederService {
       },
       {
         firstName: 'Noah',
-        lastName: 'Martinez',
+        // lastName: 'Martinez',
         email: 'noah.martinez@cliniccare.com',
         whatsapp: '+5491123456795',
         username: 'patient_noah',
@@ -89,7 +89,7 @@ export class UserSeederService {
       },
       {
         firstName: 'Emma',
-        lastName: 'Taylor',
+        // lastName: 'Taylor',
         email: 'emma.taylor@cliniccare.com',
         whatsapp: '+5491123456796',
         username: 'patient_emma',
@@ -101,7 +101,7 @@ export class UserSeederService {
       },
       {
         firstName: 'Oliver',
-        lastName: 'Anderson',
+        // lastName: 'Anderson',
         email: 'oliver.anderson@cliniccare.com',
         whatsapp: '+5491123456797',
         username: 'patient_oliver',
@@ -113,7 +113,7 @@ export class UserSeederService {
       },
       {
         firstName: 'Isabella',
-        lastName: 'Thomas',
+        // lastName: 'Thomas',
         email: 'isabella.thomas@cliniccare.com',
         whatsapp: '+5491123456798',
         username: 'patient_isabella',
@@ -127,7 +127,7 @@ export class UserSeederService {
       {
         title: 'Doctor',
         firstName: 'Lucas',
-        lastName: 'Anderson',
+        // lastName: 'Anderson',
         email: 'lucas.anderson@cliniccare.com',
         whatsapp: '+5491123456802',
         username: 'profesional_lucas',
@@ -144,7 +144,7 @@ export class UserSeederService {
       {
         title: 'Licenciada',
         firstName: 'Olivia',
-        lastName: 'Bennett',
+        // lastName: 'Bennett',
         email: 'olivia.bennett@cliniccare.com',
         whatsapp: '+5491123456804',
         username: 'profesional_olivia',
@@ -161,7 +161,7 @@ export class UserSeederService {
       {
         title: 'Doctor',
         firstName: 'Ethan',
-        lastName: 'Miller',
+        // lastName: 'Miller',
         email: 'ethan.miller@cliniccare.com',
         whatsapp: '+5491123456803',
         username: 'profesional_ethan',
@@ -178,7 +178,7 @@ export class UserSeederService {
       {
         title: 'Licenciada',
         firstName: 'Sofia',
-        lastName: 'Garcia',
+        // lastName: 'Garcia',
         email: 'sofia.garcia@cliniccare.com',
         whatsapp: '+5491123456804',
         username: 'profesional_sofia',
@@ -195,7 +195,7 @@ export class UserSeederService {
       {
         title: 'Administrador',
         firstName: 'Oliver',
-        lastName: 'Smith',
+        // lastName: 'Smith',
         email: 'admin@cliniccare.com',
         whatsapp: '+5491123456805',
         username: 'admin',

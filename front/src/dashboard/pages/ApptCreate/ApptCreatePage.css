@@ -171,4 +171,8 @@
       -ms-user-select: none; /* Soporte para Internet Explorer */
     }
   }
+  .add-account {
+    display: flex;
+    justify-content: center;
+  }
 }
