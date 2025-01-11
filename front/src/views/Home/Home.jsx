@@ -50,16 +50,17 @@ const Home = () => {
     <div className={styles.homeContainer}>
       <h1 className={styles.title}>¡Bienvenido a Nuestro Consultorio de Kinesiología!</h1>
       <p className={styles.description}>
-        Ofrecemos una variedad de servicios especializados en kinesiología, incluyendo rehabilitación deportiva, terapia manual, y tratamiento de lesiones musculoesqueléticas.
+        Ofrecemos una variedad de servicios especializados de kinesiología, incluyendo rehabilitación deportiva, terapia manual, y tratamiento de lesiones musculoesqueléticas.
       </p>
       <div className={styles.services}>
-        <h2>Servicios</h2>
+        <h2>Nuestros Tratamientos</h2>
         <ul>
           <li>Rehabilitación Deportiva</li>
           <li>Terapia Manual</li>
           <li>Tratamiento de Lesiones Musculoesqueléticas</li>
           <li>Reeducación Postural Global (RPG)</li>
-          <li>Terapia de Masaje</li>
+          <li>Osteopatia</li>
+          <li>Masajes descontracturantes</li>
           <li>Pilates terapéutico</li>
         </ul>
       </div>
@@ -71,7 +72,7 @@ const Home = () => {
       </div>
       <div className={styles.actions}>
         <Link to="/register" className={styles.actionButton}>
-          Registrarse
+          Registrate
         </Link>
         <Link to="/login" className={styles.actionButton}>
           Iniciar Sesión
@@ -82,3 +83,4 @@ const Home = () => {
 };
 
 export default Home;
+
